@@ -6,8 +6,9 @@ Foi implementada seguindo o padrão de aplicações **Spring MVC** e **RestFul**
 
 ## Funcionalidade
 
-* Disponível através da a api **"api/v1/caller/"**
-* TBD
+* Disponível através da api **"api/v1/"**
+* Testa a API: [uri = "ping", method = GET]
+* Status da API: [uri = "health", method = GET, produces = "application/json"]
 
 
 ## Frameworks
@@ -30,6 +31,10 @@ Foi implementada seguindo o padrão de aplicações **Spring MVC** e **RestFul**
 
 1.0.0
 
+### Versão
+
+Validar a app: [Arcadia-Caller.health()]
+
 ## Como usar
 
 Fazer o clone do reposítório git e baixar as dependências
@@ -51,6 +56,7 @@ $ mvn appengine:update
 
 - **Nome:** Rafael Alessandro Batista de Souza
 - **E-mail:** rabsouza@gmail.com
+- **Celular:** (31) 98801-2741
 
 ## License
 
@@ -59,4 +65,8 @@ GNU GENERAL PUBLIC LICENSE
 
 
 
-**Free Source Code, Hell Yeah!**
+**Free Source Code, Hell Yeah! :+1:**
+
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+
+[Arcadia-Caller.health()]: <https://arcadia-caller.appspot.com/api/v1/health>
