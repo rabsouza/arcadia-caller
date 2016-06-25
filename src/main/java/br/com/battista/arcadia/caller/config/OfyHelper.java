@@ -5,8 +5,7 @@ import javax.servlet.ServletContextListener;
 
 import com.googlecode.objectify.ObjectifyService;
 
-import br.com.battista.arcadia.caller.model.Offer;
-import br.com.battista.arcadia.caller.model.Vendor;
+import br.com.battista.arcadia.caller.model.User;
 
 /**
  * OfyHelper, a ServletContextListener, is setup in web.xml to run before a JSP is run.  This is
@@ -14,8 +13,7 @@ import br.com.battista.arcadia.caller.model.Vendor;
  **/
 public class OfyHelper implements ServletContextListener {
     public static void register() {
-        ObjectifyService.register(Offer.class);
-        ObjectifyService.register(Vendor.class);
+        ObjectifyService.register(User.class);
     }
 
     public void contextInitialized(ServletContextEvent event) {

@@ -34,6 +34,7 @@
         <versions-maven-plugin.version>2.2</versions-maven-plugin.version>
         <guava.version>19.0</guava.version>
         <commons-collections4.version>4.1</commons-collections4.version>
+        <lombok.version>1.16.8</lombok.version>
     </properties>
 
     <prerequisites>
@@ -172,10 +173,27 @@
             <artifactId>commons-collections4</artifactId>
             <version>${commons-collections4.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
 
     </dependencies>
 
     <build>
+
+            <resources>
+                <resource>
+                    <directory>src/main/resources</directory>
+                    <includes>
+                        <include>version.properties</include>
+                    </includes>
+                    <filtering>true</filtering>
+                </resource>
+            </resources>
+
         <!-- for hot reload of the web application-->
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
         <plugins>
