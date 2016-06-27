@@ -10,7 +10,9 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import com.googlecode.objectify.annotation.Index;
 
 import br.com.battista.arcadia.caller.constants.EntityConstant;
+import lombok.Data;
 
+@Data
 @JsonAutoDetect
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class BaseEntity implements Serializable {
@@ -19,35 +21,12 @@ public abstract class BaseEntity implements Serializable {
 
     @Index
     private Date updatedAt;
+
     @Index
     private Long version;
 
     @JsonIgnore
     public abstract Object getPk();
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public BaseEntity version(final Long version) {
         this.version = version;

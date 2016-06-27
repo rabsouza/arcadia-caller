@@ -2,8 +2,6 @@ package br.com.battista.arcadia.caller.controller;
 
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -16,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.appengine.repackaged.com.google.api.client.util.Maps;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("api/v1/")
 @PropertySource("classpath:version.properties")
@@ -25,22 +25,19 @@ public class AppController extends BaseController {
     @Autowired
     private Environment env;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppController.class);
-
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity ping() {
 
-        LOGGER.info("Check app!");
+        log.info("Check app!");
         return buildResponseSuccess(HttpStatus.OK);
     }
-
 
     @RequestMapping(value = "/health", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity health() {
 
-        LOGGER.info("health app!");
+        log.info("health app!");
 
         Map<String, Object> body = Maps.newLinkedHashMap();
 
