@@ -50,5 +50,4 @@ public class User extends BaseEntity implements Serializable {
     public Object getPk() {
         return getId();
     }
-
 }

@@ -7,7 +7,7 @@ import java.beans.PropertyDescriptor;
 /**
  * Created by rabsouza on 12/04/16.
  */
-public class MergeBean {
+public class MergeBeanUtils {
 
     public <M> void merge(M target, M destination) throws Exception {
         BeanInfo beanInfo = Introspector.getBeanInfo(target.getClass());
