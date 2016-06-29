@@ -10,7 +10,6 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
 
 @Configuration
-@ComponentScan(basePackages = {"br.com.battista.arcadia.caller.repository"})
 public class RepositoryConfig {
 
     @Bean
@@ -19,7 +18,7 @@ public class RepositoryConfig {
         return ObjectifyService.ofy();
     }
 
-    @Bean
+    @Bean(name = "hibernateValidator")
     public Validator configValidator() {
         return Validation.byProvider(HibernateValidator.class)
                        .configure()

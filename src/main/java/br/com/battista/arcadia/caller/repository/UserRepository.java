@@ -3,8 +3,6 @@ package br.com.battista.arcadia.caller.repository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import com.googlecode.objectify.Objectify;
@@ -24,7 +22,6 @@ public class UserRepository {
     @Autowired
     private Objectify objectifyRepository;
 
-    @Cacheable(value = "users", key = "#user.user")
     public List<User> findAll() {
         log.info("Find all user!");
 
@@ -35,7 +32,6 @@ public class UserRepository {
 
     }
 
-    @CachePut(value = "users", key = "#user.user")
     public User saveOrUpdateUser(User user){
         if (user == null){
             throw new RepositoryException("User entity can not be null!");
@@ -43,7 +39,7 @@ public class UserRepository {
         entityValidator.validate(user);
 
         user.initEntity();
-        log.info(String.format("Save to user: %s!", user));
+        log.info("Save to user: {}!", user);
 
         objectifyRepository.save()
                 .entity(user)

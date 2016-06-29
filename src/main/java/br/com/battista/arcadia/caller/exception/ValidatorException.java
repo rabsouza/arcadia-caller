@@ -38,7 +38,7 @@ public class ValidatorException extends RuntimeException {
         List<String> violationMessages = Lists.newArrayList();
 
         for (ConstraintViolation violation : violations) {
-            violationMessages.add(MessageFormat.format("{0}: {1}", violation.getPropertyPath(), violation.getMessage()));
+            violationMessages.add(MessageFormat.format("{0}: {1}!", violation.getPropertyPath(), violation.getMessage()));
         }
         return violationMessages.toArray(new String[0]);
     }
