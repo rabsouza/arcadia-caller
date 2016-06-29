@@ -18,7 +18,7 @@ import br.com.battista.arcadia.caller.model.User;
 /**
  * Created by rabsouza on 26/06/16.
  */
-public abstract class BaseRepositoryConfigTest {
+public abstract class BaseRepositoryConfig {
 
     private LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
     protected Objectify objectifyRepository;
