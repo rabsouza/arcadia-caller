@@ -2,8 +2,8 @@ package br.com.battista.arcadia.caller.config;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
+import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.*;
 
 import com.googlecode.objectify.Objectify;
@@ -20,9 +20,12 @@ public class RepositoryConfig {
     }
 
     @Bean
-    public Validator configValidator(){
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        return validatorFactory.getValidator();
+    public Validator configValidator() {
+        return Validation.byProvider(HibernateValidator.class)
+                       .configure()
+                       .failFast(true)
+                       .buildValidatorFactory()
+                       .getValidator();
     }
 
 }

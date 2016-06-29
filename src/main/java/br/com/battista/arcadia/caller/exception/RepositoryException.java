@@ -17,7 +17,4 @@ public class RepositoryException extends RuntimeException {
         super(throwable);
     }
 
-    public RepositoryException(String s, Throwable throwable, boolean b, boolean b1) {
-        super(s, throwable, b, b1);
-    }
 }

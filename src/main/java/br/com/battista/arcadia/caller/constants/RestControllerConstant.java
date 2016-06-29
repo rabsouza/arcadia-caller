@@ -4,5 +4,7 @@ public interface RestControllerConstant {
 
     String PRODUCES = "application/json";
     String CONSUMES = "application/json";
-    String BODY_ERRO = "cause";
+    String BODY_ERROR = "cause";
+    String DETAIL_ERROR = "error";
+    String DETAIL = "detail";
 }

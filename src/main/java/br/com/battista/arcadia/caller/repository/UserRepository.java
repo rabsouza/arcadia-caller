@@ -2,8 +2,6 @@ package br.com.battista.arcadia.caller.repository;
 
 import java.util.List;
 
-import javax.validation.Validator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,14 +11,15 @@ import com.googlecode.objectify.Objectify;
 
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.model.User;
+import br.com.battista.arcadia.caller.validator.EntityValidator;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Repository
-public class LoginRepository {
+public class UserRepository {
 
     @Autowired
-    private Validator validator;
+    private EntityValidator entityValidator;
 
     @Autowired
     private Objectify objectifyRepository;
@@ -41,7 +40,7 @@ public class LoginRepository {
         if (user == null){
             throw new RepositoryException("User entity can not be null!");
         }
-        validator.validate(user);
+        entityValidator.validate(user);
 
         user.initEntity();
         log.info(String.format("Save to user: %s!", user));

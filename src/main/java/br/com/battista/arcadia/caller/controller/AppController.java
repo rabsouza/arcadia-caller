@@ -1,5 +1,7 @@
 package br.com.battista.arcadia.caller.controller;
 
+import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseSuccess;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("api/v1/")
 @PropertySource("classpath:version.properties")
-public class AppController extends BaseController {
+public class AppController {
 
     @Autowired
     private Environment env;
