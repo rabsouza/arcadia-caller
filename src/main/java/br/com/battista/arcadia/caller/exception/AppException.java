@@ -17,7 +17,4 @@ public class AppException extends RuntimeException {
         super(throwable);
     }
 
-    public AppException(String s, Throwable throwable, boolean b, boolean b1) {
-        super(s, throwable, b, b1);
-    }
 }

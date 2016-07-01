@@ -34,6 +34,21 @@ public class UserRepository {
 
     }
 
+    public User findByToken(String token) {
+        if (Strings.isNullOrEmpty(token)) {
+            throw new RepositoryException("Token can not be null!");
+        }
+        log.info("Find user by token: {}!", token);
+
+        return objectifyRepository
+                       .load()
+                       .type(User.class)
+                       .filter("token", token)
+                       .first()
+                       .now();
+
+    }
+
     public User saveOrUpdateUser(User user) {
         if (user == null) {
             throw new RepositoryException("User entity can not be null!");

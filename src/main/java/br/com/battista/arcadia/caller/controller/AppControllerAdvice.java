@@ -12,6 +12,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,12 @@ public class AppControllerAdvice {
     public ResponseEntity<Map<String, Object>> handleUncaughtException(Exception e) {
         log.error(e.getLocalizedMessage(), e);
         return buildResponseErro(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Map<String, Object>> handleAuthenticationException(AuthenticationException e) {
+        log.error(e.getLocalizedMessage(), e);
+        return buildResponseErro(e, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(RepositoryException.class)

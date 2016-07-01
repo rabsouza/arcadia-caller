@@ -59,13 +59,60 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
 
         User savedUser = userRepository.saveOrUpdateUser(user);
         assertNotNull(savedUser);
+        assertNotNull(savedUser.getPk());
         assertNotNull(savedUser.getCreatedAt());
         assertThat(savedUser.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
-        assertNotNull(savedUser.getId());
     }
 
     @Test
-    public void shouldThrowExceptionWhenNullUser() {
+    public void shouldFindByTokenWhenValidUserAndValidToken() {
+        User user = User.builder().user(userName).mail(mail).build();
+
+        User savedUser = userRepository.saveOrUpdateUser(user);
+        assertNotNull(savedUser);
+        assertNotNull(savedUser.getPk());
+        assertNotNull(savedUser.getCreatedAt());
+        assertThat(savedUser.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
+
+        User userToken = userRepository.findByToken(user.getToken());
+        assertNotNull(userToken);
+        assertThat(userToken.getPk(), equalTo(savedUser.getPk()));
+        assertThat(userToken.getVersion(), equalTo(savedUser.getVersion()));
+        assertThat(userToken.getToken(), equalTo(savedUser.getToken()));
+    }
+
+    @Test
+    public void shouldReturnNullWhenFindByTokenWithValidUserAndInvalidToken() {
+        User user = User.builder().user(userName).mail(mail).build();
+
+        User savedUser = userRepository.saveOrUpdateUser(user);
+        assertNotNull(savedUser);
+        assertNotNull(savedUser.getPk());
+        assertNotNull(savedUser.getCreatedAt());
+        assertThat(savedUser.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
+
+        User userToken = userRepository.findByToken("abc");
+        assertNull(userToken);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenFindByTokenNullUser() {
+        rule.expect(RepositoryException.class);
+        rule.expectMessage(containsString("not be null!"));
+
+        userRepository.findByToken(null);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenFindByTokenEmptyUser() {
+        rule.expect(RepositoryException.class);
+        rule.expectMessage(containsString("not be null!"));
+
+        userRepository.findByToken("");
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenSaveNullUser() {
         rule.expect(RepositoryException.class);
         rule.expectMessage(containsString("not be null!"));
 
@@ -73,7 +120,7 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
     }
 
     @Test
-    public void shouldThrowExceptionWhenInvalidUser() {
+    public void shouldThrowExceptionWhenSaveInvalidUser() {
         doThrow(ValidatorException.class).when(entityValidator).validate((BaseEntity) anyObject());
 
         rule.expect(ValidatorException.class);
