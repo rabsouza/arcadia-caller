@@ -65,13 +65,13 @@ public class AuthenticationServiceTest {
 
     @Test
     public void shouldAutheticationUserWhenValidToken() throws AuthenticationException {
-        User user = User.builder().id(1l).user(userName).mail(mail).build();
+        User user = User.builder().id(1l).username(userName).mail(mail).build();
         user.initEntity();
 
         when(userRepository.findByToken(anyString())).thenReturn(user);
 
         authenticationService.authetication(token);
-        verify(userRepository.findByToken(anyString()), times(1));
+        verify(userRepository, times(1)).findByToken(anyString());
     }
 
 }

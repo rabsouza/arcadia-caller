@@ -10,6 +10,7 @@ import org.junit.*;
 import org.junit.rules.*;
 import org.junit.runner.*;
 import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -24,7 +25,7 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
-    private final String userName = "abc";
+    private final String username = "abc";
     private final String mail = "abc@abc.com";
 
     @Rule
@@ -38,19 +39,31 @@ public class UserServiceTest {
 
     @Test
     public void shouldGetAllUsers() {
-        User user = User.builder().user(userName).mail(mail).build();
+        User user = User.builder().username(username).mail(mail).build();
         when(userRepository.findAll()).thenReturn(Lists.newArrayList(user));
 
         List<User> users = userService.getAllUsers();
         assertNotNull(users);
         assertThat(users, hasSize(1));
-        assertThat(users.iterator().next().getUser(), equalTo(userName));
+        assertThat(users.iterator().next().getUsername(), equalTo(username));
 
+    }
+
+    public void shouldGetUserByUsername() {
+        User user = User.builder().id(1l).username(username).mail(mail).build();
+        user.initEntity();
+        when(userRepository.findByUsername(Matchers.anyString())).thenReturn(user);
+
+        User userMail = userService.getUserByUsername(username);
+        assertNotNull(userMail);
+        assertNotNull(userMail.getPk());
+        assertNotNull(userMail.getCreatedAt());
+        assertThat(userMail.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
     }
 
     @Test
     public void shouldSaveUserWhenUserValid() {
-        User user = User.builder().id(1l).user(userName).mail(mail).build();
+        User user = User.builder().id(1l).username(username).mail(mail).build();
         user.initEntity();
         when(userRepository.saveOrUpdateUser((User) org.mockito.Matchers.any())).thenReturn(user);
 

@@ -30,7 +30,6 @@ public class AppController {
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity ping() {
-
         log.info("Check app!");
         return buildResponseSuccess(HttpStatus.OK);
     }
@@ -38,7 +37,6 @@ public class AppController {
     @RequestMapping(value = "/health", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity health() {
-
         log.info("health app!");
 
         Map<String, Object> body = Maps.newLinkedHashMap();

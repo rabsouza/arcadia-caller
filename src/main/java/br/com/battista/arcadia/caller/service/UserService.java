@@ -22,6 +22,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User getUserByUsername(String username) {
+        log.info("Find the user by username: {}!", username);
+        return userRepository.findByUsername(username);
+    }
+
     public User saveUser(User user) {
         log.info("Create new user!");
         return userRepository.saveOrUpdateUser(user);
