@@ -7,8 +7,10 @@ Foi implementada seguindo o padrão de aplicações **Spring MVC** e **RestFul**
 ## Funcionalidade
 
 * Disponível através da api **"api/v1/"**
-* Testa a API: [uri = "ping", method = GET]
-* Status da API: [uri = "health", method = GET, produces = "application/json"]
+* Testa a APP: [uri = "ping", method = GET]
+* Status da APP: [uri = "health", method = GET, produces = "application/json"]
+* Login na APP: [uri = "login/{username}", method = GET]
+* Cria novo usuário na APP: [uri = "login/", method = POST, produces = "application/json", consumers = "application/json"]
 
 
 ## Frameworks
@@ -18,7 +20,7 @@ Foi implementada seguindo o padrão de aplicações **Spring MVC** e **RestFul**
 * springframework
 * aspectj
 * objectify
-* hibernate
+* hibernate-validate
 * jackson
 * junit
 * mockito
@@ -26,6 +28,7 @@ Foi implementada seguindo o padrão de aplicações **Spring MVC** e **RestFul**
 * guava
 * logback
 * lombok
+* javax.el
 
 ### Versão
 
