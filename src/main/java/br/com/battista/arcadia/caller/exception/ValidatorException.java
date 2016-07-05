@@ -15,10 +15,6 @@ public class ValidatorException extends RuntimeException {
 
     private final Set<ConstraintViolation<BaseEntity>> violations = new LinkedHashSet<>();
 
-    public ValidatorException(Set<ConstraintViolation<BaseEntity>> violations) {
-        this.violations.addAll(violations);
-    }
-
     public ValidatorException(Set<ConstraintViolation<BaseEntity>> violations, String s) {
         super(s);
         this.violations.addAll(violations);
@@ -26,11 +22,6 @@ public class ValidatorException extends RuntimeException {
 
     public ValidatorException(Set<ConstraintViolation<BaseEntity>> violations, String s, Throwable throwable) {
         super(s, throwable);
-        this.violations.addAll(violations);
-    }
-
-    public ValidatorException(Set<ConstraintViolation<BaseEntity>> violations, Throwable throwable) {
-        super(throwable);
         this.violations.addAll(violations);
     }
 

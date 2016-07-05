@@ -49,6 +49,8 @@ public class AuthenticationService {
 
             throw new AuthenticationException("Invalid application Profile.");
         }
+
+        log.info("Active profile: {}.", profile);
     }
 
 

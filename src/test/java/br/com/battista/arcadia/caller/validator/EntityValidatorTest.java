@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.*;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import org.hibernate.validator.HibernateValidator;
 import org.junit.*;
 import org.junit.rules.*;
 import org.junit.runner.*;
@@ -24,7 +23,7 @@ public class EntityValidatorTest {
     private EntityValidator entityValidator;
 
     @Spy
-    private Validator validator = configValidator();
+    private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Rule
     public ExpectedException rule = ExpectedException.none();
@@ -51,14 +50,6 @@ public class EntityValidatorTest {
         User build = User.builder().mail("abcdef@abc.com").username("abcdef").build();
 
         entityValidator.validate(build);
-    }
-
-    public Validator configValidator() {
-        return Validation.byProvider(HibernateValidator.class)
-                       .configure()
-                       .failFast(true)
-                       .buildValidatorFactory()
-                       .getValidator();
     }
 
 }

@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("api/v1/username")
+@RequestMapping("api/v1/user")
 public class UserController {
 
     @Autowired
@@ -50,7 +50,7 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.POST,
             produces = RestControllerConstant.PRODUCES, consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
-    public ResponseEntity<User> save(@RequestBody User user, @RequestHeader("profile") String profile) throws AuthenticationException {
+    public ResponseEntity<User> save(@RequestHeader("profile") String profile, @RequestBody User user) throws AuthenticationException {
         authenticationService.validHeader(profile);
 
         if (user == null) {
@@ -58,9 +58,9 @@ public class UserController {
             return buildResponseErro("User is required!");
         }
 
-        log.info("Save the username[{}]!", user);
+        log.info("Save the user[{}]!", user);
         User newUser = userService.saveUser(user);
-        log.debug("Save the username and generate to id: {}!", newUser.getId());
+        log.debug("Save the user and generate to id: {}!", newUser.getId());
         return buildResponseSuccess(newUser, HttpStatus.OK);
     }
 

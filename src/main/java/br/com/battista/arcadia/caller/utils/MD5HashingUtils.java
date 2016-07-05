@@ -33,7 +33,7 @@ public class MD5HashingUtils {
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            throw new AppException(e);
+            throw new AppException("Error generating the MD5 hash key.", e);
         }
     }
 }

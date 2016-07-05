@@ -27,7 +27,7 @@ public class UserRepository {
     private Objectify objectifyRepository;
 
     public List<User> findAll() {
-        log.info("Find all username!");
+        log.info("Find all user!");
 
         return objectifyRepository.load()
                        .type(User.class)
@@ -40,7 +40,7 @@ public class UserRepository {
         if (Strings.isNullOrEmpty(token)) {
             throw new RepositoryException("Token can not be null!");
         }
-        log.info("Find username by token: {}!", token);
+        log.info("Find user by token: {}!", token);
 
         return objectifyRepository
                        .load()
@@ -76,7 +76,7 @@ public class UserRepository {
         user.initEntity();
         user.setToken(generateToken(user.getMail(), user.getUsername()));
         user.setUrlAvatar(generateUrlGravatar(user.getMail()));
-        log.info("Save to username: {}!", user);
+        log.info("Save to user: {}!", user);
 
         objectifyRepository.save()
                 .entity(user)
