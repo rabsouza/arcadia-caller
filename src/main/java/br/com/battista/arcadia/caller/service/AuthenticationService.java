@@ -42,11 +42,9 @@ public class AuthenticationService {
         HttpStatus status = UNAUTHORIZED;
         if (Strings.isNullOrEmpty(profile)) {
             log.error("Header param 'profile' can not be null! Return code: {} with reason: {}", status.value(), status.getReasonPhrase());
-
             throw new AuthenticationException("Header param 'profile' can not be null!");
         } else if (ProfileAppConstant.get(profile) == null) {
             log.error("Invalid Profile! Return code: {} with reason: {}", status.value(), status.getReasonPhrase());
-
             throw new AuthenticationException("Invalid application Profile.");
         }
 
@@ -63,16 +61,20 @@ public class AuthenticationService {
         }
 
         try {
-            User user = cache.get(token);
-            if (user == null || user.getPk() == null || user.getVersion() == null) {
-                throw new AuthenticationException("Invalid token.");
-            }
+            validateToken(token);
         } catch (InvalidCacheLoadException e) {
             log.warn("Invalid token. Cause: {}", e.getLocalizedMessage());
             throw new AuthenticationException("Invalid token.", e);
         } catch (ExecutionException e) {
             log.error("Error get the token from cache. Cause: {}", e.getLocalizedMessage(), e);
             throw new AuthenticationException("Error get the token from cache.", e);
+        }
+    }
+
+    private void validateToken(String token) throws ExecutionException, AuthenticationException {
+        User user = cache.get(token);
+        if (user == null || user.getPk() == null || user.getVersion() == null) {
+            throw new AuthenticationException("Invalid token.");
         }
     }
 

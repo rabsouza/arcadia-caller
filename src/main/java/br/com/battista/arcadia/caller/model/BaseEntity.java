@@ -17,6 +17,8 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class BaseEntity implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Date createdAt;
 
     @Index
@@ -27,11 +29,6 @@ public abstract class BaseEntity implements Serializable {
 
     @JsonIgnore
     public abstract Object getPk();
-
-    public BaseEntity version(final Long version) {
-        this.version = version;
-        return this;
-    }
 
     public void initEntity() {
         createdAt = new Date();

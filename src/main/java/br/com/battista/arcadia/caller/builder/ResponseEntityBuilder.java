@@ -29,7 +29,7 @@ public class ResponseEntityBuilder {
     }
 
     public static ResponseEntity buildResponseErro(String cause) {
-        Map<String, String> body = new HashMap<String, String>();
+        Map<String, String> body = new HashMap<>();
         body.put(RestControllerConstant.BODY_ERROR, cause);
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
@@ -38,7 +38,7 @@ public class ResponseEntityBuilder {
         if (cause == null) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        Map<String, String> body = new HashMap<String, String>();
+        Map<String, String> body = new HashMap<>();
         body.put(RestControllerConstant.BODY_ERROR, cause.getLocalizedMessage());
         return new ResponseEntity(body, httpStatus);
     }

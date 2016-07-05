@@ -1,5 +1,6 @@
 package br.com.battista.arcadia.caller.exception;
 
+import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -11,9 +12,11 @@ import com.google.common.collect.Lists;
 
 import br.com.battista.arcadia.caller.model.BaseEntity;
 
-public class ValidatorException extends RuntimeException {
+public class ValidatorException extends RuntimeException implements Serializable {
 
-    private final Set<ConstraintViolation<BaseEntity>> violations = new LinkedHashSet<>();
+    private static final long serialVersionUID = 1L;
+
+    private final transient Set<ConstraintViolation<BaseEntity>> violations = new LinkedHashSet<>();
 
     public ValidatorException(Set<ConstraintViolation<BaseEntity>> violations, String s) {
         super(s);

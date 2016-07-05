@@ -23,12 +23,12 @@ public class EntityValidator {
     private Validator validator;
 
     public void validate(BaseEntity entity) {
-        if (entity == null) {
+        if (entity == null || entity.getClass() == null) {
             log.warn("Validating a null entity!");
         }
 
         Set<ConstraintViolation<BaseEntity>> violations = validator.validate(entity);
-        if (CollectionUtils.isNotEmpty(violations)) {
+        if (CollectionUtils.isNotEmpty(violations) && entity != null && entity.getClass() != null) {
             String message = String.format("Constraint validation error to entity: %s",
                     entity.getClass().getSimpleName());
             log.error(message);
