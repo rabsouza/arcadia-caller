@@ -74,4 +74,37 @@ public class AuthenticationServiceTest {
         verify(userRepository, times(1)).findByToken(anyString());
     }
 
+    @Test
+    public void shouldReturnExceptionWhenNullProfile() throws AuthenticationException {
+        rule.expect(AuthenticationException.class);
+        rule.expectMessage(containsString("Header param 'profile' can not be null!"));
+
+        authenticationService.validHeader(null);
+
+    }
+
+    @Test
+    public void shouldReturnExceptionWhenEmptyProfile() throws AuthenticationException {
+        rule.expect(AuthenticationException.class);
+        rule.expectMessage(containsString("Header param 'profile' can not be null!"));
+
+        authenticationService.validHeader("");
+
+    }
+
+    @Test
+    public void shouldReturnExceptionWhenInvalidProfile() throws AuthenticationException {
+        rule.expect(AuthenticationException.class);
+        rule.expectMessage(containsString("Invalid application Profile."));
+
+        authenticationService.validHeader("abc");
+
+    }
+
+    @Test
+    public void shouldDontReturnExceptionWhenValidProfile() throws AuthenticationException {
+        authenticationService.validHeader("ADMIN");
+        authenticationService.validHeader("APP");
+    }
+
 }

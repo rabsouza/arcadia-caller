@@ -9,13 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
+import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.User;
+import br.com.battista.arcadia.caller.service.AuthenticationService;
 import br.com.battista.arcadia.caller.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,10 +26,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
-    public ResponseEntity<List<User>> getAll() {
+    public ResponseEntity<List<User>> getAll(@RequestHeader("profile") String profile) throws AuthenticationException {
+        authenticationService.validHeader(profile);
+
         log.info("Retrieve all users!");
         List<User> users = userService.getAllUsers();
 
@@ -46,7 +50,9 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.POST,
             produces = RestControllerConstant.PRODUCES, consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
-    public ResponseEntity<User> save(@RequestBody User user) {
+    public ResponseEntity<User> save(@RequestBody User user, @RequestHeader("profile") String profile) throws AuthenticationException {
+        authenticationService.validHeader(profile);
+
         if (user == null) {
             log.warn("User can not be null!");
             return buildResponseErro("User is required!");

@@ -19,6 +19,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.CacheLoader.InvalidCacheLoadException;
 import com.google.common.cache.LoadingCache;
 
+import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.User;
 import br.com.battista.arcadia.caller.repository.UserRepository;
@@ -33,8 +34,21 @@ public class AuthenticationService {
     private LoadingCache<String, User> cache;
 
     @PostConstruct
-    public void setup(){
+    public void setup() {
         cache = createCache();
+    }
+
+    public void validHeader(String profile) throws AuthenticationException {
+        HttpStatus status = UNAUTHORIZED;
+        if (Strings.isNullOrEmpty(profile)) {
+            log.error("Header param 'profile' can not be null! Return code: {} with reason: {}", status.value(), status.getReasonPhrase());
+
+            throw new AuthenticationException("Header param 'profile' can not be null!");
+        } else if (ProfileAppConstant.get(profile) == null) {
+            log.error("Invalid Profile! Return code: {} with reason: {}", status.value(), status.getReasonPhrase());
+
+            throw new AuthenticationException("Invalid application Profile.");
+        }
     }
 
 

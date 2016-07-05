@@ -3,17 +3,26 @@ package br.com.battista.arcadia.caller.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.google.common.base.Strings;
+
 import br.com.battista.arcadia.caller.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MD5HashingUtils {
 
-    private MD5HashingUtils(){}
+    public static final String MD5 = "MD5";
+
+    private MD5HashingUtils() {
+    }
 
     public static String generateHash(String value) {
+        if (Strings.isNullOrEmpty(value)) {
+            return "";
+        }
+
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance(MD5);
             md.update(value.getBytes());
 
             byte byteData[] = md.digest();

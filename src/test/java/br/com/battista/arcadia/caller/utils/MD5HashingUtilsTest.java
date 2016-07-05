@@ -1,14 +1,24 @@
 package br.com.battista.arcadia.caller.utils;
 
+import static br.com.battista.arcadia.caller.utils.MD5HashingUtils.generateHash;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+
 import org.junit.*;
 
-/**
- * Created by rabsouza on 30/06/16.
- */
 public class MD5HashingUtilsTest {
     @Test
-    public void generateHash() throws Exception {
-        System.out.println(MD5HashingUtils.generateHash("rafaelbs@ciandt.com".toLowerCase()));
+    public void shouldReturnEmptyValueWhenValueNull() throws Exception {
+        assertThat(generateHash(null), equalTo(""));
     }
 
+    @Test
+    public void shouldReturnEmptyValueWhenValueEmpty() throws Exception {
+        assertThat(generateHash(""), equalTo(""));
+    }
+
+    @Test
+    public void shouldReturnMD5ValueWhenValueValid() throws Exception {
+        assertThat(generateHash("abc"), not(isEmptyOrNullString()));
+    }
 }
