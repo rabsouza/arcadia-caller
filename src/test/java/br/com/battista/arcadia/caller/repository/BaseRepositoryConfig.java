@@ -13,6 +13,8 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 
+import br.com.battista.arcadia.caller.model.Card;
+import br.com.battista.arcadia.caller.model.Hero;
 import br.com.battista.arcadia.caller.model.User;
 
 /**
@@ -28,6 +30,8 @@ public abstract class BaseRepositoryConfig {
     public void setUp() {
         ObjectifyFactory objectifyFactory = new ObjectifyFactory();
         objectifyFactory.register(User.class);
+        objectifyFactory.register(Hero.class);
+        objectifyFactory.register(Card.class);
         objectifyRepository = spy(objectifyFactory.begin());
 
         validator = spy(Validation.buildDefaultValidatorFactory().getValidator());

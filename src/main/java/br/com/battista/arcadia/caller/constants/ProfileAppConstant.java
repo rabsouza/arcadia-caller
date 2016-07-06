@@ -17,7 +17,7 @@ public enum ProfileAppConstant {
     static {
         for (ProfileAppConstant profile :
                 ProfileAppConstant.values()) {
-            LOOK_UP.put(profile.name(), profile);
+            LOOK_UP.put(profile.name().toUpperCase(), profile);
         }
     }
 

@@ -51,7 +51,7 @@ public class AuthenticationService {
         log.info("Active profile: {}.", profile);
     }
 
-
+    // TODO ajustar para encaminhar profile ativo + profiles requeridos
     public void authetication(String token) throws AuthenticationException {
         if (Strings.isNullOrEmpty(token)) {
             HttpStatus status = UNAUTHORIZED;
