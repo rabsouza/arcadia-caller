@@ -19,14 +19,12 @@ import br.com.battista.arcadia.caller.model.User;
 @RunWith(MockitoJUnitRunner.class)
 public class EntityValidatorTest {
 
-    @InjectMocks
-    private EntityValidator entityValidator;
-
-    @Spy
-    private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-
     @Rule
     public ExpectedException rule = ExpectedException.none();
+    @InjectMocks
+    private EntityValidator entityValidator;
+    @Spy
+    private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     public void shouldErrorValidateWhenValidNullEntity() {

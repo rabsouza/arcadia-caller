@@ -1,10 +1,14 @@
 package br.com.battista.arcadia.caller.constants;
 
-public interface RestControllerConstant {
+public final class RestControllerConstant {
 
-    String PRODUCES = "application/json";
-    String CONSUMES = "application/json";
-    String BODY_ERROR = "cause";
-    String DETAIL_ERROR = "error";
-    String DETAIL = "detail";
+    public static final String PRODUCES = "application/json";
+    public static final String CONSUMES = "application/json";
+    public static final String BODY_ERROR = "cause";
+    public static final String DETAIL_ERROR = "error";
+    public static final String DETAIL = "detail";
+
+    private RestControllerConstant() {
+    }
+
 }

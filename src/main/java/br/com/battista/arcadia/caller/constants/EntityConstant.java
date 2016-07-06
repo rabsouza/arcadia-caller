@@ -1,9 +1,11 @@
 package br.com.battista.arcadia.caller.constants;
 
-public interface EntityConstant {
+public final class EntityConstant {
 
-    Long DEFAULT_VERSION = 1L;
+    public static final Long DEFAULT_VERSION = 1L;
+    public static final String GRAVATAR_URL_TEMPLATE = "https://s.gravatar.com/avatar/{0}.jpg?s=240";
 
-    String GRAVATAR_URL_TEMPLATE = "https://s.gravatar.com/avatar/{0}.jpg?s=240";
+    private EntityConstant() {
+    }
 
 }

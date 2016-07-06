@@ -7,12 +7,12 @@ import java.lang.reflect.InvocationTargetException;
 
 import br.com.battista.arcadia.caller.exception.AppException;
 
-/**
- * Created by rabsouza on 12/04/16.
- */
-public class MergeBeanUtils {
+public final class MergeBeanUtils {
 
-    public <M> void merge(M target, M destination) throws AppException {
+    private MergeBeanUtils() {
+    }
+
+    public static <M> void merge(M target, M destination) {
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(target.getClass());
 
@@ -25,7 +25,7 @@ public class MergeBeanUtils {
         }
     }
 
-    private <M> void processDescriptor(M target, M destination, PropertyDescriptor descriptor) throws IllegalAccessException, InvocationTargetException {
+    private static <M> void processDescriptor(M target, M destination, PropertyDescriptor descriptor) throws IllegalAccessException, InvocationTargetException {
         // Only copy writable attributes
         if (descriptor.getWriteMethod() != null) {
             Object newValue = descriptor.getReadMethod().invoke(destination);

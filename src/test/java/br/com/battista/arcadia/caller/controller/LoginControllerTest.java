@@ -26,12 +26,10 @@ public class LoginControllerTest extends BaseControllerConfig {
 
     private final String mail = "teste@teste.com";
     private final String username = "teste";
-
-    @Autowired
-    private LoginController loginController;
     @Rule
     public ExpectedException rule = ExpectedException.none();
-
+    @Autowired
+    private LoginController loginController;
 
     @Test
     public void shouldReturnBadRequestWhenUserNullToActionSave() throws AuthenticationException {

@@ -14,6 +14,11 @@
         <app.id>arcadia-caller-dev</app.id>
         <app.version>1</app.version>
         <appengine.version>1.9.38</appengine.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <sonar.exclusions>**/arcadia/caller/config/*,**/arcadia/caller/exception/*,**/arcadia/caller/model/*</sonar.exclusions>
+
         <org.springframework-version>3.2.16.RELEASE</org.springframework-version>
         <gcloud.plugin.version>2.0.9.74.v20150814</gcloud.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -230,6 +235,7 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+
 
         <!-- for hot reload of the web application-->
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>

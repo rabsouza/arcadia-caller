@@ -15,7 +15,7 @@ public class MergeBeanUtilsTest {
 
         User b = User.builder().mail("B").token("B").build();
 
-        new MergeBeanUtils().merge(a, b);
+        MergeBeanUtils.merge(a, b);
 
         assertThat(a.getMail(), equalTo(b.getMail()));
         assertThat(a.getToken(), equalTo(b.getToken()));
@@ -27,7 +27,7 @@ public class MergeBeanUtilsTest {
 
         User b = User.builder().mail("B").token("B").build();
 
-        new MergeBeanUtils().merge(b, a);
+        MergeBeanUtils.merge(b, a);
 
         assertThat(b.getMail(), equalTo(a.getMail()));
         assertThat(b.getToken(), equalTo("B"));

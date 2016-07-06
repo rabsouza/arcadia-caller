@@ -27,12 +27,10 @@ public class UserControllerTest extends BaseControllerConfig {
 
     private final String mail = "teste@teste.com";
     private final String username = "teste";
-
-    @Autowired
-    private UserController userController;
-
     @Rule
     public ExpectedException rule = ExpectedException.none();
+    @Autowired
+    private UserController userController;
 
     @Test
     public void shouldReturnExceptionWhenInvalidProfileToActionSave() throws AuthenticationException {

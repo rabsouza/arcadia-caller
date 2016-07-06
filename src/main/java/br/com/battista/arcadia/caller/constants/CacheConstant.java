@@ -1,8 +1,11 @@
 package br.com.battista.arcadia.caller.constants;
 
-public interface CacheConstant {
+public final class CacheConstant {
 
-    int MAXIMUM_SIZE_CACHE = 1000;
-    int DURATION_IN_MIN_CACHE = 30;
+    public static final int MAXIMUM_SIZE_CACHE = 1000;
+    public static final int DURATION_IN_MIN_CACHE = 30;
+
+    private CacheConstant() {
+    }
 
 }

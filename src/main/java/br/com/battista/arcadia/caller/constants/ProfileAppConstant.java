@@ -12,7 +12,7 @@ public enum ProfileAppConstant {
     ADMIN,
     APP;
 
-    private final static Map<String, ProfileAppConstant> LOOK_UP = Maps.newHashMap();
+    private static final Map<String, ProfileAppConstant> LOOK_UP = Maps.newHashMap();
 
     static {
         for (ProfileAppConstant profile :

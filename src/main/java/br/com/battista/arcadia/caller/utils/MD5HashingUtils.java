@@ -9,7 +9,7 @@ import br.com.battista.arcadia.caller.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MD5HashingUtils {
+public final class MD5HashingUtils {
 
     public static final String MD5 = "MD5";
 
@@ -25,7 +25,7 @@ public class MD5HashingUtils {
             MessageDigest md = MessageDigest.getInstance(MD5);
             md.update(value.getBytes());
 
-            byte byteData[] = md.digest();
+            byte[] byteData = md.digest();
 
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < byteData.length; i++) {

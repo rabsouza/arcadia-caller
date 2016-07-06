@@ -16,7 +16,7 @@ public abstract class BaseControllerConfig {
     private LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
     @BeforeClass
-    public static void startUp(){
+    public static void startUp() {
         ObjectifyService.begin();
         ObjectifyService.register(User.class);
     }
