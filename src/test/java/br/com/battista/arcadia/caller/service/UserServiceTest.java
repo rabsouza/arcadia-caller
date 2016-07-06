@@ -17,6 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.google.appengine.repackaged.com.google.common.collect.Lists;
 
 import br.com.battista.arcadia.caller.constants.EntityConstant;
+import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.User;
@@ -27,6 +28,7 @@ public class UserServiceTest {
 
     private final String username = "abc";
     private final String mail = "abc@abc.com";
+    private final ProfileAppConstant profile = ProfileAppConstant.APP;
 
     @Rule
     public ExpectedException rule = ExpectedException.none();
@@ -39,7 +41,7 @@ public class UserServiceTest {
 
     @Test
     public void shouldGetAllUsers() {
-        User user = User.builder().username(username).mail(mail).build();
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
         when(userRepository.findAll()).thenReturn(Lists.newArrayList(user));
 
         List<User> users = userService.getAllUsers();
@@ -50,7 +52,7 @@ public class UserServiceTest {
     }
 
     public void shouldGetUserByUsername() {
-        User user = User.builder().id(1l).username(username).mail(mail).build();
+        User user = User.builder().id(1l).username(username).mail(mail).profile(profile).build();
         user.initEntity();
         when(userRepository.findByUsername(Matchers.anyString())).thenReturn(user);
 
@@ -63,7 +65,7 @@ public class UserServiceTest {
 
     @Test
     public void shouldSaveUserWhenUserValid() {
-        User user = User.builder().id(1l).username(username).mail(mail).build();
+        User user = User.builder().id(1l).username(username).mail(mail).profile(profile).build();
         user.initEntity();
         when(userRepository.saveOrUpdateUser((User) org.mockito.Matchers.any())).thenReturn(user);
 

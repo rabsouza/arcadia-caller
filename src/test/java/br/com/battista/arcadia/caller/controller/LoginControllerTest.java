@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.com.battista.arcadia.caller.config.AppConfig;
+import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.User;
@@ -26,8 +27,11 @@ public class LoginControllerTest extends BaseControllerConfig {
 
     private final String mail = "teste@teste.com";
     private final String username = "teste";
+    private final ProfileAppConstant profile = ProfileAppConstant.APP;
+
     @Rule
     public ExpectedException rule = ExpectedException.none();
+
     @Autowired
     private LoginController loginController;
 
@@ -49,7 +53,7 @@ public class LoginControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenValidUserToActionSave() throws AuthenticationException {
-        User user = User.builder().username(username).mail(mail).build();
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
 
         ResponseEntity<User> responseEntity = loginController.create(user);
 
@@ -80,7 +84,7 @@ public class LoginControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenValidUserToActionLogin() throws AuthenticationException {
-        User user = User.builder().username(username).mail(mail).build();
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
 
         loginController.create(user);
 

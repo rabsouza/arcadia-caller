@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.User;
 import br.com.battista.arcadia.caller.repository.UserRepository;
@@ -18,7 +19,8 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 @RunWith(MockitoJUnitRunner.class)
 public class AuthenticationServiceTest {
 
-    private final String userName = "abc";
+    private final String username = "abc";
+    private final ProfileAppConstant profile = ProfileAppConstant.APP;
     private final String mail = "abc@abc.com";
     private final String token = "123456";
 
@@ -65,7 +67,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void shouldAutheticationUserWhenValidToken() throws AuthenticationException {
-        User user = User.builder().id(1l).username(userName).mail(mail).build();
+        User user = User.builder().id(1l).username(username).mail(mail).profile(profile).build();
         user.initEntity();
 
         when(userRepository.findByToken(anyString())).thenReturn(user);

@@ -2,6 +2,7 @@ package br.com.battista.arcadia.caller.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -13,6 +14,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -47,6 +49,9 @@ public class User extends BaseEntity implements Serializable {
 
     @URL
     private String urlAvatar;
+
+    @NotNull
+    private ProfileAppConstant profile;
 
     @JsonIgnore
     @Index

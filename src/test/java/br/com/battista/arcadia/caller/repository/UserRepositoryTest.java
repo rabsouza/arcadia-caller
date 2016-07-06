@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import br.com.battista.arcadia.caller.constants.EntityConstant;
+import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.BaseEntity;
@@ -25,6 +26,7 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
 
     private final String username = "abc0_";
     private final String mail = "abc@abc.com";
+    private final ProfileAppConstant profile = ProfileAppConstant.APP;
 
     @Rule
     public ExpectedException rule = ExpectedException.none();
@@ -55,7 +57,7 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldSaveUserWhenValidUser() {
-        User user = User.builder().username(username).mail(mail).build();
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
 
         User savedUser = userRepository.saveOrUpdateUser(user);
         assertNotNull(savedUser);
@@ -66,7 +68,7 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByTokenWhenValidUserAndValidToken() {
-        User user = User.builder().username(username).mail(mail).build();
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
 
         User savedUser = userRepository.saveOrUpdateUser(user);
         assertNotNull(savedUser);
@@ -83,7 +85,7 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnNullWhenFindByTokenWithValidUserAndInvalidToken() {
-        User user = User.builder().username(username).mail(mail).build();
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
 
         User savedUser = userRepository.saveOrUpdateUser(user);
         assertNotNull(savedUser);
@@ -97,7 +99,7 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByUsernameWhenValidUserAndValidUsername() {
-        User user = User.builder().username(username).mail(mail).build();
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
 
         User savedUser = userRepository.saveOrUpdateUser(user);
         assertNotNull(savedUser);
@@ -114,7 +116,7 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnNullWhenFindByUsernameWithValidUserAndInvalidUsername() {
-        User user = User.builder().username(username).mail(mail).build();
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
 
         User savedUser = userRepository.saveOrUpdateUser(user);
         assertNotNull(savedUser);

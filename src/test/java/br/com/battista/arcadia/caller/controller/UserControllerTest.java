@@ -27,8 +27,11 @@ public class UserControllerTest extends BaseControllerConfig {
 
     private final String mail = "teste@teste.com";
     private final String username = "teste";
+    private final ProfileAppConstant profile = ProfileAppConstant.APP;
+
     @Rule
     public ExpectedException rule = ExpectedException.none();
+
     @Autowired
     private UserController userController;
 
@@ -57,7 +60,7 @@ public class UserControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenValidUserToActionSave() throws AuthenticationException {
-        User user = User.builder().username(username).mail(mail).build();
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
 
         ResponseEntity<User> responseEntity = userController.save(ProfileAppConstant.ADMIN.name(), user);
 
@@ -87,7 +90,7 @@ public class UserControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenExistsUserToActionGetAll() throws AuthenticationException {
-        User user = User.builder().username(username).mail(mail).build();
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
 
         userController.save(ProfileAppConstant.ADMIN.name(), user);
 
