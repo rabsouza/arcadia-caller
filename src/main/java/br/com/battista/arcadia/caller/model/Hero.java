@@ -47,6 +47,12 @@ public class Hero extends BaseEntity implements Serializable {
     @NotNull
     private Integer life;
 
+    private Boolean active = Boolean.TRUE;
+
+    private Boolean revise = Boolean.FALSE;
+
+    private Boolean denounce = Boolean.FALSE;
+
     @Override
     public Object getPk() {
         return getId();

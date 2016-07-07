@@ -22,6 +22,11 @@ public class HeroService {
         return heroRepository.findAll();
     }
 
+    public Hero getHeroByName(String name) {
+        log.info("Find the user by name: {}!", name);
+        return heroRepository.findByName(name);
+    }
+
     public Hero saveHero(Hero hero) {
         log.info("Create new hero!");
         return heroRepository.saveOrUpdateHero(hero);

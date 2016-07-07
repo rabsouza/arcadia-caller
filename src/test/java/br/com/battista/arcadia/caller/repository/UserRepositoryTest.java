@@ -129,16 +129,6 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
     }
 
     @Test
-    public void shouldThrowExceptionWhenSaveUserWithInvalidUsername() {
-        User user = User.builder().username("abc").mail(mail).build();
-
-        rule.expect(RepositoryException.class);
-        rule.expectMessage(containsString("Invalid username!"));
-
-        userRepository.saveOrUpdateUser(user);
-    }
-
-    @Test
     public void shouldThrowExceptionWhenFindByUsernameWithNullUser() {
         rule.expect(RepositoryException.class);
         rule.expectMessage(containsString("not be null!"));

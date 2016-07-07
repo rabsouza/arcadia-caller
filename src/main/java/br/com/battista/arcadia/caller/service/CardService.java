@@ -22,6 +22,11 @@ public class CardService {
         return cardRepository.findAll();
     }
 
+    public Card getCardByName(String name) {
+        log.info("Find the user by name: {}!", name);
+        return cardRepository.findByName(name);
+    }
+
     public Card saveCard(Card card) {
         log.info("Create new card!");
         return cardRepository.saveOrUpdateCard(card);
