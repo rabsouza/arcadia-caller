@@ -1,4 +1,4 @@
-package br.com.battista.arcadia.caller.model;
+package br.com.battista.arcadia.caller.model.enuns;
 
 import java.util.Map;
 
@@ -29,7 +29,7 @@ public enum GroupCardEnum {
     }
 
     public static GroupCardEnum get(String groupCard) {
-        return LOOK_UP.get(MoreObjects.firstNonNull(groupCard, "").toUpperCase());
+        return LOOK_UP.get(MoreObjects.firstNonNull(groupCard, NONE.name()).toUpperCase());
     }
 
 }

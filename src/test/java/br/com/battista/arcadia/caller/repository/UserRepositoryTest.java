@@ -76,11 +76,11 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
         assertNotNull(savedUser.getCreatedAt());
         assertThat(savedUser.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
 
-        User userToken = userRepository.findByToken(user.getToken());
-        assertNotNull(userToken);
-        assertThat(userToken.getPk(), equalTo(savedUser.getPk()));
-        assertThat(userToken.getVersion(), equalTo(savedUser.getVersion()));
-        assertThat(userToken.getToken(), equalTo(savedUser.getToken()));
+        User userFind = userRepository.findByToken(user.getToken());
+        assertNotNull(userFind);
+        assertThat(userFind.getPk(), equalTo(savedUser.getPk()));
+        assertThat(userFind.getVersion(), equalTo(savedUser.getVersion()));
+        assertThat(userFind.getToken(), equalTo(savedUser.getToken()));
     }
 
     @Test
@@ -93,8 +93,8 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
         assertNotNull(savedUser.getCreatedAt());
         assertThat(savedUser.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
 
-        User userToken = userRepository.findByToken("abc");
-        assertNull(userToken);
+        User userFind = userRepository.findByToken("abc");
+        assertNull(userFind);
     }
 
     @Test
@@ -107,11 +107,11 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
         assertNotNull(savedUser.getCreatedAt());
         assertThat(savedUser.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
 
-        User userMail = userRepository.findByUsername(user.getUsername());
-        assertNotNull(userMail);
-        assertThat(userMail.getPk(), equalTo(savedUser.getPk()));
-        assertThat(userMail.getVersion(), equalTo(savedUser.getVersion()));
-        assertThat(userMail.getUsername(), equalTo(savedUser.getUsername()));
+        User userFind = userRepository.findByUsername(user.getUsername());
+        assertNotNull(userFind);
+        assertThat(userFind.getPk(), equalTo(savedUser.getPk()));
+        assertThat(userFind.getVersion(), equalTo(savedUser.getVersion()));
+        assertThat(userFind.getUsername(), equalTo(savedUser.getUsername()));
     }
 
     @Test
@@ -124,8 +124,8 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
         assertNotNull(savedUser.getCreatedAt());
         assertThat(savedUser.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
 
-        User userMail = userRepository.findByUsername("abcd");
-        assertNull(userMail);
+        User userFind = userRepository.findByUsername("abcd");
+        assertNull(userFind);
     }
 
     @Test

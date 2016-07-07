@@ -20,8 +20,8 @@ import br.com.battista.arcadia.caller.constants.EntityConstant;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.Card;
-import br.com.battista.arcadia.caller.model.GroupCardEnum;
-import br.com.battista.arcadia.caller.model.TypeCardEnum;
+import br.com.battista.arcadia.caller.model.enuns.GroupCardEnum;
+import br.com.battista.arcadia.caller.model.enuns.TypeCardEnum;
 import br.com.battista.arcadia.caller.repository.CardRepository;
 
 @RunWith(MockitoJUnitRunner.class)

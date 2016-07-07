@@ -75,11 +75,11 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
         assertNotNull(savedHero.getCreatedAt());
         assertThat(savedHero.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
 
-        Hero heroMail = heroRepository.findByName(hero.getName());
-        assertNotNull(heroMail);
-        assertThat(heroMail.getPk(), equalTo(savedHero.getPk()));
-        assertThat(heroMail.getVersion(), equalTo(savedHero.getVersion()));
-        assertThat(heroMail.getName(), equalTo(savedHero.getName()));
+        Hero heroFind = heroRepository.findByName(hero.getName());
+        assertNotNull(heroFind);
+        assertThat(heroFind.getPk(), equalTo(savedHero.getPk()));
+        assertThat(heroFind.getVersion(), equalTo(savedHero.getVersion()));
+        assertThat(heroFind.getName(), equalTo(savedHero.getName()));
     }
 
     @Test
@@ -92,8 +92,8 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
         assertNotNull(savedHero.getCreatedAt());
         assertThat(savedHero.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
 
-        Hero heroMail = heroRepository.findByName("abcd");
-        assertNull(heroMail);
+        Hero heroFind = heroRepository.findByName("abcd");
+        assertNull(heroFind);
     }
 
     @Test

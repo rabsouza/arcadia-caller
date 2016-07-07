@@ -6,7 +6,9 @@ import javax.validation.constraints.NotNull;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
+import br.com.battista.arcadia.caller.model.enuns.NameGuildEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,25 +23,33 @@ import lombok.ToString;
 @Data
 @ToString(includeFieldNames = true)
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
-public class HeroGuild extends BaseEntity implements Serializable {
+public class Guild extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     private Long id;
 
+    private Integer victories = 0;
+
+    private Integer defeats = 0;
+
+    @Index
     @NotNull
-    private Hero hero;
+    private NameGuildEnum name;
 
-    private Card card1;
+    @Index
+    @NotNull
+    private User user;
 
-    private Card card2;
+    @NotNull
+    private HeroGuild hero1;
 
-    private Card card3;
+    @NotNull
+    private HeroGuild hero2;
 
-    private Card card4;
-
-    private Card curseCard;
+    @NotNull
+    private HeroGuild hero3;
 
     @Override
     public Object getPk() {

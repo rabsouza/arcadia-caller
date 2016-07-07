@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.google.appengine.repackaged.com.google.api.client.util.Maps;
+import com.google.common.base.Throwables;
 
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
@@ -39,7 +40,7 @@ public class ResponseEntityBuilder {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         Map<String, String> body = new HashMap<>();
-        body.put(RestControllerConstant.BODY_ERROR, cause.getLocalizedMessage());
+        body.put(RestControllerConstant.BODY_ERROR, Throwables.getRootCause(cause).getLocalizedMessage());
         return new ResponseEntity(body, httpStatus);
     }
 
@@ -48,7 +49,7 @@ public class ResponseEntityBuilder {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         Map<String, Object> body = Maps.newHashMap();
-        body.put(RestControllerConstant.BODY_ERROR, cause.getLocalizedMessage());
+        body.put(RestControllerConstant.BODY_ERROR, Throwables.getRootCause(cause).getLocalizedMessage());
 
         Map<String, String> details = Maps.newLinkedHashMap();
         for (String message : messages) {

@@ -18,8 +18,8 @@ import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.BaseEntity;
 import br.com.battista.arcadia.caller.model.Card;
-import br.com.battista.arcadia.caller.model.GroupCardEnum;
-import br.com.battista.arcadia.caller.model.TypeCardEnum;
+import br.com.battista.arcadia.caller.model.enuns.GroupCardEnum;
+import br.com.battista.arcadia.caller.model.enuns.TypeCardEnum;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -77,11 +77,11 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
         assertNotNull(savedCard.getCreatedAt());
         assertThat(savedCard.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
 
-        Card cardMail = cardRepository.findByName(card.getName());
-        assertNotNull(cardMail);
-        assertThat(cardMail.getPk(), equalTo(savedCard.getPk()));
-        assertThat(cardMail.getVersion(), equalTo(savedCard.getVersion()));
-        assertThat(cardMail.getName(), equalTo(savedCard.getName()));
+        Card cardFind = cardRepository.findByName(card.getName());
+        assertNotNull(cardFind);
+        assertThat(cardFind.getPk(), equalTo(savedCard.getPk()));
+        assertThat(cardFind.getVersion(), equalTo(savedCard.getVersion()));
+        assertThat(cardFind.getName(), equalTo(savedCard.getName()));
     }
 
     @Test
@@ -94,8 +94,8 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
         assertNotNull(savedCard.getCreatedAt());
         assertThat(savedCard.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
 
-        Card cardMail = cardRepository.findByName("abcd");
-        assertNull(cardMail);
+        Card cardFind = cardRepository.findByName("abcd");
+        assertNull(cardFind);
     }
 
     @Test
