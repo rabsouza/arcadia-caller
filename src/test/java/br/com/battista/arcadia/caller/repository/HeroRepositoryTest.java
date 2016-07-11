@@ -37,21 +37,21 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
     private EntityValidator entityValidator;
 
     @Test
-    public void shouldEmptyHerosWhenEmptyDataBase() {
-        List<Hero> heros = heroRepository.findAll();
-        assertNotNull(heros);
-        assertThat(heros, hasSize(0));
+    public void shouldEmptyHeroesWhenEmptyDataBase() {
+        List<Hero> heroes = heroRepository.findAll();
+        assertNotNull(heroes);
+        assertThat(heroes, hasSize(0));
     }
 
     @Test
-    public void shouldReturnHerosWhenFindAllHeros() {
+    public void shouldReturnHeroesWhenFindAllHeroes() {
         Hero hero = Hero.builder().name(name).defense(defense).life(life).build();
         objectifyRepository.save().entity(hero).now();
 
-        List<Hero> heros = heroRepository.findAll();
-        assertNotNull(heros);
-        assertThat(heros, hasSize(1));
-        assertThat(heros.iterator().next().getName(), equalTo(name));
+        List<Hero> heroes = heroRepository.findAll();
+        assertNotNull(heroes);
+        assertThat(heroes, hasSize(1));
+        assertThat(heroes.iterator().next().getName(), equalTo(name));
     }
 
     @Test

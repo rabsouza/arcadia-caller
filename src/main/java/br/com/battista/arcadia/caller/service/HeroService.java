@@ -17,13 +17,13 @@ public class HeroService {
     @Autowired
     private HeroRepository heroRepository;
 
-    public List<Hero> getAllHeros() {
-        log.info("Find all heros!");
+    public List<Hero> getAllHeroes() {
+        log.info("Find all heroes!");
         return heroRepository.findAll();
     }
 
     public Hero getHeroByName(String name) {
-        log.info("Find the user by name: {}!", name);
+        log.info("Find the hero by name: {}!", name);
         return heroRepository.findByName(name);
     }
 

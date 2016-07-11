@@ -9,13 +9,13 @@ import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.googlecode.objectify.Objectify;
 
 import br.com.battista.arcadia.caller.exception.RepositoryException;
-import br.com.battista.arcadia.caller.model.Card;
+import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Repository
-public class CardRepository {
+public class SceneryRepository {
 
     @Autowired
     private EntityValidator entityValidator;
@@ -23,45 +23,45 @@ public class CardRepository {
     @Autowired
     private Objectify objectifyRepository;
 
-    public List<Card> findAll() {
-        log.info("Find all cards!");
+    public List<Scenery> findAll() {
+        log.info("Find all sceneries!");
 
         return objectifyRepository.load()
-                       .type(Card.class)
+                       .type(Scenery.class)
                        .order("-updatedAt")
                        .list();
 
     }
 
-    public Card findByName(String name) {
+    public Scenery findByName(String name) {
         if (Strings.isNullOrEmpty(name)) {
             throw new RepositoryException("Name can not be null!");
         }
-        log.info("Find card by name: {}!", name);
+        log.info("Find scenery by name: {}!", name);
 
         return objectifyRepository
                        .load()
-                       .type(Card.class)
+                       .type(Scenery.class)
                        .filter("name", name)
                        .first()
                        .now();
 
     }
 
-    public Card saveOrUpdateCard(Card card) {
-        if (card == null) {
-            throw new RepositoryException("Card entity can not be null!");
+    public Scenery saveOrUpdateScenery(Scenery scenery) {
+        if (scenery == null) {
+            throw new RepositoryException("Scenery entity can not be null!");
         }
-        entityValidator.validate(card);
+        entityValidator.validate(scenery);
 
-        card.initEntity();
-        log.info("Save to card: {}!", card);
+        scenery.initEntity();
+        log.info("Save to scenery: {}!", scenery);
 
         objectifyRepository.save()
-                .entity(card)
+                .entity(scenery)
                 .now();
 
-        return card;
+        return scenery;
     }
 
 }

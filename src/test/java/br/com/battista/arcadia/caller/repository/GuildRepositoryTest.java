@@ -142,8 +142,44 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
         assertNotNull(savedGuild.getCreatedAt());
         assertThat(savedGuild.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
 
-        Guild guildMail = guildRepository.findByName("abcd");
-        assertNull(guildMail);
+        Guild guildFind = guildRepository.findByName("abcd");
+        assertNull(guildFind);
+    }
+
+    @Test
+    public void shouldFindByMailWhenValidGuildAndValidMail() {
+        Guild guild = Guild.builder().user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+
+        Guild savedGuild = guildRepository.saveOrUpdateGuild(guild);
+        assertNotNull(savedGuild);
+        assertNotNull(savedGuild.getPk());
+        assertNotNull(savedGuild.getCreatedAt());
+        assertThat(savedGuild.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
+
+        Guild guildFind = guildRepository.findByMail(guild.getUser().getMail());
+        assertNotNull(guildFind);
+        assertThat(guildFind.getPk(), equalTo(savedGuild.getPk()));
+        assertThat(guildFind.getVersion(), equalTo(savedGuild.getVersion()));
+        assertThat(guildFind.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
+        assertThat(guildFind.getName(), equalTo(savedGuild.getName()));
+        assertThat(guildFind.getUser(), equalTo(savedGuild.getUser()));
+        assertThat(guildFind.getHero1(), equalTo(savedGuild.getHero1()));
+        assertThat(guildFind.getHero2(), equalTo(savedGuild.getHero2()));
+        assertThat(guildFind.getHero3(), equalTo(savedGuild.getHero3()));
+    }
+
+    @Test
+    public void shouldReturnNullWhenFindByMailWithValidGuildAndInvalidMail() {
+        Guild guild = Guild.builder().user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+
+        Guild savedGuild = guildRepository.saveOrUpdateGuild(guild);
+        assertNotNull(savedGuild);
+        assertNotNull(savedGuild.getPk());
+        assertNotNull(savedGuild.getCreatedAt());
+        assertThat(savedGuild.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
+
+        Guild guildFind = guildRepository.findByMail("abcd");
+        assertNull(guildFind);
     }
 
     @Test
@@ -171,6 +207,22 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
         rule.expectMessage(containsString("not be null!"));
 
         guildRepository.findByName("");
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenFindByMailWithNullGuild() {
+        rule.expect(RepositoryException.class);
+        rule.expectMessage(containsString("not be null!"));
+
+        guildRepository.findByMail(null);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenFindByMailWithEmptyGuild() {
+        rule.expect(RepositoryException.class);
+        rule.expectMessage(containsString("not be null!"));
+
+        guildRepository.findByMail("");
     }
 
     @Test

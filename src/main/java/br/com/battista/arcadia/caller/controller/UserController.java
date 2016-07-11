@@ -43,7 +43,7 @@ public class UserController {
         List<User> users = userService.getAllUsers();
 
         if (users == null || users.isEmpty()) {
-            log.warn("No users founds!");
+            log.warn("No users found!");
             return buildResponseErro(HttpStatus.NO_CONTENT);
         } else {
             log.info("Found {} users!", users.size());

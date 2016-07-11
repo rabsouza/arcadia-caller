@@ -52,16 +52,17 @@ public class CardServiceTest {
 
     }
 
+    @Test
     public void shouldGetCardByName() {
         Card card = Card.builder().id(1l).name(name).type(type).group(group).build();
         card.initEntity();
         when(cardRepository.findByName(Matchers.anyString())).thenReturn(card);
 
-        Card cardMail = cardService.getCardByName(name);
-        assertNotNull(cardMail);
-        assertNotNull(cardMail.getPk());
-        assertNotNull(cardMail.getCreatedAt());
-        assertThat(cardMail.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
+        Card cardFind = cardService.getCardByName(name);
+        assertNotNull(cardFind);
+        assertNotNull(cardFind.getPk());
+        assertNotNull(cardFind.getCreatedAt());
+        assertThat(cardFind.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
     }
 
     @Test

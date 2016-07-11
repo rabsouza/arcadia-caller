@@ -24,7 +24,7 @@ public class HeroRepository {
     private Objectify objectifyRepository;
 
     public List<Hero> findAll() {
-        log.info("Find all hero!");
+        log.info("Find all heroes!");
 
         return objectifyRepository.load()
                        .type(Hero.class)

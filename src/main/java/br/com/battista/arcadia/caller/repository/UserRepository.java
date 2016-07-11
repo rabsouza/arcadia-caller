@@ -27,7 +27,7 @@ public class UserRepository {
     private Objectify objectifyRepository;
 
     public List<User> findAll() {
-        log.info("Find all user!");
+        log.info("Find all users!");
 
         return objectifyRepository.load()
                        .type(User.class)

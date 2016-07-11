@@ -51,16 +51,17 @@ public class UserServiceTest {
 
     }
 
+    @Test
     public void shouldGetUserByUsername() {
         User user = User.builder().id(1l).username(username).mail(mail).profile(profile).build();
         user.initEntity();
         when(userRepository.findByUsername(Matchers.anyString())).thenReturn(user);
 
-        User userMail = userService.getUserByUsername(username);
-        assertNotNull(userMail);
-        assertNotNull(userMail.getPk());
-        assertNotNull(userMail.getCreatedAt());
-        assertThat(userMail.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
+        User userFind = userService.getUserByUsername(username);
+        assertNotNull(userFind);
+        assertNotNull(userFind.getPk());
+        assertNotNull(userFind.getCreatedAt());
+        assertThat(userFind.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
     }
 
     @Test

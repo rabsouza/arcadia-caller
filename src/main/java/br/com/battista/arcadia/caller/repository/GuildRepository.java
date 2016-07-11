@@ -24,7 +24,7 @@ public class GuildRepository {
     private Objectify objectifyRepository;
 
     public List<Guild> findAll() {
-        log.info("Find all guild!");
+        log.info("Find all guilds!");
 
         return objectifyRepository.load()
                        .type(Guild.class)
@@ -48,11 +48,11 @@ public class GuildRepository {
 
     }
 
-    public Guild findByUser(String mail) {
+    public Guild findByMail(String mail) {
         if (Strings.isNullOrEmpty(mail)) {
             throw new RepositoryException("Mail can not be null!");
         }
-        log.info("Find guild by user mail: {}!", mail);
+        log.info("Find guild by mail: {}!", mail);
 
         return objectifyRepository
                        .load()

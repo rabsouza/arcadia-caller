@@ -2,13 +2,14 @@ package br.com.battista.arcadia.caller.model;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
-import br.com.battista.arcadia.caller.model.enuns.NameGuildEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,37 +23,22 @@ import lombok.ToString;
 @NoArgsConstructor
 @Data
 @ToString(includeFieldNames = true)
-@EqualsAndHashCode(of = {"id"}, callSuper = false)
-public class Guild extends BaseEntity implements Serializable {
+@EqualsAndHashCode(of = {"name"}, callSuper = false)
+public class Scenery extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     private Long id;
 
-    private Integer victories = 0;
-
-    private Integer defeats = 0;
-
     @Index
-    @NotNull
-    private NameGuildEnum name;
+    @NotBlank
+    @Size(min = 5, max = 50)
+    private String name;
 
-    @Index
-    @NotNull
-    private User user;
+    private String title;
 
-    @NotNull
-    private HeroGuild hero1;
-
-    @NotNull
-    private HeroGuild hero2;
-
-    @NotNull
-    private HeroGuild hero3;
-
-    @NotNull
-    private Boolean savedMoney = Boolean.FALSE;
+    private String reward;
 
     @Override
     public Object getPk() {

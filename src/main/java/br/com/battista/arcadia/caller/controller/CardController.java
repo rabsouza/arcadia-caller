@@ -43,7 +43,7 @@ public class CardController {
         List<Card> cards = cardService.getAllCards();
 
         if (cards == null || cards.isEmpty()) {
-            log.warn("No cards founds!");
+            log.warn("No cards found!");
             return buildResponseErro(HttpStatus.NO_CONTENT);
         } else {
             log.info("Found {} cards!", cards.size());

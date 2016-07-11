@@ -16,6 +16,7 @@ import com.googlecode.objectify.ObjectifyFactory;
 import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Guild;
 import br.com.battista.arcadia.caller.model.Hero;
+import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.model.User;
 
 /**
@@ -35,6 +36,7 @@ public abstract class BaseRepositoryConfig {
         objectifyFactory.register(Hero.class);
         objectifyFactory.register(Card.class);
         objectifyFactory.register(Guild.class);
+        objectifyFactory.register(Scenery.class);
 
         objectifyRepository = spy(objectifyFactory.begin());
 

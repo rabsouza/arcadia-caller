@@ -43,23 +43,24 @@ public class HeroServiceTest {
         Hero hero = Hero.builder().name(name).defense(defense).life(life).build();
         when(heroRepository.findAll()).thenReturn(Lists.newArrayList(hero));
 
-        List<Hero> heros = heroService.getAllHeros();
+        List<Hero> heros = heroService.getAllHeroes();
         assertNotNull(heros);
         assertThat(heros, hasSize(1));
         assertThat(heros.iterator().next().getName(), equalTo(name));
 
     }
 
+    @Test
     public void shouldGetHeroByName() {
         Hero hero = Hero.builder().id(1l).name(name).defense(defense).life(life).build();
         hero.initEntity();
         when(heroRepository.findByName(Matchers.anyString())).thenReturn(hero);
 
-        Hero heroMail = heroService.getHeroByName(name);
-        assertNotNull(heroMail);
-        assertNotNull(heroMail.getPk());
-        assertNotNull(heroMail.getCreatedAt());
-        assertThat(heroMail.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
+        Hero heroFind = heroService.getHeroByName(name);
+        assertNotNull(heroFind);
+        assertNotNull(heroFind.getPk());
+        assertNotNull(heroFind.getCreatedAt());
+        assertThat(heroFind.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
     }
 
     @Test
