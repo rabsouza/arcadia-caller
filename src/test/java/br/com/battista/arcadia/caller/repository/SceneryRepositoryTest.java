@@ -38,6 +38,9 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
     private SceneryRepository sceneryRepository;
     @Mock
     private EntityValidator entityValidator;
+    @Mock
+    private CardRepository cardRepository;
+
 
     @Test
     public void shouldEmptySceneriesWhenEmptyDataBase() {

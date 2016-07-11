@@ -9,6 +9,7 @@ import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.googlecode.objectify.Objectify;
 
 import br.com.battista.arcadia.caller.exception.RepositoryException;
+import br.com.battista.arcadia.caller.model.BaseEntity;
 import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
@@ -23,6 +24,9 @@ public class SceneryRepository {
 
     @Autowired
     private Objectify objectifyRepository;
+
+    @Autowired
+    private CardRepository cardRepository;
 
     public List<Scenery> findAll() {
         log.info("Find all sceneries!");
@@ -57,16 +61,21 @@ public class SceneryRepository {
 
         scenery.initEntity();
         Card wonReward = scenery.getWonReward();
-        if(wonReward != null){
-            wonReward.initEntity();
+
+        if (wonReward != null) {
+            cardRepository.saveOrUpdateCard(wonReward);
         }
         log.info("Save to scenery: {}!", scenery);
 
-        objectifyRepository.save()
-                .entity(scenery)
-                .now();
+        saveEntity(scenery);
 
         return scenery;
+    }
+
+    private void saveEntity(BaseEntity entity) {
+        objectifyRepository.save()
+                .entity(entity)
+                .now();
     }
 
 }
