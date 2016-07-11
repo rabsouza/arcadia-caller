@@ -21,6 +21,7 @@ import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.model.User;
+import br.com.battista.arcadia.caller.model.enuns.LocationSceneryEnum;
 import br.com.battista.arcadia.caller.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,8 +29,9 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 public class SceneryControllerTest extends BaseControllerConfig {
 
     private final String name = "scenery01";
-    private final String reward = "reward";
-    private final String title = "title";
+    private final String reward = "wonReward";
+    private final String title = "wonTitle";
+    private final LocationSceneryEnum location = LocationSceneryEnum.NONE;
     private String token = null;
     private final String username = "abc0_";
     private final String mail = "abc@abc.com";
@@ -73,13 +75,13 @@ public class SceneryControllerTest extends BaseControllerConfig {
     public void shouldReturnExceptionWhenInvalidSceneryToActionSave() throws AuthenticationException {
         rule.expect(ValidatorException.class);
 
-        Scenery scenery = Scenery.builder().title(title).reward(reward).build();
+        Scenery scenery = Scenery.builder().wonTitle(title).wonReward(reward).build();
         sceneryController.save(token, scenery);
     }
 
     @Test
     public void shouldReturnSuccessWhenValidSceneryToActionSave() throws AuthenticationException {
-        Scenery scenery = Scenery.builder().name(name).reward(reward).title(title).build();
+        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
 
         ResponseEntity<Scenery> responseEntity = sceneryController.save(token, scenery);
 
@@ -88,8 +90,8 @@ public class SceneryControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getName(), equalTo(name));
-        assertThat(body.getReward(), equalTo(reward));
-        assertThat(body.getTitle(), equalTo(title));
+        assertThat(body.getWonReward(), equalTo(reward));
+        assertThat(body.getWonTitle(), equalTo(title));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
     }
 
@@ -110,7 +112,7 @@ public class SceneryControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenExistsSceneryToActionGetAll() throws AuthenticationException {
-        Scenery scenery = Scenery.builder().name(name).reward(reward).title(title).build();
+        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
 
         sceneryController.save(token, scenery);
 

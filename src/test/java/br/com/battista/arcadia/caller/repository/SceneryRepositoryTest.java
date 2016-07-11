@@ -18,14 +18,16 @@ import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.BaseEntity;
 import br.com.battista.arcadia.caller.model.Scenery;
+import br.com.battista.arcadia.caller.model.enuns.LocationSceneryEnum;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     private final String name = "scenery01";
-    private final String reward = "reward";
-    private final String title = "title";
+    private final String reward = "wonReward";
+    private final String title = "wonTitle";
+    private final LocationSceneryEnum location = LocationSceneryEnum.NONE;
 
     @Rule
     public ExpectedException rule = ExpectedException.none();
@@ -43,7 +45,7 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnSceneriesWhenFindAllSceneries() {
-        Scenery scenery = Scenery.builder().name(name).reward(reward).title(title).build();
+        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
         objectifyRepository.save().entity(scenery).now();
 
         List<Scenery> sceneries = sceneryRepository.findAll();
@@ -54,7 +56,7 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldSaveSceneryWhenValidScenery() {
-        Scenery scenery = Scenery.builder().name(name).reward(reward).title(title).build();
+        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
 
         Scenery savedScenery = sceneryRepository.saveOrUpdateScenery(scenery);
         assertNotNull(savedScenery);
@@ -65,7 +67,7 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByNameWhenValidSceneryAndValidName() {
-        Scenery scenery = Scenery.builder().name(name).reward(reward).title(title).build();
+        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
 
         Scenery savedScenery = sceneryRepository.saveOrUpdateScenery(scenery);
         assertNotNull(savedScenery);
@@ -82,7 +84,7 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnNullWhenFindByNameWithValidSceneryAndInvalidName() {
-        Scenery scenery = Scenery.builder().name(name).reward(reward).title(title).build();
+        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
 
         Scenery savedScenery = sceneryRepository.saveOrUpdateScenery(scenery);
         assertNotNull(savedScenery);
@@ -96,7 +98,7 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldThrowExceptionWhenSaveSceneryWithInvalidName() {
-        Scenery scenery = Scenery.builder().name("abc").reward(reward).title(title).build();
+        Scenery scenery = Scenery.builder().name("abc").location(location).wonTitle(title).wonReward(reward).build();
 
         doThrow(ValidatorException.class).when(entityValidator).validate((BaseEntity) anyObject());
 

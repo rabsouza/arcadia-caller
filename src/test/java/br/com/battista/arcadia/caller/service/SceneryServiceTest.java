@@ -20,14 +20,16 @@ import br.com.battista.arcadia.caller.constants.EntityConstant;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.Scenery;
+import br.com.battista.arcadia.caller.model.enuns.LocationSceneryEnum;
 import br.com.battista.arcadia.caller.repository.SceneryRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SceneryServiceTest {
 
     private final String name = "scenery01";
-    private final String reward = "reward";
-    private final String title = "title";
+    private final String reward = "wonReward";
+    private final String title = "wonTitle";
+    private final LocationSceneryEnum location = LocationSceneryEnum.NONE;
 
     @Rule
     public ExpectedException rule = ExpectedException.none();
@@ -40,7 +42,7 @@ public class SceneryServiceTest {
 
     @Test
     public void shouldGetAllSceneries() {
-        Scenery scenery = Scenery.builder().name(name).reward(reward).title(title).build();
+        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
         when(sceneryRepository.findAll()).thenReturn(Lists.newArrayList(scenery));
 
         List<Scenery> sceneries = sceneryService.getAllSceneries();
@@ -52,7 +54,7 @@ public class SceneryServiceTest {
 
     @Test
     public void shouldGetSceneryByName() {
-        Scenery scenery = Scenery.builder().id(1l).name(name).reward(reward).title(title).build();
+        Scenery scenery = Scenery.builder().id(1l).name(name).location(location).wonTitle(title).wonReward(reward).build();
         scenery.initEntity();
         when(sceneryRepository.findByName(Matchers.anyString())).thenReturn(scenery);
 
@@ -65,7 +67,7 @@ public class SceneryServiceTest {
 
     @Test
     public void shouldSaveSceneryWhenSceneryValid() {
-        Scenery scenery = Scenery.builder().id(1l).name(name).reward(reward).title(title).build();
+        Scenery scenery = Scenery.builder().id(1l).name(name).location(location).wonTitle(title).wonReward(reward).build();
         scenery.initEntity();
         when(sceneryRepository.saveOrUpdateScenery((Scenery) Matchers.any())).thenReturn(scenery);
 
