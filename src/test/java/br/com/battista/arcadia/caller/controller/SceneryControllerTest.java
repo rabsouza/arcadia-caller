@@ -19,9 +19,12 @@ import br.com.battista.arcadia.caller.config.AppConfig;
 import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
+import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.model.User;
+import br.com.battista.arcadia.caller.model.enuns.GroupCardEnum;
 import br.com.battista.arcadia.caller.model.enuns.LocationSceneryEnum;
+import br.com.battista.arcadia.caller.model.enuns.TypeCardEnum;
 import br.com.battista.arcadia.caller.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,7 +32,7 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 public class SceneryControllerTest extends BaseControllerConfig {
 
     private final String name = "scenery01";
-    private final String reward = "wonReward";
+    private final Card reward = Card.builder().name("wonReward").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).build();
     private final String title = "wonTitle";
     private final LocationSceneryEnum location = LocationSceneryEnum.NONE;
     private String token = null;
@@ -93,6 +96,7 @@ public class SceneryControllerTest extends BaseControllerConfig {
         assertThat(body.getWonReward(), equalTo(reward));
         assertThat(body.getWonTitle(), equalTo(title));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
+        assertThat(body.getWonReward().getVersion(), equalTo(DEFAULT_VERSION));
     }
 
     @Test

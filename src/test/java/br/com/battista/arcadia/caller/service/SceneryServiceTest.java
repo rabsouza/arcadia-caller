@@ -19,15 +19,18 @@ import com.google.appengine.repackaged.com.google.common.collect.Lists;
 import br.com.battista.arcadia.caller.constants.EntityConstant;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
+import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Scenery;
+import br.com.battista.arcadia.caller.model.enuns.GroupCardEnum;
 import br.com.battista.arcadia.caller.model.enuns.LocationSceneryEnum;
+import br.com.battista.arcadia.caller.model.enuns.TypeCardEnum;
 import br.com.battista.arcadia.caller.repository.SceneryRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SceneryServiceTest {
 
     private final String name = "scenery01";
-    private final String reward = "wonReward";
+    private final Card reward = Card.builder().name("wonReward").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).build();
     private final String title = "wonTitle";
     private final LocationSceneryEnum location = LocationSceneryEnum.NONE;
 

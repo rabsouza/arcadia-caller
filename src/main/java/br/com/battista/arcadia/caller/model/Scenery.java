@@ -40,15 +40,15 @@ public class Scenery extends BaseEntity implements Serializable {
     @Size(min = 5, max = 50)
     private String name;
 
-    private String symbol;
+    private String urlSymbol;
 
     private String wonTitle;
 
-    private String wonReward;
+    private Card wonReward;
 
     private DifficultySceneryEnum difficulty;
 
-    private List<String> titles;
+    private List<String> benefitTitles;
 
     @NotNull
     private LocationSceneryEnum location;

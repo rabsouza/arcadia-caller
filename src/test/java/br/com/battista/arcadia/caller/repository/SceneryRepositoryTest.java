@@ -17,15 +17,18 @@ import br.com.battista.arcadia.caller.constants.EntityConstant;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.BaseEntity;
+import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Scenery;
+import br.com.battista.arcadia.caller.model.enuns.GroupCardEnum;
 import br.com.battista.arcadia.caller.model.enuns.LocationSceneryEnum;
+import br.com.battista.arcadia.caller.model.enuns.TypeCardEnum;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     private final String name = "scenery01";
-    private final String reward = "wonReward";
+    private final Card reward = Card.builder().name("wonReward").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).build();
     private final String title = "wonTitle";
     private final LocationSceneryEnum location = LocationSceneryEnum.NONE;
 
@@ -80,6 +83,8 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
         assertThat(sceneryFind.getPk(), equalTo(savedScenery.getPk()));
         assertThat(sceneryFind.getVersion(), equalTo(savedScenery.getVersion()));
         assertThat(sceneryFind.getName(), equalTo(savedScenery.getName()));
+        assertThat(sceneryFind.getWonReward().getVersion(), equalTo(savedScenery.getWonReward().getVersion()));
+        assertThat(sceneryFind.getWonReward().getName(), equalTo(savedScenery.getWonReward().getName()));
     }
 
     @Test

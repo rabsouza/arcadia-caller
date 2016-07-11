@@ -9,6 +9,7 @@ import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.googlecode.objectify.Objectify;
 
 import br.com.battista.arcadia.caller.exception.RepositoryException;
+import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +56,10 @@ public class SceneryRepository {
         entityValidator.validate(scenery);
 
         scenery.initEntity();
+        Card wonReward = scenery.getWonReward();
+        if(wonReward != null){
+            wonReward.initEntity();
+        }
         log.info("Save to scenery: {}!", scenery);
 
         objectifyRepository.save()
