@@ -1,6 +1,6 @@
 package br.com.battista.arcadia.caller.service;
 
-import static br.com.battista.arcadia.caller.constants.CacheConstant.DURATION_IN_MIN_CACHE;
+import static br.com.battista.arcadia.caller.constants.CacheConstant.DURATION_CACHE;
 import static br.com.battista.arcadia.caller.constants.CacheConstant.MAXIMUM_SIZE_CACHE;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
@@ -90,7 +90,7 @@ public class AuthenticationService {
     private LoadingCache<String, User> createCache() {
         return CacheBuilder.newBuilder()
                        .maximumSize(MAXIMUM_SIZE_CACHE)
-                       .expireAfterAccess(DURATION_IN_MIN_CACHE, TimeUnit.MINUTES)
+                       .expireAfterAccess(DURATION_CACHE, TimeUnit.MINUTES)
                        .build(new CacheLoader<String, User>() {
                            @Override
                            public User load(String token) throws Exception {

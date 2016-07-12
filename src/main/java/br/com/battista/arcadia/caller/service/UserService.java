@@ -32,4 +32,14 @@ public class UserService {
         return userRepository.saveOrUpdateUser(user);
     }
 
+    public User updateUser(User user) {
+        log.info("Update user!");
+        return userRepository.saveOrUpdateUser(user);
+    }
+
+    public void deleteUser(User user) {
+        log.info("Delete user!");
+        userRepository.deleteByUsername(user);
+    }
+
 }

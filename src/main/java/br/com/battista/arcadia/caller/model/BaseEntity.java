@@ -11,8 +11,10 @@ import com.googlecode.objectify.annotation.Index;
 
 import br.com.battista.arcadia.caller.constants.EntityConstant;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(includeFieldNames = true, callSuper = false)
 @JsonAutoDetect
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class BaseEntity implements Serializable {

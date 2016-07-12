@@ -2,6 +2,8 @@ package br.com.battista.arcadia.caller.service;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
@@ -10,7 +12,6 @@ import org.junit.*;
 import org.junit.rules.*;
 import org.junit.runner.*;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -59,7 +60,7 @@ public class SceneryServiceTest {
     public void shouldGetSceneryByName() {
         Scenery scenery = Scenery.builder().id(1l).name(name).location(location).wonTitle(title).wonReward(reward).build();
         scenery.initEntity();
-        when(sceneryRepository.findByName(Matchers.anyString())).thenReturn(scenery);
+        when(sceneryRepository.findByName(anyString())).thenReturn(scenery);
 
         Scenery sceneryFind = sceneryService.getSceneryByName(name);
         assertNotNull(sceneryFind);
@@ -72,7 +73,7 @@ public class SceneryServiceTest {
     public void shouldSaveSceneryWhenSceneryValid() {
         Scenery scenery = Scenery.builder().id(1l).name(name).location(location).wonTitle(title).wonReward(reward).build();
         scenery.initEntity();
-        when(sceneryRepository.saveOrUpdateScenery((Scenery) Matchers.any())).thenReturn(scenery);
+        when(sceneryRepository.saveOrUpdateScenery((Scenery) any())).thenReturn(scenery);
 
         Scenery savedScenery = sceneryService.saveScenery(scenery);
         assertNotNull(savedScenery);
@@ -83,7 +84,7 @@ public class SceneryServiceTest {
 
     @Test
     public void shouldReturnExceptionWhenSceneryInvalid() {
-        doThrow(ValidatorException.class).when(sceneryRepository).saveOrUpdateScenery((Scenery) Matchers.any());
+        doThrow(ValidatorException.class).when(sceneryRepository).saveOrUpdateScenery((Scenery) any());
 
         rule.expect(ValidatorException.class);
 
@@ -92,7 +93,7 @@ public class SceneryServiceTest {
 
     @Test
     public void shouldReturnExceptionWhenSceneryNull() {
-        doThrow(RepositoryException.class).when(sceneryRepository).saveOrUpdateScenery((Scenery) Matchers.any());
+        doThrow(RepositoryException.class).when(sceneryRepository).saveOrUpdateScenery((Scenery) any());
 
         rule.expect(RepositoryException.class);
 

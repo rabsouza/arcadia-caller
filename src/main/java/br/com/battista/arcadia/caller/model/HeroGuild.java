@@ -19,7 +19,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString(includeFieldNames = true)
+@ToString(includeFieldNames = true, callSuper = true)
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
 public class HeroGuild extends BaseEntity implements Serializable {
 

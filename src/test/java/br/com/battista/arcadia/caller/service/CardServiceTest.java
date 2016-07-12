@@ -2,6 +2,8 @@ package br.com.battista.arcadia.caller.service;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
@@ -10,7 +12,6 @@ import org.junit.*;
 import org.junit.rules.*;
 import org.junit.runner.*;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -56,7 +57,7 @@ public class CardServiceTest {
     public void shouldGetCardByName() {
         Card card = Card.builder().id(1l).name(name).type(type).group(group).build();
         card.initEntity();
-        when(cardRepository.findByName(Matchers.anyString())).thenReturn(card);
+        when(cardRepository.findByName(anyString())).thenReturn(card);
 
         Card cardFind = cardService.getCardByName(name);
         assertNotNull(cardFind);
@@ -69,7 +70,7 @@ public class CardServiceTest {
     public void shouldSaveCardWhenCardValid() {
         Card card = Card.builder().id(1l).name(name).type(type).group(group).build();
         card.initEntity();
-        when(cardRepository.saveOrUpdateCard((Card) Matchers.any())).thenReturn(card);
+        when(cardRepository.saveOrUpdateCard((Card) any())).thenReturn(card);
 
         Card savedCard = cardService.saveCard(card);
         assertNotNull(savedCard);
@@ -80,7 +81,7 @@ public class CardServiceTest {
 
     @Test
     public void shouldReturnExceptionWhenCardInvalid() {
-        doThrow(ValidatorException.class).when(cardRepository).saveOrUpdateCard((Card) Matchers.any());
+        doThrow(ValidatorException.class).when(cardRepository).saveOrUpdateCard((Card) any());
 
         rule.expect(ValidatorException.class);
 
@@ -89,7 +90,7 @@ public class CardServiceTest {
 
     @Test
     public void shouldReturnExceptionWhenCardNull() {
-        doThrow(RepositoryException.class).when(cardRepository).saveOrUpdateCard((Card) Matchers.any());
+        doThrow(RepositoryException.class).when(cardRepository).saveOrUpdateCard((Card) any());
 
         rule.expect(RepositoryException.class);
 

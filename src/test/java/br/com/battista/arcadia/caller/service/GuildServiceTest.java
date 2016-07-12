@@ -2,6 +2,8 @@ package br.com.battista.arcadia.caller.service;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
@@ -10,7 +12,6 @@ import org.junit.*;
 import org.junit.rules.*;
 import org.junit.runner.*;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -89,7 +90,7 @@ public class GuildServiceTest {
     public void shouldGetGuildByName() {
         Guild guild = Guild.builder().id(1l).user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
         guild.initEntity();
-        when(guildRepository.findByName(Matchers.anyString())).thenReturn(guild);
+        when(guildRepository.findByName(anyString())).thenReturn(guild);
 
         Guild guildFind = guildService.getGuildByName(name);
         assertNotNull(guildFind);
@@ -102,7 +103,7 @@ public class GuildServiceTest {
     public void shouldGetGuildByMail() {
         Guild guild = Guild.builder().id(1l).user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
         guild.initEntity();
-        when(guildRepository.findByMail(Matchers.anyString())).thenReturn(guild);
+        when(guildRepository.findByMail(anyString())).thenReturn(guild);
 
         Guild guildFind = guildService.getGuildByMail(guild.getUser().getMail());
         assertNotNull(guildFind);
@@ -115,7 +116,7 @@ public class GuildServiceTest {
     public void shouldSaveGuildWhenGuildValid() {
         Guild guild = Guild.builder().id(1l).user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
         guild.initEntity();
-        when(guildRepository.saveOrUpdateGuild((Guild) Matchers.any())).thenReturn(guild);
+        when(guildRepository.saveOrUpdateGuild((Guild) any())).thenReturn(guild);
 
         Guild savedGuild = guildService.saveGuild(guild);
         assertNotNull(savedGuild);
@@ -126,7 +127,7 @@ public class GuildServiceTest {
 
     @Test
     public void shouldReturnExceptionWhenGuildInvalid() {
-        doThrow(ValidatorException.class).when(guildRepository).saveOrUpdateGuild((Guild) Matchers.any());
+        doThrow(ValidatorException.class).when(guildRepository).saveOrUpdateGuild((Guild) any());
 
         rule.expect(ValidatorException.class);
 
@@ -135,7 +136,7 @@ public class GuildServiceTest {
 
     @Test
     public void shouldReturnExceptionWhenGuildNull() {
-        doThrow(RepositoryException.class).when(guildRepository).saveOrUpdateGuild((Guild) Matchers.any());
+        doThrow(RepositoryException.class).when(guildRepository).saveOrUpdateGuild((Guild) any());
 
         rule.expect(RepositoryException.class);
 

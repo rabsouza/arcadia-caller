@@ -2,6 +2,8 @@ package br.com.battista.arcadia.caller.service;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
@@ -10,7 +12,6 @@ import org.junit.*;
 import org.junit.rules.*;
 import org.junit.runner.*;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -54,7 +55,7 @@ public class HeroServiceTest {
     public void shouldGetHeroByName() {
         Hero hero = Hero.builder().id(1l).name(name).defense(defense).life(life).build();
         hero.initEntity();
-        when(heroRepository.findByName(Matchers.anyString())).thenReturn(hero);
+        when(heroRepository.findByName(anyString())).thenReturn(hero);
 
         Hero heroFind = heroService.getHeroByName(name);
         assertNotNull(heroFind);
@@ -67,7 +68,7 @@ public class HeroServiceTest {
     public void shouldSaveHeroWhenHeroValid() {
         Hero hero = Hero.builder().id(1l).name(name).defense(defense).life(life).build();
         hero.initEntity();
-        when(heroRepository.saveOrUpdateHero((Hero) Matchers.any())).thenReturn(hero);
+        when(heroRepository.saveOrUpdateHero((Hero) any())).thenReturn(hero);
 
         Hero savedHero = heroService.saveHero(hero);
         assertNotNull(savedHero);
@@ -78,7 +79,7 @@ public class HeroServiceTest {
 
     @Test
     public void shouldReturnExceptionWhenHeroInvalid() {
-        doThrow(ValidatorException.class).when(heroRepository).saveOrUpdateHero((Hero) Matchers.any());
+        doThrow(ValidatorException.class).when(heroRepository).saveOrUpdateHero((Hero) any());
 
         rule.expect(ValidatorException.class);
 
@@ -87,7 +88,7 @@ public class HeroServiceTest {
 
     @Test
     public void shouldReturnExceptionWhenHeroNull() {
-        doThrow(RepositoryException.class).when(heroRepository).saveOrUpdateHero((Hero) Matchers.any());
+        doThrow(RepositoryException.class).when(heroRepository).saveOrUpdateHero((Hero) any());
 
         rule.expect(RepositoryException.class);
 

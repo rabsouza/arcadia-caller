@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
+import br.com.battista.arcadia.caller.exception.EntityAlreadyExistsException;
+import br.com.battista.arcadia.caller.exception.EntityNotFoundException;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +37,17 @@ public class AppControllerAdvice {
         return buildResponseErro(e, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(EntityAlreadyExistsException.class)
+    public ResponseEntity<Map<String, Object>> handleHttpMessageNotReadableException(EntityAlreadyExistsException e) {
+        log.error(e.getLocalizedMessage(), e);
+        return buildResponseErro(e, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleHttpMessageNotReadableException(EntityNotFoundException e) {
+        log.error(e.getLocalizedMessage(), e);
+        return buildResponseErro(e, HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<Map<String, Object>> handleAuthenticationException(AuthenticationException e) {

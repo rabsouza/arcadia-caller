@@ -17,7 +17,12 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <sonar.exclusions>**/arcadia/caller/config/*,**/arcadia/caller/exception/*,**/arcadia/caller/model/*</sonar.exclusions>
+        <sonar.exclusions>**/arcadia/caller/config/*,
+            **/arcadia/caller/controller/advice/*,
+            **/arcadia/caller/exception/*,
+            **/arcadia/caller/model/*,
+            **/arcadia/caller/builder/ResponseEntityBuilder.java
+        </sonar.exclusions>
 
         <org.springframework-version>3.2.16.RELEASE</org.springframework-version>
         <gcloud.plugin.version>2.0.9.74.v20150814</gcloud.plugin.version>

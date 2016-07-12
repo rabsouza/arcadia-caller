@@ -1,5 +1,7 @@
 package br.com.battista.arcadia.caller.model;
 
+import static br.com.battista.arcadia.caller.constants.CacheConstant.DURATION_CACHE;
+
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
@@ -7,6 +9,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
@@ -25,8 +28,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString(includeFieldNames = true)
+@ToString(includeFieldNames = true, callSuper = true)
 @EqualsAndHashCode(of = {"name"}, callSuper = false)
+@Cache(expirationSeconds = DURATION_CACHE)
 public class Card extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

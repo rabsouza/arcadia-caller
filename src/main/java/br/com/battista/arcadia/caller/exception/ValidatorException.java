@@ -11,7 +11,9 @@ import javax.validation.ConstraintViolation;
 import com.google.common.collect.Lists;
 
 import br.com.battista.arcadia.caller.model.BaseEntity;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ValidatorException extends RuntimeException implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +34,9 @@ public class ValidatorException extends RuntimeException implements Serializable
         List<String> violationMessages = Lists.newArrayList();
 
         for (ConstraintViolation violation : violations) {
-            violationMessages.add(MessageFormat.format("{0}: {1}!", violation.getPropertyPath(), violation.getMessage()));
+            String message = MessageFormat.format("{0}: {1}!", violation.getPropertyPath(), violation.getMessage());
+            log.error(message);
+            violationMessages.add(message);
         }
         return violationMessages.toArray(new String[0]);
     }

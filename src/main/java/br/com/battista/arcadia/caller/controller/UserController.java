@@ -28,6 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("api/v1/user")
 public class UserController {
 
+    public static final String USER_CAN_NOT_BE_NULL = "User can not be null!";
+    public static final String USER_IS_REQUIRED = "User is required!";
+
     @Autowired
     private UserService userService;
 
@@ -59,8 +62,8 @@ public class UserController {
         authenticationService.authetication(token, ProfileAppConstant.ADMIN);
 
         if (user == null) {
-            log.warn("User can not be null!");
-            return buildResponseErro("User is required!");
+            log.warn(USER_CAN_NOT_BE_NULL);
+            return buildResponseErro(USER_IS_REQUIRED);
         }
 
         log.info("Save the user[{}]!", user);
@@ -68,5 +71,38 @@ public class UserController {
         log.debug("Save the user and generate to id: {}!", newUser.getId());
         return buildResponseSuccess(newUser, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.PUT,
+            produces = RestControllerConstant.PRODUCES, consumes = RestControllerConstant.CONSUMES)
+    @ResponseBody
+    public ResponseEntity<User> update(@RequestHeader("token") String token, @RequestBody User user) throws AuthenticationException {
+        authenticationService.authetication(token, ProfileAppConstant.ADMIN);
+
+        if (user == null) {
+            log.warn(USER_CAN_NOT_BE_NULL);
+            return buildResponseErro(USER_IS_REQUIRED);
+        }
+
+        log.info("Update the user[{}]!", user);
+        User updatedUser = userService.updateUser(user);
+        return buildResponseSuccess(updatedUser, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.DELETE,
+            consumes = RestControllerConstant.CONSUMES)
+    @ResponseBody
+    public ResponseEntity delete(@RequestHeader("token") String token, @RequestBody User user) throws AuthenticationException {
+        authenticationService.authetication(token, ProfileAppConstant.ADMIN);
+
+        if (user == null) {
+            log.warn(USER_CAN_NOT_BE_NULL);
+            return buildResponseErro(USER_IS_REQUIRED);
+        }
+
+        log.info("Delete the user[{}]!", user);
+        userService.deleteUser(user);
+        return buildResponseSuccess(HttpStatus.OK);
+    }
+
 
 }

@@ -1,6 +1,10 @@
 package br.com.battista.arcadia.caller.exception;
 
-public class RepositoryException extends RuntimeException {
+import java.io.Serializable;
+
+public class RepositoryException extends RuntimeException implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public RepositoryException(String s) {
         super(s);
