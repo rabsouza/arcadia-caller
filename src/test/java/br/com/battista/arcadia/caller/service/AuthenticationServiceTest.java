@@ -77,36 +77,38 @@ public class AuthenticationServiceTest {
     }
 
     @Test
-    public void shouldReturnExceptionWhenNullProfile() throws AuthenticationException {
+    public void shouldAutheticationUserWhenValidTokenAndInvalidProfile() throws AuthenticationException {
         rule.expect(AuthenticationException.class);
-        rule.expectMessage(containsString("Header param 'profile' can not be null!"));
+        rule.expectMessage(containsString("Invalid Profile to action."));
 
-        authenticationService.validHeader(null);
+        User user = User.builder().id(1l).username(username).mail(mail).profile(profile).build();
+        user.initEntity();
 
+        when(userRepository.findByToken(anyString())).thenReturn(user);
+
+        authenticationService.authetication(token, ProfileAppConstant.ADMIN);
     }
 
     @Test
-    public void shouldReturnExceptionWhenEmptyProfile() throws AuthenticationException {
-        rule.expect(AuthenticationException.class);
-        rule.expectMessage(containsString("Header param 'profile' can not be null!"));
+    public void shouldAutheticationUserWhenValidTokenAndValidProfile() throws AuthenticationException {
+        User user = User.builder().id(1l).username(username).mail(mail).profile(profile).build();
+        user.initEntity();
 
-        authenticationService.validHeader("");
+        when(userRepository.findByToken(anyString())).thenReturn(user);
 
+        authenticationService.authetication(token, ProfileAppConstant.APP);
+        verify(userRepository, times(1)).findByToken(anyString());
     }
 
     @Test
-    public void shouldReturnExceptionWhenInvalidProfile() throws AuthenticationException {
-        rule.expect(AuthenticationException.class);
-        rule.expectMessage(containsString("Invalid application Profile."));
+    public void shouldAutheticationUserWhenValidTokenAndAllProfile() throws AuthenticationException {
+        User user = User.builder().id(1l).username(username).mail(mail).profile(profile).build();
+        user.initEntity();
 
-        authenticationService.validHeader("abc");
+        when(userRepository.findByToken(anyString())).thenReturn(user);
 
-    }
-
-    @Test
-    public void shouldDontReturnExceptionWhenValidProfile() throws AuthenticationException {
-        authenticationService.validHeader("ADMIN");
-        authenticationService.validHeader("APP");
+        authenticationService.authetication(token, ProfileAppConstant.APP, ProfileAppConstant.ADMIN);
+        verify(userRepository, times(1)).findByToken(anyString());
     }
 
 }

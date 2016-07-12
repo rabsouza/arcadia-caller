@@ -1,6 +1,7 @@
 package br.com.battista.arcadia.caller.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -33,6 +34,8 @@ public class Guild extends BaseEntity implements Serializable {
     private Integer victories = 0;
 
     private Integer defeats = 0;
+
+    private List<String> benefitTitles;
 
     @Index
     @NotNull

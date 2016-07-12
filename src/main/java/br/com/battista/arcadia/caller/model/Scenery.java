@@ -53,6 +53,14 @@ public class Scenery extends BaseEntity implements Serializable {
     @NotNull
     private LocationSceneryEnum location;
 
+    private Boolean active = Boolean.TRUE;
+
+    private Boolean revise = Boolean.FALSE;
+
+    private Boolean denounce = Boolean.FALSE;
+
+    private Boolean deleted = Boolean.FALSE;
+
     @Override
     public Object getPk() {
         return getId();

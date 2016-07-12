@@ -51,6 +51,8 @@ public class Card extends BaseEntity implements Serializable {
 
     private Boolean denounce = Boolean.FALSE;
 
+    private Boolean deleted = Boolean.FALSE;
+
 
     @Override
     public Object getPk() {

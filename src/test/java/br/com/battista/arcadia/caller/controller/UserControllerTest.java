@@ -20,6 +20,7 @@ import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.User;
+import br.com.battista.arcadia.caller.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
@@ -27,7 +28,9 @@ public class UserControllerTest extends BaseControllerConfig {
 
     private final String mail = "teste@teste.com";
     private final String username = "teste";
-    private final ProfileAppConstant profile = ProfileAppConstant.APP;
+    private final String invalidToken = "12345";
+    private String token;
+    private final ProfileAppConstant profile = ProfileAppConstant.ADMIN;
 
     @Rule
     public ExpectedException rule = ExpectedException.none();
@@ -35,19 +38,24 @@ public class UserControllerTest extends BaseControllerConfig {
     @Autowired
     private UserController userController;
 
-    @Test
-    public void shouldReturnExceptionWhenInvalidProfileToActionSave() throws AuthenticationException {
-        rule.expect(AuthenticationException.class);
+    @Autowired
+    private UserRepository userRepository;
 
-        userController.save("abc", null);
+    @Before
+    public void setup() {
+
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
+
+        User savedUser = userRepository.saveOrUpdateUser(user);
+        assertNotNull(savedUser);
+        token = savedUser.getToken();
     }
 
     @Test
-    public void shouldReturnBadRequestWhenUserNullToActionSave() throws AuthenticationException {
-        ResponseEntity<User> responseEntity = userController.save(ProfileAppConstant.ADMIN.name(), null);
+    public void shouldReturnExceptionWhenInvalidTokenToActionSave() throws AuthenticationException {
+        rule.expect(AuthenticationException.class);
 
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.BAD_REQUEST));
-        assertNotNull(responseEntity.getBody());
+        userController.save(invalidToken, null);
     }
 
     @Test
@@ -55,14 +63,22 @@ public class UserControllerTest extends BaseControllerConfig {
         rule.expect(ValidatorException.class);
 
         User user = User.builder().username(username).build();
-        userController.save(ProfileAppConstant.ADMIN.name(), user);
+        userController.save(token, user);
+    }
+
+    @Test
+    public void shouldReturnExceptionWhenNullUserToActionSave() throws AuthenticationException {
+        ResponseEntity<User> responseEntity = userController.save(token, null);
+
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.BAD_REQUEST));
+        assertNotNull(responseEntity.getBody());
     }
 
     @Test
     public void shouldReturnSuccessWhenValidUserToActionSave() throws AuthenticationException {
         User user = User.builder().username(username).mail(mail).profile(profile).build();
 
-        ResponseEntity<User> responseEntity = userController.save(ProfileAppConstant.ADMIN.name(), user);
+        ResponseEntity<User> responseEntity = userController.save(token, user);
 
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
         User body = responseEntity.getBody();
@@ -77,29 +93,21 @@ public class UserControllerTest extends BaseControllerConfig {
     public void shouldReturnExceptionWhenInvalidProfileToActionGetAll() throws AuthenticationException {
         rule.expect(AuthenticationException.class);
 
-        userController.getAll("abc");
-    }
-
-    @Test
-    public void shouldReturnNotContentWhenNoUsersFounds() throws AuthenticationException {
-        ResponseEntity<List<User>> responseEntity = userController.getAll(ProfileAppConstant.ADMIN.name());
-
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.NO_CONTENT));
-        assertNull(responseEntity.getBody());
+        userController.getAll(invalidToken);
     }
 
     @Test
     public void shouldReturnSuccessWhenExistsUserToActionGetAll() throws AuthenticationException {
         User user = User.builder().username(username).mail(mail).profile(profile).build();
 
-        userController.save(ProfileAppConstant.ADMIN.name(), user);
+        userController.save(token, user);
 
-        ResponseEntity<List<User>> responseEntity = userController.getAll(ProfileAppConstant.ADMIN.name());
+        ResponseEntity<List<User>> responseEntity = userController.getAll(token);
 
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
         List<User> body = responseEntity.getBody();
         assertNotNull(body);
-        assertThat(body, hasSize(1));
+        assertThat(body, hasSize(2));
         assertThat(body, hasItem(user));
     }
 

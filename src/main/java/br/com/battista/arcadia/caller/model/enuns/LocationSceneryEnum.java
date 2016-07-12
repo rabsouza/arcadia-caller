@@ -12,7 +12,7 @@ public enum LocationSceneryEnum {
     NONE,
     INNER_CIRCLE,
     OUT_CIRCLE,
-    CENTER;
+    ULTIMATE;
 
     private static final Map<String, LocationSceneryEnum> LOOK_UP = Maps.newHashMap();
 

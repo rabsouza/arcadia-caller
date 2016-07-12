@@ -18,6 +18,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.CacheLoader.InvalidCacheLoadException;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.Lists;
 
 import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
@@ -38,21 +39,27 @@ public class AuthenticationService {
         cache = createCache();
     }
 
-    public void validHeader(String profile) throws AuthenticationException {
+    private void validProfile(ProfileAppConstant profile, ProfileAppConstant... profiles) throws AuthenticationException {
         HttpStatus status = UNAUTHORIZED;
-        if (Strings.isNullOrEmpty(profile)) {
+        if (profile == null) {
             log.error("Header param 'profile' can not be null! Return code: {} with reason: {}", status.value(), status.getReasonPhrase());
             throw new AuthenticationException("Header param 'profile' can not be null!");
-        } else if (ProfileAppConstant.get(profile) == null) {
+        }
+
+        if (ProfileAppConstant.get(profile.name()) == null) {
             log.error("Invalid Profile! Return code: {} with reason: {}", status.value(), status.getReasonPhrase());
             throw new AuthenticationException("Invalid application Profile.");
+        }
+
+        if (profiles != null && profiles.length > 0 && !Lists.newArrayList(profiles).contains(profile)) {
+            log.error("Invalid Profile to action! Return code: {} with reason: {}", status.value(), status.getReasonPhrase());
+            throw new AuthenticationException("Invalid Profile to action.");
         }
 
         log.info("Active profile: {}.", profile);
     }
 
-    // TODO ajustar para encaminhar profile ativo + profiles requeridos
-    public void authetication(String token) throws AuthenticationException {
+    public void authetication(String token, ProfileAppConstant... profiles) throws AuthenticationException {
         if (Strings.isNullOrEmpty(token)) {
             HttpStatus status = UNAUTHORIZED;
             log.error("Header param 'token' can not be null! Return code: {} with reason: {}", status.value(), status.getReasonPhrase());
@@ -61,7 +68,7 @@ public class AuthenticationService {
         }
 
         try {
-            validateToken(token);
+            validateToken(token, profiles);
         } catch (InvalidCacheLoadException e) {
             log.warn("Invalid token. Cause: {}", e.getLocalizedMessage());
             throw new AuthenticationException("Invalid token.", e);
@@ -71,11 +78,13 @@ public class AuthenticationService {
         }
     }
 
-    private void validateToken(String token) throws ExecutionException, AuthenticationException {
+    private void validateToken(String token, ProfileAppConstant[] profiles) throws ExecutionException, AuthenticationException {
         User user = cache.get(token);
         if (user == null || user.getPk() == null || user.getVersion() == null) {
             throw new AuthenticationException("Invalid token.");
         }
+
+        validProfile(user.getProfile(), profiles);
     }
 
     private LoadingCache<String, User> createCache() {

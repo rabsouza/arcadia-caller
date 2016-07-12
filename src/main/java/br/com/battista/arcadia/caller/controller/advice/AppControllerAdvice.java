@@ -1,4 +1,4 @@
-package br.com.battista.arcadia.caller.controller;
+package br.com.battista.arcadia.caller.controller.advice;
 
 import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseErro;
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.User;
@@ -36,8 +37,8 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
-    public ResponseEntity<List<User>> getAll(@RequestHeader("profile") String profile) throws AuthenticationException {
-        authenticationService.validHeader(profile);
+    public ResponseEntity<List<User>> getAll(@RequestHeader("token") String token) throws AuthenticationException {
+        authenticationService.authetication(token, ProfileAppConstant.ADMIN);
 
         log.info("Retrieve all users!");
         List<User> users = userService.getAllUsers();
@@ -54,8 +55,8 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.POST,
             produces = RestControllerConstant.PRODUCES, consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
-    public ResponseEntity<User> save(@RequestHeader("profile") String profile, @RequestBody User user) throws AuthenticationException {
-        authenticationService.validHeader(profile);
+    public ResponseEntity<User> save(@RequestHeader("token") String token, @RequestBody User user) throws AuthenticationException {
+        authenticationService.authetication(token, ProfileAppConstant.ADMIN);
 
         if (user == null) {
             log.warn("User can not be null!");
