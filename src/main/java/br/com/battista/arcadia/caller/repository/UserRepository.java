@@ -120,9 +120,8 @@ public class UserRepository {
             throw new EntityNotFoundException(cause);
         } else {
             log.info("Delete user by id {} and username {}.", user.getPk(), user.getUsername());
-            objectifyRepository.save()
-                    .entity(userFind)
-                    .now();
+            objectifyRepository.delete()
+                    .entity(userFind);
         }
     }
 

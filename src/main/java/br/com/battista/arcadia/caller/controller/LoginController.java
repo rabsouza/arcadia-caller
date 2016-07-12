@@ -58,7 +58,7 @@ public class LoginController {
         log.info("Get token to username: {}.", username);
         User userEntity = userService.getUserByUsername(username);
         if (userEntity == null || Strings.isNullOrEmpty(userEntity.getToken())) {
-            log.warn("Mail not found!");
+            log.warn("Token not found!");
             return buildResponseErro(HttpStatus.NOT_FOUND);
         }
 
