@@ -49,6 +49,8 @@ public class Card extends BaseEntity implements Serializable {
     @NotNull
     private GroupCardEnum group;
 
+    private Integer cost;
+
     private Boolean active = Boolean.TRUE;
 
     private Boolean revise = Boolean.FALSE;
