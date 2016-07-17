@@ -5,9 +5,6 @@ import java.util.Map;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Maps;
 
-/**
- * Created by rabsouza on 05/07/16.
- */
 public enum LocationSceneryEnum {
     NONE,
     INNER_CIRCLE,

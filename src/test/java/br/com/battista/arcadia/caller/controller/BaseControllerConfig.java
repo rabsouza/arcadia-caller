@@ -8,9 +8,6 @@ import com.googlecode.objectify.ObjectifyService;
 
 import br.com.battista.arcadia.caller.config.OfyHelper;
 
-/**
- * Created by rabsouza on 26/06/16.
- */
 public abstract class BaseControllerConfig {
 
     private LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());

@@ -19,9 +19,6 @@ import br.com.battista.arcadia.caller.model.Hero;
 import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.model.User;
 
-/**
- * Created by rabsouza on 26/06/16.
- */
 public abstract class BaseRepositoryConfig {
 
     protected Objectify objectifyRepository;

@@ -7,9 +7,6 @@ import com.google.common.collect.Maps;
 
 import lombok.Getter;
 
-/**
- * Created by rabsouza on 05/07/16.
- */
 public enum NameGuildEnum {
     ORANGE("Lion"),
     BLUE("Eagle"),

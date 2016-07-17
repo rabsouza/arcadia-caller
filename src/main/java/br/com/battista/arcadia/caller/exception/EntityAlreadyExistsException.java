@@ -2,9 +2,6 @@ package br.com.battista.arcadia.caller.exception;
 
 import java.io.Serializable;
 
-/**
- * Created by rabsouza on 11/07/16.
- */
 public class EntityAlreadyExistsException extends RuntimeException implements Serializable {
 
     private static final long serialVersionUID = 1L;
