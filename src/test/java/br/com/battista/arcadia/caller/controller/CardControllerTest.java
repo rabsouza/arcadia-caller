@@ -85,7 +85,7 @@ public class CardControllerTest extends BaseControllerConfig {
 
         ResponseEntity<Card> responseEntity = cardController.save(token, card);
 
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
         Card body = responseEntity.getBody();
         assertNotNull(body);
         assertNotNull(body.getPk());

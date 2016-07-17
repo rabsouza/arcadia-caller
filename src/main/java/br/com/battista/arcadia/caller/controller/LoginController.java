@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.appengine.repackaged.com.google.api.client.util.Maps;
 import com.google.common.base.Strings;
 
+import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
 import br.com.battista.arcadia.caller.model.User;
+import br.com.battista.arcadia.caller.service.MessageCustomerService;
 import br.com.battista.arcadia.caller.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,19 +33,22 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageCustomerService messageSource;
+
     @RequestMapping(value = "/", method = RequestMethod.POST,
             produces = RestControllerConstant.PRODUCES, consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
     public ResponseEntity<User> create(@RequestBody User user) {
         if (user == null) {
             log.warn("User can not be null!");
-            return buildResponseErro("User is required!");
+            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, "User"));
         }
 
         log.info("Create new username[{}]!", user);
         User newUser = userService.saveUser(user);
         log.debug("Save the username and generate to id: {}!", newUser.getId());
-        return buildResponseSuccess(newUser, HttpStatus.OK);
+        return buildResponseSuccess(newUser, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET,
@@ -52,7 +57,7 @@ public class LoginController {
     public ResponseEntity<Map<String, String>> login(@PathVariable("username") String username) {
         if (username == null) {
             log.warn("Path username can not be null!");
-            return buildResponseErro("Path 'username' is requerid!");
+            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, "Path username"));
         }
 
         log.info("Get token to username: {}.", username);

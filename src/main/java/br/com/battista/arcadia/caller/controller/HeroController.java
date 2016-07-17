@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.Hero;
 import br.com.battista.arcadia.caller.service.AuthenticationService;
 import br.com.battista.arcadia.caller.service.HeroService;
+import br.com.battista.arcadia.caller.service.MessageCustomerService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -29,6 +31,9 @@ public class HeroController {
 
     @Autowired
     private HeroService heroService;
+
+    @Autowired
+    private MessageCustomerService messageSource;
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -59,13 +64,13 @@ public class HeroController {
 
         if (hero == null) {
             log.warn("Hero can not be null!");
-            return buildResponseErro("Hero is required!");
+            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, "Hero"));
         }
 
         log.info("Save the hero[{}]!", hero);
         Hero newHero = heroService.saveHero(hero);
         log.debug("Save the hero and generate to id: {}!", newHero.getId());
-        return buildResponseSuccess(newHero, HttpStatus.OK);
+        return buildResponseSuccess(newHero, HttpStatus.CREATED);
     }
 
 }

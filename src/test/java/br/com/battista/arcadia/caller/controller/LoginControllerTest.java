@@ -57,7 +57,7 @@ public class LoginControllerTest extends BaseControllerConfig {
 
         ResponseEntity<User> responseEntity = loginController.create(user);
 
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
         User body = responseEntity.getBody();
         assertNotNull(body);
         assertNotNull(body.getPk());

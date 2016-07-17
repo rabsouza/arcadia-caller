@@ -4,9 +4,6 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 
-/**
- * Created by rabsouza on 04/07/16.
- */
 public enum ProfileAppConstant {
 
     ADMIN,

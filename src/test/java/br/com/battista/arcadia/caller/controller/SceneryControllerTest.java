@@ -88,7 +88,7 @@ public class SceneryControllerTest extends BaseControllerConfig {
 
         ResponseEntity<Scenery> responseEntity = sceneryController.save(token, scenery);
 
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
         Scenery body = responseEntity.getBody();
         assertNotNull(body);
         assertNotNull(body.getPk());

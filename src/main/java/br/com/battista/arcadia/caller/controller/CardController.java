@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.service.AuthenticationService;
 import br.com.battista.arcadia.caller.service.CardService;
+import br.com.battista.arcadia.caller.service.MessageCustomerService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -29,6 +31,9 @@ public class CardController {
 
     @Autowired
     private CardService cardService;
+
+    @Autowired
+    private MessageCustomerService messageSource;
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -59,13 +64,13 @@ public class CardController {
 
         if (card == null) {
             log.warn("Card can not be null!");
-            return buildResponseErro("Card is required!");
+            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, "Card"));
         }
 
         log.info("Save the card[{}]!", card);
         Card newCard = cardService.saveCard(card);
         log.debug("Save the card and generate to id: {}!", newCard.getId());
-        return buildResponseSuccess(newCard, HttpStatus.OK);
+        return buildResponseSuccess(newCard, HttpStatus.CREATED);
     }
 
 }

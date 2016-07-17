@@ -83,7 +83,7 @@ public class HeroControllerTest extends BaseControllerConfig {
 
         ResponseEntity<Hero> responseEntity = heroController.save(token, hero);
 
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
         Hero body = responseEntity.getBody();
         assertNotNull(body);
         assertNotNull(body.getPk());

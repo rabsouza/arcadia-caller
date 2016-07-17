@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
 import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.User;
 import br.com.battista.arcadia.caller.service.AuthenticationService;
+import br.com.battista.arcadia.caller.service.MessageCustomerService;
 import br.com.battista.arcadia.caller.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,13 +31,16 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 
     public static final String USER_CAN_NOT_BE_NULL = "User can not be null!";
-    public static final String USER_IS_REQUIRED = "User is required!";
+    public static final String USER_IS_REQUIRED = "User";
 
     @Autowired
     private UserService userService;
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private MessageCustomerService messageSource;
 
     @RequestMapping(value = "/", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
@@ -63,13 +68,13 @@ public class UserController {
 
         if (user == null) {
             log.warn(USER_CAN_NOT_BE_NULL);
-            return buildResponseErro(USER_IS_REQUIRED);
+            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, USER_IS_REQUIRED));
         }
 
         log.info("Save the user[{}]!", user);
         User newUser = userService.saveUser(user);
         log.debug("Save the user and generate to id: {}!", newUser.getId());
-        return buildResponseSuccess(newUser, HttpStatus.OK);
+        return buildResponseSuccess(newUser, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT,
@@ -80,7 +85,7 @@ public class UserController {
 
         if (user == null) {
             log.warn(USER_CAN_NOT_BE_NULL);
-            return buildResponseErro(USER_IS_REQUIRED);
+            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, USER_IS_REQUIRED));
         }
 
         log.info("Update the user[{}]!", user);
@@ -96,7 +101,7 @@ public class UserController {
 
         if (user == null) {
             log.warn(USER_CAN_NOT_BE_NULL);
-            return buildResponseErro(USER_IS_REQUIRED);
+            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, USER_IS_REQUIRED));
         }
 
         log.info("Delete the user[{}]!", user);

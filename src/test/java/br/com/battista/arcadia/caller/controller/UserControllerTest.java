@@ -107,7 +107,7 @@ public class UserControllerTest extends BaseControllerConfig {
 
         ResponseEntity<User> responseEntity = userController.save(token, user);
 
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
         User body = responseEntity.getBody();
         assertNotNull(body);
         assertNotNull(body.getPk());
@@ -122,7 +122,7 @@ public class UserControllerTest extends BaseControllerConfig {
 
         ResponseEntity<User> responseEntity = userController.save(token, user);
 
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
         User body = responseEntity.getBody();
         assertNotNull(body);
         assertNotNull(body.getPk());
@@ -149,7 +149,7 @@ public class UserControllerTest extends BaseControllerConfig {
 
         ResponseEntity<User> responseEntity = userController.save(token, user);
 
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
         User body = responseEntity.getBody();
         assertNotNull(body);
         assertNotNull(body.getPk());
@@ -169,7 +169,7 @@ public class UserControllerTest extends BaseControllerConfig {
 
         ResponseEntity<User> responseEntity = userController.save(token, user);
 
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
         User body = responseEntity.getBody();
         assertNotNull(body);
         assertNotNull(body.getPk());
@@ -192,7 +192,7 @@ public class UserControllerTest extends BaseControllerConfig {
 
         ResponseEntity<User> responseEntity = userController.save(token, user);
 
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
         User body = responseEntity.getBody();
         assertNotNull(body);
         assertNotNull(body.getPk());

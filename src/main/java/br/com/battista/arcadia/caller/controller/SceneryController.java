@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.service.AuthenticationService;
+import br.com.battista.arcadia.caller.service.MessageCustomerService;
 import br.com.battista.arcadia.caller.service.SceneryService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +34,9 @@ public class SceneryController {
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private MessageCustomerService messageSource;
 
     @RequestMapping(value = "/", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
@@ -59,13 +64,13 @@ public class SceneryController {
 
         if (scenery == null) {
             log.warn("Scenery can not be null!");
-            return buildResponseErro("Scenery is required!");
+            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, "Scenery"));
         }
 
         log.info("Save the scenery[{}]!", scenery);
         Scenery newScenery = sceneryService.saveScenery(scenery);
         log.debug("Save the scenery and generate to id: {}!", newScenery.getId());
-        return buildResponseSuccess(newScenery, HttpStatus.OK);
+        return buildResponseSuccess(newScenery, HttpStatus.CREATED);
     }
 
 }
