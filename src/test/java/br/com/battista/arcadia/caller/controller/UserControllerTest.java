@@ -30,6 +30,7 @@ public class UserControllerTest extends BaseControllerConfig {
 
     private final String mail = "teste@teste.com";
     private final String username = "teste";
+    private final String invalidUsername = "error";
     private final String invalidToken = "12345";
     private final String mail02 = "mail02@mail.com";
     private String token;
@@ -117,6 +118,74 @@ public class UserControllerTest extends BaseControllerConfig {
     }
 
     @Test
+    public void shouldReturnSuccessWhenValidUserToActionGetAll() throws AuthenticationException {
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
+
+        ResponseEntity<User> responseEntity = userController.save(token, user);
+
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
+        User body = responseEntity.getBody();
+        assertNotNull(body);
+        assertNotNull(body.getPk());
+        assertThat(body.getUsername(), equalTo(username));
+        assertThat(body.getMail(), equalTo(mail));
+        assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
+
+        ResponseEntity<List<User>> responseFind = userController.getAll(token);
+        assertThat(responseFind.getStatusCode(), equalTo(HttpStatus.OK));
+        List<User> bodyFind = responseFind.getBody();
+        assertNotNull(bodyFind);
+        assertThat(bodyFind, hasSize(greaterThan(1)));
+        assertThat(bodyFind, hasItem(user));
+
+    }
+
+    @Test
+    public void shouldReturnSuccessWhenValidUserToActionGetByUsername() throws AuthenticationException {
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
+
+        ResponseEntity<User> responseEntity = userController.save(token, user);
+
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
+        User body = responseEntity.getBody();
+        assertNotNull(body);
+        assertNotNull(body.getPk());
+        assertThat(body.getUsername(), equalTo(username));
+        assertThat(body.getMail(), equalTo(mail));
+        assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
+
+        ResponseEntity<User> responseFind = userController.getByUsername(token, user.getUsername());
+        assertThat(responseFind.getStatusCode(), equalTo(HttpStatus.OK));
+        User bodyFind = responseFind.getBody();
+        assertNotNull(bodyFind);
+        assertNotNull(bodyFind.getPk());
+        assertThat(bodyFind.getUsername(), equalTo(body.getUsername()));
+        assertThat(bodyFind.getMail(), equalTo(body.getMail()));
+        assertThat(bodyFind.getVersion(), equalTo(body.getVersion()));
+
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenInvalidUsernameToActionGetByUsername() throws AuthenticationException {
+        User user = User.builder().username(username).mail(mail).profile(profile).build();
+
+        ResponseEntity<User> responseEntity = userController.save(token, user);
+
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.CREATED));
+        User body = responseEntity.getBody();
+        assertNotNull(body);
+        assertNotNull(body.getPk());
+        assertThat(body.getUsername(), equalTo(username));
+        assertThat(body.getMail(), equalTo(mail));
+        assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
+
+        ResponseEntity<User> responseFind = userController.getByUsername(token, invalidUsername);
+        assertThat(responseFind.getStatusCode(), equalTo(HttpStatus.NOT_FOUND));
+        assertNull(responseFind.getBody());
+
+    }
+
+    @Test
     public void shouldReturnSuccessWhenValidUserToActionUpdate() throws AuthenticationException {
         User user = User.builder().username(username).mail(mail).profile(profile).build();
 
@@ -161,6 +230,13 @@ public class UserControllerTest extends BaseControllerConfig {
         user02.initEntity();
         user02.updateEntity();
         userController.update(token, user02);
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenNullUserToActionDelete() throws AuthenticationException {
+        ResponseEntity<User> responseEntity = userController.delete(token, null);
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.BAD_REQUEST));
+        assertNotNull(responseEntity.getBody());
     }
 
     @Test
