@@ -202,7 +202,7 @@ public class UserRepositoryTest extends BaseRepositoryConfig {
         assertThat(updatedUser.getPk(), equalTo(userFind.getPk()));
         assertThat(updatedUser.getVersion(), equalTo(new Long(2L)));
         assertThat(updatedUser.getUsername(), equalTo(userFind.getUsername()));
-        assertThat(updatedUser.getMail(),  equalTo(mail02));
+        assertThat(updatedUser.getMail(), equalTo(mail02));
     }
 
     @Test

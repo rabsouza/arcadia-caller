@@ -3,21 +3,18 @@ package br.com.battista.arcadia.caller.model;
 import static br.com.battista.arcadia.caller.constants.CacheConstant.DURATION_CACHE;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 
-import com.google.appengine.repackaged.org.codehaus.jackson.annotate.JsonIgnore;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
-import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,45 +22,56 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Index
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString(includeFieldNames = true, callSuper = true, exclude = {"token"})
-@EqualsAndHashCode(of = {"username"}, callSuper = false)
+@ToString(includeFieldNames = true, callSuper = true)
+@EqualsAndHashCode(of = {"name"}, callSuper = false)
 @Cache(expirationSeconds = DURATION_CACHE)
-public class User extends BaseEntity implements Serializable {
+public class Campaign extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Index
     @Id
     private Long id;
 
-    @Index
-    @NotBlank
-    @Size(min = 5, max = 30)
-    private String username;
-
-    @Index
-    @NotBlank
-    @Email
-    @Size(min = 5, max = 30)
-    private String mail;
-
-    @URL
-    private String urlAvatar;
+    private String alias;
 
     @NotNull
-    private ProfileAppConstant profile;
-
+    private Date when;
 
     @Index
-    @Size(min = 30, max = 50)
-    @JsonIgnore
-    private String token;
+    @NotBlank
+    @Size(min = 5, max = 50)
+    private String key;
+
+    private Scenery scenery1;
+
+    private Scenery scenery2;
+
+    private Scenery scenery3;
+
+    private Scenery scenery4;
+
+    private Scenery scenery5;
+
+    private Scenery scenery6;
+
+    @Index
+    @NotNull
+    private User created;
+
+    @Index
+    private String username;
+
+    private Boolean active = Boolean.TRUE;
+
+    private Boolean completed = Boolean.FALSE;
+
+    private Boolean deleted = Boolean.FALSE;
+
 
     @Override
     public Object getPk() {

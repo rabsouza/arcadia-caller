@@ -20,13 +20,11 @@ import org.springframework.context.NoSuchMessageException;
 @RunWith(MockitoJUnitRunner.class)
 public class MessageCustomerServiceTest {
 
+    @Rule
+    public ExpectedException rule = ExpectedException.none();
     private String keyMessage = "a.b.c";
     private String invalidKeyMessage = "a.bbv";
     private String valueMessage = "ABC";
-
-    @Rule
-    public ExpectedException rule = ExpectedException.none();
-
     @InjectMocks
     private MessageCustomerService messageCustomerService;
 

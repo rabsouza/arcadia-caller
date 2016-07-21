@@ -13,6 +13,7 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 
+import br.com.battista.arcadia.caller.model.Campaign;
 import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Guild;
 import br.com.battista.arcadia.caller.model.Hero;
@@ -34,6 +35,7 @@ public abstract class BaseRepositoryConfig {
         objectifyFactory.register(Card.class);
         objectifyFactory.register(Guild.class);
         objectifyFactory.register(Scenery.class);
+        objectifyFactory.register(Campaign.class);
 
         objectifyRepository = spy(objectifyFactory.begin());
 

@@ -2,6 +2,8 @@ package br.com.battista.arcadia.caller.controller;
 
 import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseErro;
 import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseSuccess;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.ADMIN;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
 
 import java.util.List;
 
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
-import br.com.battista.arcadia.caller.constants.ProfileAppConstant;
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.User;
@@ -47,7 +48,7 @@ public class UserController {
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<List<User>> getAll(@RequestHeader("token") String token) throws AuthenticationException {
-        authenticationService.authetication(token, ProfileAppConstant.ADMIN);
+        authenticationService.authetication(token, ADMIN);
 
         log.info("Retrieve all users!");
         List<User> users = userService.getAllUsers();
@@ -66,7 +67,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<User> getByUsername(@RequestHeader("token") String token, @PathVariable("username") String username) throws
             AuthenticationException {
-        authenticationService.authetication(token, ProfileAppConstant.ADMIN, ProfileAppConstant.APP);
+        authenticationService.authetication(token, ADMIN, APP);
 
         log.info("Retrieve user by username: {}.", username);
         User user = userService.getUserByUsername(username);
@@ -85,7 +86,7 @@ public class UserController {
             consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
     public ResponseEntity<User> save(@RequestHeader("token") String token, @RequestBody User user) throws AuthenticationException {
-        authenticationService.authetication(token, ProfileAppConstant.ADMIN);
+        authenticationService.authetication(token, ADMIN);
 
         if (user == null) {
             log.warn(USER_CAN_NOT_BE_NULL);
@@ -103,7 +104,7 @@ public class UserController {
             consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
     public ResponseEntity<User> update(@RequestHeader("token") String token, @RequestBody User user) throws AuthenticationException {
-        authenticationService.authetication(token, ProfileAppConstant.ADMIN);
+        authenticationService.authetication(token, ADMIN);
 
         if (user == null) {
             log.warn(USER_CAN_NOT_BE_NULL);
@@ -119,7 +120,7 @@ public class UserController {
             consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
     public ResponseEntity delete(@RequestHeader("token") String token, @RequestBody User user) throws AuthenticationException {
-        authenticationService.authetication(token, ProfileAppConstant.ADMIN);
+        authenticationService.authetication(token, ADMIN);
 
         if (user == null) {
             log.warn(USER_CAN_NOT_BE_NULL);

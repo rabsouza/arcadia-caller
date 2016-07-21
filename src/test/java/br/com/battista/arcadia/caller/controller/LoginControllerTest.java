@@ -27,7 +27,7 @@ public class LoginControllerTest extends BaseControllerConfig {
 
     private final String mail = "teste@teste.com";
     private final String username = "teste";
-    private final ProfileAppConstant profile = ProfileAppConstant.APP;
+    private final ProfileAppConstant profile = ProfileAppConstant.ADMIN;
 
     @Rule
     public ExpectedException rule = ExpectedException.none();

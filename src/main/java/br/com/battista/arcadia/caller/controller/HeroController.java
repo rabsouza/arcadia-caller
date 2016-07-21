@@ -2,6 +2,8 @@ package br.com.battista.arcadia.caller.controller;
 
 import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseErro;
 import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseSuccess;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.ADMIN;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
 
 import java.util.List;
 
@@ -42,17 +44,17 @@ public class HeroController {
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<List<Hero>> getAll(@RequestHeader("token") String token) throws AuthenticationException {
-        authenticationService.authetication(token);
+        authenticationService.authetication(token, APP, ADMIN);
 
-        log.info("Retrieve all heros!");
-        List<Hero> heros = heroService.getAllHeroes();
+        log.info("Retrieve all heroes!");
+        List<Hero> heroes = heroService.getAllHeroes();
 
-        if (heros == null || heros.isEmpty()) {
-            log.warn("No heros found!");
+        if (heroes == null || heroes.isEmpty()) {
+            log.warn("No heroes found!");
             return buildResponseErro(HttpStatus.NO_CONTENT);
         } else {
-            log.info("Found {} heros!", heros.size());
-            return buildResponseSuccess(heros, HttpStatus.OK);
+            log.info("Found {} heroes!", heroes.size());
+            return buildResponseSuccess(heroes, HttpStatus.OK);
         }
     }
 
@@ -60,7 +62,7 @@ public class HeroController {
             produces = RestControllerConstant.PRODUCES, consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
     public ResponseEntity<Hero> save(@RequestHeader("token") String token, @RequestBody Hero hero) throws AuthenticationException {
-        authenticationService.authetication(token);
+        authenticationService.authetication(token, ADMIN);
 
         if (hero == null) {
             log.warn("Hero can not be null!");

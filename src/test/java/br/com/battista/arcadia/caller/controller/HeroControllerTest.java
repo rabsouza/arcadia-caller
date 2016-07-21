@@ -30,14 +30,12 @@ public class HeroControllerTest extends BaseControllerConfig {
     private final String name = "hero01";
     private final int defense = 2;
     private final int life = 4;
-    private String token = null;
     private final String username = "abc0_";
     private final String mail = "abc@abc.com";
-    private final ProfileAppConstant profile = ProfileAppConstant.APP;
-
+    private final ProfileAppConstant profile = ProfileAppConstant.ADMIN;
     @Rule
     public ExpectedException rule = ExpectedException.none();
-
+    private String token = null;
     @Autowired
     private HeroController heroController;
 
@@ -52,6 +50,18 @@ public class HeroControllerTest extends BaseControllerConfig {
         User savedUser = userRepository.saveOrUpdateUser(user);
         assertNotNull(savedUser);
         token = savedUser.getToken();
+    }
+
+    @Test
+    public void shouldReturnExceptionWhenUnauthorized() throws AuthenticationException {
+        User userApp = User.builder().username("usernameApp").mail("app@profile").profile(ProfileAppConstant.APP).build();
+
+        User savedUser = userRepository.saveOrUpdateUser(userApp);
+        assertNotNull(savedUser);
+
+        rule.expect(AuthenticationException.class);
+
+        heroController.save(savedUser.getToken(), null);
     }
 
     @Test

@@ -2,6 +2,8 @@ package br.com.battista.arcadia.caller.controller;
 
 import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseErro;
 import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseSuccess;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.ADMIN;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
 
 import java.util.List;
 
@@ -42,7 +44,7 @@ public class SceneryController {
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<List<Scenery>> getAll(@RequestHeader("token") String token) throws AuthenticationException {
-        authenticationService.authetication(token);
+        authenticationService.authetication(token, APP, ADMIN);
 
         log.info("Retrieve all sceneries!");
         List<Scenery> sceneries = sceneryService.getAllSceneries();
@@ -60,7 +62,7 @@ public class SceneryController {
             produces = RestControllerConstant.PRODUCES, consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
     public ResponseEntity<Scenery> save(@RequestHeader("token") String token, @RequestBody Scenery scenery) throws AuthenticationException {
-        authenticationService.authetication(token);
+        authenticationService.authetication(token, ADMIN);
 
         if (scenery == null) {
             log.warn("Scenery can not be null!");

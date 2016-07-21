@@ -35,14 +35,12 @@ public class SceneryControllerTest extends BaseControllerConfig {
     private final Card reward = Card.builder().name("wonReward").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).build();
     private final String title = "wonTitle";
     private final LocationSceneryEnum location = LocationSceneryEnum.NONE;
-    private String token = null;
     private final String username = "abc0_";
     private final String mail = "abc@abc.com";
-    private final ProfileAppConstant profile = ProfileAppConstant.APP;
-
+    private final ProfileAppConstant profile = ProfileAppConstant.ADMIN;
     @Rule
     public ExpectedException rule = ExpectedException.none();
-
+    private String token = null;
     @Autowired
     private SceneryController sceneryController;
 
@@ -57,6 +55,18 @@ public class SceneryControllerTest extends BaseControllerConfig {
         User savedUser = userRepository.saveOrUpdateUser(user);
         assertNotNull(savedUser);
         token = savedUser.getToken();
+    }
+
+    @Test
+    public void shouldReturnExceptionWhenUnauthorized() throws AuthenticationException {
+        User userApp = User.builder().username("usernameApp").mail("app@profile").profile(ProfileAppConstant.APP).build();
+
+        User savedUser = userRepository.saveOrUpdateUser(userApp);
+        assertNotNull(savedUser);
+
+        rule.expect(AuthenticationException.class);
+
+        sceneryController.save(savedUser.getToken(), null);
     }
 
     @Test

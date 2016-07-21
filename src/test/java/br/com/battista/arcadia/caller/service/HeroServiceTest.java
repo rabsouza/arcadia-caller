@@ -44,10 +44,10 @@ public class HeroServiceTest {
         Hero hero = Hero.builder().name(name).defense(defense).life(life).build();
         when(heroRepository.findAll()).thenReturn(Lists.newArrayList(hero));
 
-        List<Hero> heros = heroService.getAllHeroes();
-        assertNotNull(heros);
-        assertThat(heros, hasSize(1));
-        assertThat(heros.iterator().next().getName(), equalTo(name));
+        List<Hero> heroes = heroService.getAllHeroes();
+        assertNotNull(heroes);
+        assertThat(heroes, hasSize(1));
+        assertThat(heroes.iterator().next().getName(), equalTo(name));
 
     }
 

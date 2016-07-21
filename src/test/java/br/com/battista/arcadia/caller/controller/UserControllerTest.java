@@ -33,12 +33,10 @@ public class UserControllerTest extends BaseControllerConfig {
     private final String invalidUsername = "error";
     private final String invalidToken = "12345";
     private final String mail02 = "mail02@mail.com";
-    private String token;
     private final ProfileAppConstant profile = ProfileAppConstant.ADMIN;
-
     @Rule
     public ExpectedException rule = ExpectedException.none();
-
+    private String token;
     @Autowired
     private UserController userController;
 
@@ -53,6 +51,18 @@ public class UserControllerTest extends BaseControllerConfig {
         User savedUser = userRepository.saveOrUpdateUser(user);
         assertNotNull(savedUser);
         token = savedUser.getToken();
+    }
+
+    @Test
+    public void shouldReturnExceptionWhenUnauthorized() throws AuthenticationException {
+        User userApp = User.builder().username("usernameApp").mail("app@profile").profile(ProfileAppConstant.APP).build();
+
+        User savedUser = userRepository.saveOrUpdateUser(userApp);
+        assertNotNull(savedUser);
+
+        rule.expect(AuthenticationException.class);
+
+        userController.delete(savedUser.getToken(), null);
     }
 
     @Test

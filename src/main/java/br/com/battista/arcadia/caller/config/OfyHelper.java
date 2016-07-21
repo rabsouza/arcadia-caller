@@ -5,6 +5,7 @@ import javax.servlet.ServletContextListener;
 
 import com.googlecode.objectify.ObjectifyService;
 
+import br.com.battista.arcadia.caller.model.Campaign;
 import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Guild;
 import br.com.battista.arcadia.caller.model.Hero;
@@ -22,6 +23,7 @@ public class OfyHelper implements ServletContextListener {
         ObjectifyService.register(Hero.class);
         ObjectifyService.register(Guild.class);
         ObjectifyService.register(Scenery.class);
+        ObjectifyService.register(Campaign.class);
     }
 
     @Override

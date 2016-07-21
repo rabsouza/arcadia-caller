@@ -2,6 +2,8 @@ package br.com.battista.arcadia.caller.controller;
 
 import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseErro;
 import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseSuccess;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.ADMIN;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
 
 import java.util.List;
 
@@ -42,7 +44,7 @@ public class CardController {
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<List<Card>> getAll(@RequestHeader("token") String token) throws AuthenticationException {
-        authenticationService.authetication(token);
+        authenticationService.authetication(token, APP, ADMIN);
 
         log.info("Retrieve all cards!");
         List<Card> cards = cardService.getAllCards();
@@ -60,7 +62,7 @@ public class CardController {
             produces = RestControllerConstant.PRODUCES, consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
     public ResponseEntity<Card> save(@RequestHeader("token") String token, @RequestBody Card card) throws AuthenticationException {
-        authenticationService.authetication(token);
+        authenticationService.authetication(token, ADMIN);
 
         if (card == null) {
             log.warn("Card can not be null!");

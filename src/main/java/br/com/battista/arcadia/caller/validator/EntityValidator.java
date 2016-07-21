@@ -32,6 +32,7 @@ public class EntityValidator {
             String message = String.format("Constraint validation error to entity: %s",
                     entity.getClass().getSimpleName());
             log.error(message);
+            log.error("Violations: [{}]", violations);
             throw new ValidatorException(violations, message);
         }
     }
