@@ -32,7 +32,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Data
 @ToString(includeFieldNames = true, callSuper = true, exclude = {"token"})
-@EqualsAndHashCode(of = {"username"}, callSuper = false)
+@EqualsAndHashCode(of = {"usernameCreated"}, callSuper = false)
 @Cache(expirationSeconds = DURATION_CACHE)
 public class User extends BaseEntity implements Serializable {
 

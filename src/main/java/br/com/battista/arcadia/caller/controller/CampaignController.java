@@ -89,7 +89,7 @@ public class CampaignController {
             AuthenticationException {
         authenticationService.authetication(token, ADMIN, APP);
 
-        log.info("Retrieve campaigns by username: {}.", username);
+        log.info("Retrieve campaigns by usernameCreated: {}.", username);
         User user = User.builder().username(username).build();
         List<Campaign> campaigns = campaignService.getCampaignByUser(user);
 

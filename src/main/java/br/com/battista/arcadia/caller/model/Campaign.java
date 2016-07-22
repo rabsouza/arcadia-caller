@@ -43,6 +43,30 @@ public class Campaign extends BaseEntity implements Serializable {
     private Date when;
 
     @Index
+    private Guild guild1;
+
+    @Index
+    private String usernameGuild1;
+
+    @Index
+    private Guild guild2;
+
+    @Index
+    private String usernameGuild2;
+
+    @Index
+    private Guild guild3;
+
+    @Index
+    private String usernameGuild3;
+
+    @Index
+    private Guild guild4;
+
+    @Index
+    private String usernameGuild4;
+
+    @Index
     @NotBlank
     @Size(min = 5, max = 50)
     private String key;
@@ -64,7 +88,7 @@ public class Campaign extends BaseEntity implements Serializable {
     private User created;
 
     @Index
-    private String username;
+    private String usernameCreated;
 
     private Boolean active = Boolean.TRUE;
 

@@ -129,7 +129,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsername(), equalTo(user.getUsername()));
+        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
     }
 
@@ -144,7 +144,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsername(), equalTo(user.getUsername()));
+        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         ResponseEntity<List<Campaign>> responseFind = campaignController.getAll(token);
@@ -167,7 +167,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsername(), equalTo(user.getUsername()));
+        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         ResponseEntity<Campaign> responseFind = campaignController.getByKey(token, campaign.getKey());
@@ -176,7 +176,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(bodyFind);
         assertNotNull(bodyFind.getPk());
         assertThat(bodyFind.getKey(), equalTo(body.getKey()));
-        assertThat(bodyFind.getUsername(), equalTo(body.getCreated().getUsername()));
+        assertThat(bodyFind.getUsernameCreated(), equalTo(body.getCreated().getUsername()));
         assertThat(bodyFind.getVersion(), equalTo(body.getVersion()));
 
     }
@@ -192,7 +192,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsername(), equalTo(user.getUsername()));
+        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         ResponseEntity<Campaign> responseFind = campaignController.getByKey(token, invalidKey);
@@ -212,7 +212,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsername(), equalTo(user.getUsername()));
+        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         ResponseEntity<List<Campaign>> responseFind = campaignController.getByUser(token, campaign.getCreated().getUsername());
@@ -223,7 +223,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(bodyFind);
         assertNotNull(bodyFind.getPk());
         assertThat(bodyFind.getKey(), equalTo(body.getKey()));
-        assertThat(bodyFind.getUsername(), equalTo(body.getCreated().getUsername()));
+        assertThat(bodyFind.getUsernameCreated(), equalTo(body.getCreated().getUsername()));
         assertThat(bodyFind.getVersion(), equalTo(body.getVersion()));
 
     }
@@ -239,7 +239,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsername(), equalTo(user.getUsername()));
+        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         ResponseEntity<List<Campaign>> responseFind = campaignController.getByUser(token, "abc");
@@ -259,7 +259,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsername(), equalTo(user.getUsername()));
+        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         body.setKey(key);
@@ -269,7 +269,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(bodyUpdate);
         assertNotNull(bodyUpdate.getPk());
         assertThat(bodyUpdate.getKey(), equalTo(key));
-        assertThat(bodyUpdate.getUsername(), equalTo(user.getUsername()));
+        assertThat(bodyUpdate.getUsernameCreated(), equalTo(user.getUsername()));
         assertThat(bodyUpdate.getVersion(), not(equalTo(DEFAULT_VERSION)));
     }
 
@@ -286,7 +286,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsername(), equalTo(user.getUsername()));
+        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         Campaign campaign02 = Campaign.builder().key(key).when(new Date()).created(user).build();
@@ -313,7 +313,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsername(), equalTo(user.getUsername()));
+        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         body.setKey(key);
@@ -336,7 +336,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsername(), equalTo(user.getUsername()));
+        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         Campaign campaign02 = Campaign.builder().key(invalidKey).when(new Date()).created(user).build();

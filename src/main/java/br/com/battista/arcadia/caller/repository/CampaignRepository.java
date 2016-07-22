@@ -63,7 +63,7 @@ public class CampaignRepository {
         return objectifyRepository
                        .load()
                        .type(Campaign.class)
-                       .filter("username", username)
+                       .filter("usernameCreated", username)
                        .list();
 
     }
@@ -73,7 +73,7 @@ public class CampaignRepository {
             throw new RepositoryException("Campaign entity can not be null!");
         }
         entityValidator.validate(campaign);
-        campaign.setUsername(campaign.getCreated().getUsername());
+        campaign.setUsernameCreated(campaign.getCreated().getUsername());
 
         Campaign campaignFind = findByKey(campaign.getKey());
         if (campaignFind == null) {
