@@ -1,6 +1,7 @@
 package br.com.battista.arcadia.caller.controller;
 
 import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseSuccess;
+import static br.com.battista.arcadia.caller.constants.RestControllerConstant.ENABLE_CACHED_ACTION;
 
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public class AppController {
         body.put("group.id.app", env.getProperty("group.id.app"));
         body.put("artifact.id.app", env.getProperty("artifact.id.app"));
 
-        return buildResponseSuccess(body, HttpStatus.OK);
+        return buildResponseSuccess(body, HttpStatus.OK, ENABLE_CACHED_ACTION);
     }
 
 

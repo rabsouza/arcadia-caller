@@ -7,6 +7,7 @@ public final class RestControllerConstant {
     public static final String BODY_ERROR = "cause";
     public static final String DETAIL_ERROR = "error";
     public static final String DETAIL = "detail";
+    public static final Boolean ENABLE_CACHED_ACTION = true;
 
     private RestControllerConstant() {
     }

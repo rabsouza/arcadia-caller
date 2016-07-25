@@ -4,6 +4,7 @@ import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.build
 import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseSuccess;
 import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.ADMIN;
 import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
+import static br.com.battista.arcadia.caller.constants.RestControllerConstant.ENABLE_CACHED_ACTION;
 
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class SceneryController {
             return buildResponseErro(HttpStatus.NO_CONTENT);
         } else {
             log.info("Found {} sceneries!", sceneries.size());
-            return buildResponseSuccess(sceneries, HttpStatus.OK);
+            return buildResponseSuccess(sceneries, HttpStatus.OK, ENABLE_CACHED_ACTION);
         }
     }
 
