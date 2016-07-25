@@ -41,6 +41,8 @@ public class Guild extends BaseEntity implements Serializable {
 
     private List<String> benefitTitles;
 
+    private List<String> rewardCards;
+
     @Index
     @NotNull
     private NameGuildEnum name;
@@ -50,13 +52,13 @@ public class Guild extends BaseEntity implements Serializable {
     private User user;
 
     @NotNull
-    private HeroGuild hero1;
+    private HeroGuild hero01;
 
     @NotNull
-    private HeroGuild hero2;
+    private HeroGuild hero02;
 
     @NotNull
-    private HeroGuild hero3;
+    private HeroGuild hero03;
 
     @NotNull
     private Boolean savedMoney = Boolean.FALSE;

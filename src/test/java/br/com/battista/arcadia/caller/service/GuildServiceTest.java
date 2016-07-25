@@ -74,7 +74,7 @@ public class GuildServiceTest {
 
     @Test
     public void shouldGetAllGuilds() {
-        Guild guild = Guild.builder().user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+        Guild guild = Guild.builder().user(user).name(nameGuild).hero01(heroGuild1).hero02(heroGuild2).hero03(heroGuild3).build();
         when(guildRepository.findAll()).thenReturn(Lists.newArrayList(guild));
 
         List<Guild> guilds = guildService.getAllGuilds();
@@ -86,7 +86,7 @@ public class GuildServiceTest {
 
     @Test
     public void shouldGetGuildByName() {
-        Guild guild = Guild.builder().id(1l).user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+        Guild guild = Guild.builder().id(1l).user(user).name(nameGuild).hero01(heroGuild1).hero02(heroGuild2).hero03(heroGuild3).build();
         guild.initEntity();
         when(guildRepository.findByName(anyString())).thenReturn(guild);
 
@@ -99,7 +99,7 @@ public class GuildServiceTest {
 
     @Test
     public void shouldGetGuildByMail() {
-        Guild guild = Guild.builder().id(1l).user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+        Guild guild = Guild.builder().id(1l).user(user).name(nameGuild).hero01(heroGuild1).hero02(heroGuild2).hero03(heroGuild3).build();
         guild.initEntity();
         when(guildRepository.findByMail(anyString())).thenReturn(guild);
 
@@ -112,7 +112,7 @@ public class GuildServiceTest {
 
     @Test
     public void shouldSaveGuildWhenGuildValid() {
-        Guild guild = Guild.builder().id(1l).user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+        Guild guild = Guild.builder().id(1l).user(user).name(nameGuild).hero01(heroGuild1).hero02(heroGuild2).hero03(heroGuild3).build();
         guild.initEntity();
         when(guildRepository.saveOrUpdateGuild((Guild) any())).thenReturn(guild);
 

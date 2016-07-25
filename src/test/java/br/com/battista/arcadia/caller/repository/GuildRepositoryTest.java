@@ -42,25 +42,19 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
     private final GroupCardEnum group = GroupCardEnum.STARTING_EQUIPMENT;
     private final int defense = 2;
     private final int life = 4;
-
     @Rule
     public ExpectedException rule = ExpectedException.none();
-
     private User user;
     private Card card;
     private Hero hero;
     private HeroGuild heroGuild1;
     private HeroGuild heroGuild2;
     private HeroGuild heroGuild3;
-
     @InjectMocks
     private GuildRepository guildRepository;
 
     @Mock
     private EntityValidator entityValidator;
-
-    @Mock
-    private HeroGuildRepository heroGuildRepository;
 
     @Before
     public void setup() {
@@ -88,7 +82,7 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
     @Test
     public void shouldReturnGuildsWhenFindAllGuilds() {
 
-        Guild guild = Guild.builder().user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+        Guild guild = Guild.builder().user(user).name(nameGuild).hero01(heroGuild1).hero02(heroGuild2).hero03(heroGuild3).build();
         objectifyRepository.save().entity(guild).now();
 
         List<Guild> guilds = guildRepository.findAll();
@@ -99,7 +93,7 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldSaveGuildWhenValidGuild() {
-        Guild guild = Guild.builder().user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+        Guild guild = Guild.builder().user(user).name(nameGuild).hero01(heroGuild1).hero02(heroGuild2).hero03(heroGuild3).build();
 
         Guild savedGuild = guildRepository.saveOrUpdateGuild(guild);
         assertNotNull(savedGuild);
@@ -108,14 +102,14 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
         assertThat(savedGuild.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
         assertThat(savedGuild.getName(), equalTo(nameGuild));
         assertThat(savedGuild.getUser(), equalTo(user));
-        assertThat(savedGuild.getHero1(), equalTo(heroGuild1));
-        assertThat(savedGuild.getHero2(), equalTo(heroGuild2));
-        assertThat(savedGuild.getHero3(), equalTo(heroGuild3));
+        assertThat(savedGuild.getHero01(), equalTo(heroGuild1));
+        assertThat(savedGuild.getHero02(), equalTo(heroGuild2));
+        assertThat(savedGuild.getHero03(), equalTo(heroGuild3));
     }
 
     @Test
     public void shouldFindByNameWhenValidGuildAndValidName() {
-        Guild guild = Guild.builder().user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+        Guild guild = Guild.builder().user(user).name(nameGuild).hero01(heroGuild1).hero02(heroGuild2).hero03(heroGuild3).build();
 
         Guild savedGuild = guildRepository.saveOrUpdateGuild(guild);
         assertNotNull(savedGuild);
@@ -130,14 +124,14 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
         assertThat(guildFind.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
         assertThat(guildFind.getName(), equalTo(savedGuild.getName()));
         assertThat(guildFind.getUser(), equalTo(savedGuild.getUser()));
-        assertThat(guildFind.getHero1(), equalTo(savedGuild.getHero1()));
-        assertThat(guildFind.getHero2(), equalTo(savedGuild.getHero2()));
-        assertThat(guildFind.getHero3(), equalTo(savedGuild.getHero3()));
+        assertThat(guildFind.getHero01(), equalTo(savedGuild.getHero01()));
+        assertThat(guildFind.getHero02(), equalTo(savedGuild.getHero02()));
+        assertThat(guildFind.getHero03(), equalTo(savedGuild.getHero03()));
     }
 
     @Test
     public void shouldReturnNullWhenFindByNameWithValidGuildAndInvalidName() {
-        Guild guild = Guild.builder().user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+        Guild guild = Guild.builder().user(user).name(nameGuild).hero01(heroGuild1).hero02(heroGuild2).hero03(heroGuild3).build();
 
         Guild savedGuild = guildRepository.saveOrUpdateGuild(guild);
         assertNotNull(savedGuild);
@@ -151,7 +145,7 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByMailWhenValidGuildAndValidMail() {
-        Guild guild = Guild.builder().user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+        Guild guild = Guild.builder().user(user).name(nameGuild).hero01(heroGuild1).hero02(heroGuild2).hero03(heroGuild3).build();
 
         Guild savedGuild = guildRepository.saveOrUpdateGuild(guild);
         assertNotNull(savedGuild);
@@ -166,14 +160,14 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
         assertThat(guildFind.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
         assertThat(guildFind.getName(), equalTo(savedGuild.getName()));
         assertThat(guildFind.getUser(), equalTo(savedGuild.getUser()));
-        assertThat(guildFind.getHero1(), equalTo(savedGuild.getHero1()));
-        assertThat(guildFind.getHero2(), equalTo(savedGuild.getHero2()));
-        assertThat(guildFind.getHero3(), equalTo(savedGuild.getHero3()));
+        assertThat(guildFind.getHero01(), equalTo(savedGuild.getHero01()));
+        assertThat(guildFind.getHero02(), equalTo(savedGuild.getHero02()));
+        assertThat(guildFind.getHero03(), equalTo(savedGuild.getHero03()));
     }
 
     @Test
     public void shouldReturnNullWhenFindByMailWithValidGuildAndInvalidMail() {
-        Guild guild = Guild.builder().user(user).name(nameGuild).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+        Guild guild = Guild.builder().user(user).name(nameGuild).hero01(heroGuild1).hero02(heroGuild2).hero03(heroGuild3).build();
 
         Guild savedGuild = guildRepository.saveOrUpdateGuild(guild);
         assertNotNull(savedGuild);
@@ -187,7 +181,7 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldThrowExceptionWhenSaveGuildWithInvalidName() {
-        Guild guild = Guild.builder().user(user).hero1(heroGuild1).hero2(heroGuild2).hero3(heroGuild3).build();
+        Guild guild = Guild.builder().user(user).hero01(heroGuild1).hero02(heroGuild2).hero03(heroGuild3).build();
 
         doThrow(ValidatorException.class).when(entityValidator).validate((BaseEntity) anyObject());
 

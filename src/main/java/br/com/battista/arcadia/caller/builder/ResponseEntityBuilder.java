@@ -35,7 +35,7 @@ public class ResponseEntityBuilder {
         } else {
             headers.put(CACHE_CONTROL, Lists.newArrayList(HEADER_NO_CACHE_CONTROL));
         }
-        return new ResponseEntity(body, httpStatus);
+        return new ResponseEntity(body, headers, httpStatus);
     }
 
     public static ResponseEntity buildResponseSuccess(HttpStatus httpStatus) {

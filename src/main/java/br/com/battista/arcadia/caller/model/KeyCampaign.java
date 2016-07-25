@@ -26,7 +26,7 @@ public class KeyCampaign implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    public static final String PREFIX_KEY = "AQ-CB";
+    public static final String PREFIX_KEY = "AQ-CB-";
 
     @Id
     private Long id;

@@ -74,13 +74,13 @@ public class GuildRepository {
         }
         entityValidator.validate(guild);
 
-        HeroGuild hero1 = guild.getHero1();
+        HeroGuild hero1 = guild.getHero01();
         saveHero(hero1);
 
-        HeroGuild hero2 = guild.getHero2();
+        HeroGuild hero2 = guild.getHero02();
         saveHero(hero2);
 
-        HeroGuild hero3 = guild.getHero3();
+        HeroGuild hero3 = guild.getHero03();
         saveHero(hero3);
 
         saveGuild(guild);
