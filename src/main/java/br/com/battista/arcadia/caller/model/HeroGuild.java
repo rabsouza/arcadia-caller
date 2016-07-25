@@ -41,6 +41,10 @@ public class HeroGuild extends BaseEntity implements Serializable {
 
     private Card curseCard;
 
+    private Boolean active = Boolean.TRUE;
+
+    private Boolean deleted = Boolean.FALSE;
+
     @Override
     public Object getPk() {
         return getId();

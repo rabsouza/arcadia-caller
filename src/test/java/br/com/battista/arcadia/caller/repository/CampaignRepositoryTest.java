@@ -33,11 +33,17 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
     private final ProfileAppConstant profile = ProfileAppConstant.APP;
     private final String key = "AQ-CB-1";
     private final String key2 = "AQ-CB-2";
+
     @Rule
     public ExpectedException rule = ExpectedException.none();
+
     private User user = null;
+
     @InjectMocks
     private CampaignRepository campaignRepository;
+
+    @Mock
+    private UserRepository userRepository;
 
     @Mock
     private EntityValidator entityValidator;

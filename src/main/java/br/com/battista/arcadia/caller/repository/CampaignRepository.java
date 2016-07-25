@@ -12,6 +12,7 @@ import com.googlecode.objectify.Objectify;
 import br.com.battista.arcadia.caller.exception.EntityAlreadyExistsException;
 import br.com.battista.arcadia.caller.exception.EntityNotFoundException;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
+import br.com.battista.arcadia.caller.model.BaseEntity;
 import br.com.battista.arcadia.caller.model.Campaign;
 import br.com.battista.arcadia.caller.model.User;
 import br.com.battista.arcadia.caller.utils.MergeBeanUtils;
@@ -27,6 +28,9 @@ public class CampaignRepository {
 
     @Autowired
     private Objectify objectifyRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Campaign> findAll() {
         log.info("Find all campaigns!");
@@ -80,9 +84,7 @@ public class CampaignRepository {
             campaign.initEntity();
             log.info("Save to campaign: {}!", campaign);
 
-            objectifyRepository.save()
-                    .entity(campaign)
-                    .now();
+            saveCampaign(campaign);
             return campaign;
         } else if (campaignFind.getVersion() != campaign.getVersion()) {
             String cause = MessageFormat.format("There is already an {0} object registered with different version!" +
@@ -95,12 +97,27 @@ public class CampaignRepository {
             campaignFind.updateEntity();
             log.info("Update to campaign: {}!", campaignFind);
 
-            objectifyRepository.save()
-                    .entity(campaignFind)
-                    .now();
+            saveCampaign(campaignFind);
             return campaignFind;
         }
 
+    }
+
+    private void saveCampaign(Campaign campaign) {
+
+        User created = campaign.getCreated();
+        if (created != null) {
+            log.info("Save te created user: {}.", created);
+            userRepository.saveOrUpdateUser(created);
+        }
+
+        saveEntity(campaign);
+    }
+
+    private void saveEntity(BaseEntity entity) {
+        objectifyRepository.save()
+                        .entity(entity)
+                        .now();
     }
 
     public void deleteByKey(Campaign campaign) {

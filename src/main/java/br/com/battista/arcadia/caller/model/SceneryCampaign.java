@@ -3,9 +3,7 @@ package br.com.battista.arcadia.caller.model;
 import static br.com.battista.arcadia.caller.constants.CacheConstant.DURATION_CACHE;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -28,55 +26,31 @@ import lombok.ToString;
 @NoArgsConstructor
 @Data
 @ToString(includeFieldNames = true, callSuper = true)
-@EqualsAndHashCode(of = {"name"}, callSuper = false)
+@EqualsAndHashCode(of = { "id" }, callSuper = false)
 @Cache(expirationSeconds = DURATION_CACHE)
-public class Campaign extends BaseEntity implements Serializable {
+public class SceneryCampaign extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     private Long id;
 
-    private String alias;
-
-    @NotNull
-    private Date when;
-
-    @Index
-    private String usernameGuild1;
-
-    @Index
-    private String usernameGuild2;
-
-    @Index
-    private String usernameGuild3;
-
-    @Index
-    private String usernameGuild4;
-
     @Index
     @NotBlank
     @Size(min = 5, max = 50)
-    private String key;
+    private String nameScenery;
 
-    private SceneryCampaign scenery1;
+    private Scenery scenery;
 
-    private SceneryCampaign scenery2;
+    private String usernameWinner;
 
-    private SceneryCampaign scenery3;
+    private String usernameLeastDeaths;
 
-    private SceneryCampaign scenery4;
+    private String usernameMostCoins;
 
-    private SceneryCampaign scenery5;
+    private String usernameWonReward;
 
-    private SceneryCampaign scenery6;
-
-    @Index
-    @NotNull
-    private User created;
-
-    @Index
-    private String usernameCreated;
+    private String usernameWonTitle;
 
     private Boolean active = Boolean.TRUE;
 
