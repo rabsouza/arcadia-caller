@@ -63,8 +63,6 @@ public class Campaign extends BaseEntity implements Serializable {
     private Guild heroesGuild04;
 
     @Index
-    @NotBlank
-    @Size(min = 5, max = 50)
     private String key;
 
     private SceneryCampaign scenery1;

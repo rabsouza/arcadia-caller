@@ -168,19 +168,13 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
     }
 
     @Test
-    public void shouldThrowExceptionWhenFindByNameWithNullCampaign() {
-        rule.expect(RepositoryException.class);
-        rule.expectMessage(containsString("not be null!"));
-
-        campaignRepository.findByKey(null);
+    public void shouldReturnNullWhenFindByNameWithNullCampaign() {
+        assertNull(campaignRepository.findByKey(null));
     }
 
     @Test
-    public void shouldThrowExceptionWhenFindByNameWithEmptyCampaign() {
-        rule.expect(RepositoryException.class);
-        rule.expectMessage(containsString("not be null!"));
-
-        campaignRepository.findByKey("");
+    public void shouldReturnNullWhenFindByNameWithEmptyCampaign() {
+        assertNull(campaignRepository.findByKey(""));
     }
 
     @Test

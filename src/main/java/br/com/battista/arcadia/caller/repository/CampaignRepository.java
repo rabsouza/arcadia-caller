@@ -34,6 +34,9 @@ public class CampaignRepository {
     private UserRepository userRepository;
 
     @Autowired
+    private KeyCampaignRepository keyCampaignRepository;
+
+    @Autowired
     private SceneryCampaignRepository sceneryCampaignRepository;
 
     public List<Campaign> findAll() {
@@ -48,7 +51,8 @@ public class CampaignRepository {
 
     public Campaign findByKey(String key) {
         if (Strings.isNullOrEmpty(key)) {
-            throw new RepositoryException("Key can not be null!");
+            log.warn("Key can not be null!");
+            return null;
         }
         log.info("Find campaign by key: {}!", key);
 
@@ -119,6 +123,11 @@ public class CampaignRepository {
         }
 
         saveSceneryCampaign(campaign);
+
+        if(com.google.common.base.Strings.isNullOrEmpty(campaign.getKey())) {
+            log.debug("Set next key in campaign!");
+            campaign.setKey(keyCampaignRepository.nextKey());
+        }
         saveEntity(campaign);
     }
 

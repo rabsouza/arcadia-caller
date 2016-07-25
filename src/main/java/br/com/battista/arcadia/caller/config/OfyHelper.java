@@ -10,6 +10,7 @@ import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Guild;
 import br.com.battista.arcadia.caller.model.Hero;
 import br.com.battista.arcadia.caller.model.HeroGuild;
+import br.com.battista.arcadia.caller.model.KeyCampaign;
 import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.model.SceneryCampaign;
 import br.com.battista.arcadia.caller.model.User;
@@ -28,6 +29,7 @@ public class OfyHelper implements ServletContextListener {
         ObjectifyService.register(Scenery.class);
         ObjectifyService.register(Campaign.class);
         ObjectifyService.register(SceneryCampaign.class);
+        ObjectifyService.register(KeyCampaign.class);
     }
 
     @Override

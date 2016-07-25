@@ -19,6 +19,7 @@ import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Guild;
 import br.com.battista.arcadia.caller.model.Hero;
 import br.com.battista.arcadia.caller.model.HeroGuild;
+import br.com.battista.arcadia.caller.model.KeyCampaign;
 import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.model.SceneryCampaign;
 import br.com.battista.arcadia.caller.model.User;
@@ -41,6 +42,7 @@ public abstract class BaseRepositoryConfig {
         objectifyFactory.register(Scenery.class);
         objectifyFactory.register(Campaign.class);
         objectifyFactory.register(SceneryCampaign.class);
+        objectifyFactory.register(KeyCampaign.class);
 
         objectifyRepository = spy(objectifyFactory.begin());
 
