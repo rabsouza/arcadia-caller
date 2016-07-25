@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.googlecode.objectify.Objectify;
 
 import br.com.battista.arcadia.caller.exception.RepositoryException;
@@ -30,21 +29,6 @@ public class HeroGuildRepository {
                        .type(HeroGuild.class)
                        .order("-updatedAt")
                        .list();
-
-    }
-
-    public HeroGuild findByName(String name) {
-        if (Strings.isNullOrEmpty(name)) {
-            throw new RepositoryException("Name can not be null!");
-        }
-        log.info("Find heroGuild by name: {}!", name);
-
-        return objectifyRepository
-                       .load()
-                       .type(HeroGuild.class)
-                       .filter("name", name)
-                       .first()
-                       .now();
 
     }
 
