@@ -55,6 +55,8 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
         objectifyRepository.save()
                 .entity(user)
                 .now();
+
+        when(userRepository.findByUsername(anyString())).thenReturn(user);
     }
 
     @Test
@@ -66,7 +68,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnCampaignsWhenFindAllCampaigns() {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
         objectifyRepository.save().entity(campaign).now();
 
         List<Campaign> campaigns = campaignRepository.findAll();
@@ -77,7 +79,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldSaveCampaignWhenValidCampaign() {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         Campaign savedCampaign = campaignRepository.saveOrUpdateCampaign(campaign);
         assertNotNull(savedCampaign);
@@ -88,7 +90,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByNameWhenValidCampaignAndValidKey() {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         Campaign savedCampaign = campaignRepository.saveOrUpdateCampaign(campaign);
         assertNotNull(savedCampaign);
@@ -105,7 +107,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnNullWhenFindByNameWithValidCampaignAndInvalidName() {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         Campaign savedCampaign = campaignRepository.saveOrUpdateCampaign(campaign);
         assertNotNull(savedCampaign);
@@ -119,7 +121,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByNameWhenValidCampaignAndValidUser() {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         Campaign savedCampaign = campaignRepository.saveOrUpdateCampaign(campaign);
         assertNotNull(savedCampaign);
@@ -140,7 +142,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByNameWhenValidCampaignAndInvalidUser() {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         Campaign savedCampaign = campaignRepository.saveOrUpdateCampaign(campaign);
         assertNotNull(savedCampaign);
@@ -156,7 +158,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldThrowExceptionWhenSaveCampaignWithInvalidName() {
-        Campaign campaign = Campaign.builder().key("abc").when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key("abc").when(new Date()).created(user.getUsername()).build();
 
         doThrow(ValidatorException.class).when(entityValidator).validate((BaseEntity) anyObject());
 
@@ -200,7 +202,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldUpdateCampaignWhenValidCampaignAndValidKey() {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         Campaign savedCampaign = campaignRepository.saveOrUpdateCampaign(campaign);
         assertNotNull(savedCampaign);
@@ -214,7 +216,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
         assertThat(campaignFind.getVersion(), equalTo(savedCampaign.getVersion()));
         assertThat(campaignFind.getKey(), equalTo(savedCampaign.getKey()));
 
-        Campaign campaign02 = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign02 = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
         campaign02.initEntity();
         Campaign updatedCampaign = campaignRepository.saveOrUpdateCampaign(campaign02);
         assertThat(updatedCampaign.getPk(), equalTo(campaignFind.getPk()));
@@ -226,7 +228,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
     public void shouldReturnExceptionWhenUpdateCampaignWithDifferentVersion() {
         rule.expect(EntityAlreadyExistsException.class);
 
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         Campaign savedCampaign = campaignRepository.saveOrUpdateCampaign(campaign);
         assertNotNull(savedCampaign);
@@ -240,7 +242,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
         assertThat(campaignFind.getVersion(), equalTo(savedCampaign.getVersion()));
         assertThat(campaignFind.getKey(), equalTo(savedCampaign.getKey()));
 
-        Campaign campaign02 = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign02 = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
         campaign02.initEntity();
         campaign02.updateEntity();
         campaignRepository.saveOrUpdateCampaign(campaign02);
@@ -248,7 +250,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldDeleteCampaignWhenValidCampaignAndValidKey() {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         Campaign savedCampaign = campaignRepository.saveOrUpdateCampaign(campaign);
         assertNotNull(savedCampaign);
@@ -262,7 +264,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
         assertThat(campaignFind.getVersion(), equalTo(savedCampaign.getVersion()));
         assertThat(campaignFind.getKey(), equalTo(savedCampaign.getKey()));
 
-        Campaign campaign02 = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign02 = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
         campaignRepository.deleteByKey(campaign02);
     }
 
@@ -270,7 +272,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
     public void shouldReturnExceptionWhenDeleteInvalidKey() {
         rule.expect(EntityNotFoundException.class);
 
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         Campaign savedCampaign = campaignRepository.saveOrUpdateCampaign(campaign);
         assertNotNull(savedCampaign);
@@ -284,7 +286,7 @@ public class CampaignRepositoryTest extends BaseRepositoryConfig {
         assertThat(campaignFind.getVersion(), equalTo(savedCampaign.getVersion()));
         assertThat(campaignFind.getKey(), equalTo(savedCampaign.getKey()));
 
-        Campaign campaign02 = Campaign.builder().key(key2).when(new Date()).created(user).build();
+        Campaign campaign02 = Campaign.builder().key(key2).when(new Date()).created(user.getUsername()).build();
         campaignRepository.deleteByKey(campaign02);
     }
 

@@ -1,7 +1,5 @@
 package br.com.battista.arcadia.caller.model;
 
-import static br.com.battista.arcadia.caller.constants.CacheConstant.DURATION_CACHE;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,7 +8,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
@@ -28,8 +25,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Data
 @ToString(includeFieldNames = true, callSuper = true)
-@EqualsAndHashCode(of = {"name"}, callSuper = false)
-@Cache(expirationSeconds = DURATION_CACHE)
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
 public class Campaign extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,16 +39,16 @@ public class Campaign extends BaseEntity implements Serializable {
     private Date when;
 
     @Index
-    private String usernameGuild1;
+    private String guild1;
 
     @Index
-    private String usernameGuild2;
+    private String guild2;
 
     @Index
-    private String usernameGuild3;
+    private String guild3;
 
     @Index
-    private String usernameGuild4;
+    private String guild4;
 
     @Index
     @NotBlank
@@ -72,11 +68,9 @@ public class Campaign extends BaseEntity implements Serializable {
     private SceneryCampaign scenery6;
 
     @Index
-    @NotNull
-    private User created;
-
-    @Index
-    private String usernameCreated;
+    @NotBlank
+    @Size(min = 5, max = 30)
+    private String created;
 
     private Boolean active = Boolean.TRUE;
 

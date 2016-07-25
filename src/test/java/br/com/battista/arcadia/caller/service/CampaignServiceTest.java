@@ -52,7 +52,7 @@ public class CampaignServiceTest {
 
     @Test
     public void shouldGetAllCampaigns() {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
         when(campaignRepository.findAll()).thenReturn(Lists.newArrayList(campaign));
 
         List<Campaign> campaigns = campaignService.getAllCampaigns();
@@ -64,7 +64,7 @@ public class CampaignServiceTest {
 
     @Test
     public void shouldGetCampaignByKey() {
-        Campaign campaign = Campaign.builder().id(1l).key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().id(1l).key(key).when(new Date()).created(user.getUsername()).build();
         campaign.initEntity();
         when(campaignRepository.findByKey(anyString())).thenReturn(campaign);
 
@@ -77,7 +77,7 @@ public class CampaignServiceTest {
 
     @Test
     public void shouldGetCampaignByUser() {
-        Campaign campaign = Campaign.builder().id(1l).key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().id(1l).key(key).when(new Date()).created(user.getUsername()).build();
         campaign.initEntity();
         when(campaignRepository.findByUser((User) any())).thenReturn(Lists.<Campaign>newArrayList(campaign));
 
@@ -93,7 +93,7 @@ public class CampaignServiceTest {
 
     @Test
     public void shouldSaveCampaignWhenCampaignValid() {
-        Campaign campaign = Campaign.builder().id(1l).key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().id(1l).key(key).when(new Date()).created(user.getUsername()).build();
         campaign.initEntity();
         when(campaignRepository.saveOrUpdateCampaign((Campaign) any())).thenReturn(campaign);
 
@@ -106,7 +106,7 @@ public class CampaignServiceTest {
 
     @Test
     public void shouldUpdateCampaignWhenCampaignValid() {
-        Campaign campaign = Campaign.builder().id(1l).key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().id(1l).key(key).when(new Date()).created(user.getUsername()).build();
         campaign.initEntity();
         campaign.updateEntity();
         when(campaignRepository.saveOrUpdateCampaign((Campaign) any())).thenReturn(campaign);
@@ -120,7 +120,7 @@ public class CampaignServiceTest {
 
     @Test
     public void shouldDeleteCampaignWhenCampaignValid() {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
         campaign.initEntity();
         doNothing().when(campaignRepository).deleteByKey((Campaign) any());
 
@@ -131,7 +131,7 @@ public class CampaignServiceTest {
     public void shouldReturnExceptionWhenDeleteInvalidCampaign() {
         rule.expect(EntityNotFoundException.class);
 
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
         campaign.initEntity();
         doThrow(EntityNotFoundException.class).when(campaignRepository).deleteByKey((Campaign) any());
 

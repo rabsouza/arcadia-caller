@@ -120,7 +120,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenValidCampaignToActionSave() throws AuthenticationException {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         ResponseEntity<Campaign> responseEntity = campaignController.save(token, campaign);
 
@@ -129,13 +129,13 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
+        assertThat(body.getCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
     }
 
     @Test
     public void shouldReturnSuccessWhenValidCampaignToActionGetAll() throws AuthenticationException {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         ResponseEntity<Campaign> responseEntity = campaignController.save(token, campaign);
 
@@ -144,7 +144,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
+        assertThat(body.getCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         ResponseEntity<List<Campaign>> responseFind = campaignController.getAll(token);
@@ -158,7 +158,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenValidCampaignToActionGetByKey() throws AuthenticationException {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         ResponseEntity<Campaign> responseEntity = campaignController.save(token, campaign);
 
@@ -167,7 +167,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
+        assertThat(body.getCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         ResponseEntity<Campaign> responseFind = campaignController.getByKey(token, campaign.getKey());
@@ -176,14 +176,14 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(bodyFind);
         assertNotNull(bodyFind.getPk());
         assertThat(bodyFind.getKey(), equalTo(body.getKey()));
-        assertThat(bodyFind.getUsernameCreated(), equalTo(body.getCreated().getUsername()));
+        assertThat(bodyFind.getCreated(), equalTo(body.getCreated()));
         assertThat(bodyFind.getVersion(), equalTo(body.getVersion()));
 
     }
 
     @Test
     public void shouldReturnNotFoundWhenInvalidKeyToActionGetByKey() throws AuthenticationException {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         ResponseEntity<Campaign> responseEntity = campaignController.save(token, campaign);
 
@@ -192,7 +192,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
+        assertThat(body.getCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         ResponseEntity<Campaign> responseFind = campaignController.getByKey(token, invalidKey);
@@ -203,7 +203,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenValidCampaignToActionGetByUser() throws AuthenticationException {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         ResponseEntity<Campaign> responseEntity = campaignController.save(token, campaign);
 
@@ -212,10 +212,10 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
+        assertThat(body.getCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
-        ResponseEntity<List<Campaign>> responseFind = campaignController.getByUser(token, campaign.getCreated().getUsername());
+        ResponseEntity<List<Campaign>> responseFind = campaignController.getByUser(token, campaign.getCreated());
         assertThat(responseFind.getStatusCode(), equalTo(HttpStatus.OK));
         assertNotNull(responseFind.getBody());
         assertThat(responseFind.getBody(), hasSize(greaterThan(0)));
@@ -223,14 +223,14 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(bodyFind);
         assertNotNull(bodyFind.getPk());
         assertThat(bodyFind.getKey(), equalTo(body.getKey()));
-        assertThat(bodyFind.getUsernameCreated(), equalTo(body.getCreated().getUsername()));
+        assertThat(bodyFind.getCreated(), equalTo(body.getCreated()));
         assertThat(bodyFind.getVersion(), equalTo(body.getVersion()));
 
     }
 
     @Test
     public void shouldReturnNoContentWhenInvalidKeyToActionGetByUser() throws AuthenticationException {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         ResponseEntity<Campaign> responseEntity = campaignController.save(token, campaign);
 
@@ -239,7 +239,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
+        assertThat(body.getCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         ResponseEntity<List<Campaign>> responseFind = campaignController.getByUser(token, "abc");
@@ -250,7 +250,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenValidCampaignToActionUpdate() throws AuthenticationException {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         ResponseEntity<Campaign> responseEntity = campaignController.save(token, campaign);
 
@@ -259,7 +259,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
+        assertThat(body.getCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         body.setKey(key);
@@ -269,7 +269,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(bodyUpdate);
         assertNotNull(bodyUpdate.getPk());
         assertThat(bodyUpdate.getKey(), equalTo(key));
-        assertThat(bodyUpdate.getUsernameCreated(), equalTo(user.getUsername()));
+        assertThat(bodyUpdate.getCreated(), equalTo(user.getUsername()));
         assertThat(bodyUpdate.getVersion(), not(equalTo(DEFAULT_VERSION)));
     }
 
@@ -277,7 +277,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
     public void shouldReturnExceptionWhenValidCampaignAndDifferentVersionToActionUpdate() throws AuthenticationException {
         rule.expect(EntityAlreadyExistsException.class);
 
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         ResponseEntity<Campaign> responseEntity = campaignController.save(token, campaign);
 
@@ -286,10 +286,10 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
+        assertThat(body.getCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
-        Campaign campaign02 = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign02 = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
         campaign02.initEntity();
         campaign02.updateEntity();
         campaignController.update(token, campaign02);
@@ -304,7 +304,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenValidCampaignToActionDelete() throws AuthenticationException {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         ResponseEntity<Campaign> responseEntity = campaignController.save(token, campaign);
 
@@ -313,7 +313,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
+        assertThat(body.getCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         body.setKey(key);
@@ -327,7 +327,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
     public void shouldReturnExceptionWhenInvalidKeyToActionDelete() throws AuthenticationException {
         rule.expect(EntityNotFoundException.class);
 
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         ResponseEntity<Campaign> responseEntity = campaignController.save(token, campaign);
 
@@ -336,10 +336,10 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertNotNull(body);
         assertNotNull(body.getPk());
         assertThat(body.getKey(), equalTo(key));
-        assertThat(body.getUsernameCreated(), equalTo(user.getUsername()));
+        assertThat(body.getCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
-        Campaign campaign02 = Campaign.builder().key(invalidKey).when(new Date()).created(user).build();
+        Campaign campaign02 = Campaign.builder().key(invalidKey).when(new Date()).created(user.getUsername()).build();
         campaign02.initEntity();
         campaign02.updateEntity();
         campaignController.delete(token, campaign02);
@@ -354,7 +354,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenExistsCampaignToActionGetAll() throws AuthenticationException {
-        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user).build();
+        Campaign campaign = Campaign.builder().key(key).when(new Date()).created(user.getUsername()).build();
 
         campaignController.save(token, campaign);
 

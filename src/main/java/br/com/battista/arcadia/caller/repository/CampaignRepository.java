@@ -67,7 +67,7 @@ public class CampaignRepository {
         return objectifyRepository
                        .load()
                        .type(Campaign.class)
-                       .filter("usernameCreated", username)
+                       .filter("created", username)
                        .list();
 
     }
@@ -77,7 +77,6 @@ public class CampaignRepository {
             throw new RepositoryException("Campaign entity can not be null!");
         }
         entityValidator.validate(campaign);
-        campaign.setUsernameCreated(campaign.getCreated().getUsername());
 
         Campaign campaignFind = findByKey(campaign.getKey());
         if (campaignFind == null) {
@@ -104,11 +103,15 @@ public class CampaignRepository {
     }
 
     private void saveCampaign(Campaign campaign) {
-
-        User created = campaign.getCreated();
-        if (created != null) {
-            log.info("Save te created user: {}.", created);
-            userRepository.saveOrUpdateUser(created);
+        String created = campaign.getCreated();
+        if (!Strings.isNullOrEmpty(created)) {
+            log.info("Find the created user by username: {}.", created);
+            User userCreated = userRepository.findByUsername(created);
+            if (userCreated == null) {
+                throw new RepositoryException("Not found created user!!!");
+            }
+        } else {
+            throw new RepositoryException("Create can not be null!!!");
         }
 
         saveEntity(campaign);
