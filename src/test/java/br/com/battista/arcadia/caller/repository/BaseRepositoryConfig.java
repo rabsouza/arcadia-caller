@@ -1,12 +1,13 @@
 package br.com.battista.arcadia.caller.repository;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.spy;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
@@ -17,7 +18,9 @@ import br.com.battista.arcadia.caller.model.Campaign;
 import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Guild;
 import br.com.battista.arcadia.caller.model.Hero;
+import br.com.battista.arcadia.caller.model.HeroGuild;
 import br.com.battista.arcadia.caller.model.Scenery;
+import br.com.battista.arcadia.caller.model.SceneryCampaign;
 import br.com.battista.arcadia.caller.model.User;
 
 public abstract class BaseRepositoryConfig {
@@ -32,10 +35,12 @@ public abstract class BaseRepositoryConfig {
 
         objectifyFactory.register(User.class);
         objectifyFactory.register(Hero.class);
+        objectifyFactory.register(HeroGuild.class);
         objectifyFactory.register(Card.class);
         objectifyFactory.register(Guild.class);
         objectifyFactory.register(Scenery.class);
         objectifyFactory.register(Campaign.class);
+        objectifyFactory.register(SceneryCampaign.class);
 
         objectifyRepository = spy(objectifyFactory.begin());
 

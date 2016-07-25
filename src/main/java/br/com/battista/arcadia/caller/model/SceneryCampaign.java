@@ -2,6 +2,7 @@ package br.com.battista.arcadia.caller.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -36,6 +37,8 @@ public class SceneryCampaign extends BaseEntity implements Serializable {
     @Size(min = 5, max = 50)
     private String name;
 
+    @Index
+    @NotNull
     private Scenery scenery;
 
     @Index
