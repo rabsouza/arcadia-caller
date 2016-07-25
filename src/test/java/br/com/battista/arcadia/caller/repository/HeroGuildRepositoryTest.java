@@ -43,6 +43,12 @@ public class HeroGuildRepositoryTest extends BaseRepositoryConfig {
     @Mock
     private EntityValidator entityValidator;
 
+    @Mock
+    private HeroRepository heroRepository;
+
+    @Mock
+    private CardRepository cardRepository;
+
     @Test
     public void shouldEmptyHeroGuildsWhenEmptyDataBase() {
         List<HeroGuild> heroGuilds = heroGuildRepository.findAll();

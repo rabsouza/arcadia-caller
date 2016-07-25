@@ -11,6 +11,7 @@ import com.googlecode.objectify.Objectify;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.model.Guild;
 import br.com.battista.arcadia.caller.model.HeroGuild;
+import br.com.battista.arcadia.caller.model.User;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +27,9 @@ public class GuildRepository {
 
     @Autowired
     private HeroGuildRepository heroGuildRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Guild> findAll() {
         log.info("Find all guilds!");
@@ -74,17 +78,30 @@ public class GuildRepository {
         }
         entityValidator.validate(guild);
 
-        HeroGuild hero1 = guild.getHero01();
-        saveHero(hero1);
-
-        HeroGuild hero2 = guild.getHero02();
-        saveHero(hero2);
-
-        HeroGuild hero3 = guild.getHero03();
-        saveHero(hero3);
+        saveHero(guild.getHero01());
+        saveHero(guild.getHero02());
+        saveHero(guild.getHero03());
+        findUser(guild, guild.getUser());
 
         saveGuild(guild);
         return guild;
+    }
+
+    private void findUser(Guild guild, User userGuild) {
+        if (userGuild != null) {
+            User user = userRepository.findByUsername(userGuild.getUsername());
+            if (user != null) {
+                guild.setUser(user);
+            } else {
+                userRepository.saveOrUpdateUser(user);
+            }
+        }
+    }
+
+    private void saveHero(HeroGuild hero) {
+        if(hero != null){
+            heroGuildRepository.saveOrUpdateHeroGuild(hero);
+        }
     }
 
     private void saveGuild(Guild guild) {
@@ -95,18 +112,6 @@ public class GuildRepository {
                         .save()
                 .entity(guild)
                 .now();
-    }
-
-    private void saveHero(HeroGuild hero) {
-        if(hero != null){
-            hero.initEntity();
-            log.info("Save the hero: {}!", hero);
-
-            objectifyRepository
-                            .save()
-                            .entity(hero)
-                            .now();
-        }
     }
 
 }

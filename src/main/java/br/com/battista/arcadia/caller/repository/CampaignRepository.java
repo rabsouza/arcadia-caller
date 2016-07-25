@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.google.appengine.repackaged.com.google.api.client.util.Strings;
+import com.google.common.base.Strings;
 import com.googlecode.objectify.Objectify;
 
 import br.com.battista.arcadia.caller.exception.EntityAlreadyExistsException;
@@ -14,6 +14,7 @@ import br.com.battista.arcadia.caller.exception.EntityNotFoundException;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.model.BaseEntity;
 import br.com.battista.arcadia.caller.model.Campaign;
+import br.com.battista.arcadia.caller.model.Guild;
 import br.com.battista.arcadia.caller.model.SceneryCampaign;
 import br.com.battista.arcadia.caller.model.User;
 import br.com.battista.arcadia.caller.utils.MergeBeanUtils;
@@ -38,6 +39,9 @@ public class CampaignRepository {
 
     @Autowired
     private SceneryCampaignRepository sceneryCampaignRepository;
+
+    @Autowired
+    private GuildRepository guildRepository;
 
     public List<Campaign> findAll() {
         log.info("Find all campaigns!");
@@ -116,22 +120,49 @@ public class CampaignRepository {
             log.info("Find the created user by username: {}.", created);
             User userCreated = userRepository.findByUsername(created);
             if (userCreated == null) {
-                throw new RepositoryException("Not found created user!!!");
+                throw new RepositoryException("Not found created user!");
             }
         } else {
-            throw new RepositoryException("Create can not be null!!!");
+            throw new RepositoryException("Campaign create can not be null!");
         }
 
-        saveSceneryCampaign(campaign);
+        saveSceneriesCampaign(campaign);
+        saveGuilds(campaign);
 
-        if(com.google.common.base.Strings.isNullOrEmpty(campaign.getKey())) {
+        if(Strings.isNullOrEmpty(campaign.getKey())) {
             log.debug("Set next key in campaign!");
             campaign.setKey(keyCampaignRepository.nextKey());
         }
         saveEntity(campaign);
     }
 
-    private void saveSceneryCampaign(Campaign campaign) {
+    private void saveGuilds(Campaign campaign) {
+        Guild guild01 = campaign.getHeroesGuild01();
+        if (guild01 != null) {
+            guildRepository.saveOrUpdateGuild(guild01);
+            campaign.setGuild01(guild01.getUser().getUsername());
+        }
+
+        Guild guild02 = campaign.getHeroesGuild02();
+        if (guild02 != null) {
+            guildRepository.saveOrUpdateGuild(guild02);
+            campaign.setGuild01(guild02.getUser().getUsername());
+        }
+
+        Guild guild03 = campaign.getHeroesGuild03();
+        if (guild03 != null) {
+            guildRepository.saveOrUpdateGuild(guild03);
+            campaign.setGuild01(guild03.getUser().getUsername());
+        }
+
+        Guild guild04 = campaign.getHeroesGuild04();
+        if (guild04 != null) {
+            guildRepository.saveOrUpdateGuild(guild04);
+            campaign.setGuild01(guild04.getUser().getUsername());
+        }
+    }
+
+    private void saveSceneriesCampaign(Campaign campaign) {
         SceneryCampaign scenery1 = campaign.getScenery1();
         if(scenery1 != null){
             sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery1);
