@@ -55,7 +55,7 @@ public class HeroRepository {
         entityValidator.validate(hero);
 
         hero.initEntity();
-        log.info("Save to hero: {}!", hero);
+        log.info("Save the hero: {}!", hero);
 
         objectifyRepository.save()
                 .entity(hero)

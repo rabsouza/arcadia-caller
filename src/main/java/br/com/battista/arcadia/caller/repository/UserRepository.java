@@ -82,7 +82,7 @@ public class UserRepository {
         User userFind = findByUsername(user.getUsername());
         if (userFind == null) {
             user.initEntity();
-            log.info("Save to user: {}!", user);
+            log.info("Save the user: {}!", user);
 
             objectifyRepository.save()
                     .entity(user)
@@ -97,7 +97,7 @@ public class UserRepository {
         } else {
             MergeBeanUtils.merge(userFind, user);
             userFind.updateEntity();
-            log.info("Update to user: {}!", userFind);
+            log.info("Update the user: {}!", userFind);
 
             objectifyRepository.save()
                     .entity(userFind)

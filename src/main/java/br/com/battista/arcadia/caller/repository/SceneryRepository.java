@@ -65,7 +65,7 @@ public class SceneryRepository {
         if (wonReward != null) {
             cardRepository.saveOrUpdateCard(wonReward);
         }
-        log.info("Save to scenery: {}!", scenery);
+        log.info("Save the scenery: {}!", scenery);
 
         saveEntity(scenery);
 

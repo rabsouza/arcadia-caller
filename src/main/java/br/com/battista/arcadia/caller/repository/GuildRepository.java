@@ -10,6 +10,7 @@ import com.googlecode.objectify.Objectify;
 
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.model.Guild;
+import br.com.battista.arcadia.caller.model.HeroGuild;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,10 +24,14 @@ public class GuildRepository {
     @Autowired
     private Objectify objectifyRepository;
 
+    @Autowired
+    private HeroGuildRepository heroGuildRepository;
+
     public List<Guild> findAll() {
         log.info("Find all guilds!");
 
-        return objectifyRepository.load()
+        return objectifyRepository
+                        .load()
                        .type(Guild.class)
                        .order("-updatedAt")
                        .list();
@@ -69,14 +74,39 @@ public class GuildRepository {
         }
         entityValidator.validate(guild);
 
-        guild.initEntity();
-        log.info("Save to guild: {}!", guild);
+        HeroGuild hero1 = guild.getHero1();
+        saveHero(hero1);
 
-        objectifyRepository.save()
+        HeroGuild hero2 = guild.getHero2();
+        saveHero(hero2);
+
+        HeroGuild hero3 = guild.getHero3();
+        saveHero(hero3);
+
+        saveGuild(guild);
+        return guild;
+    }
+
+    private void saveGuild(Guild guild) {
+        guild.initEntity();
+        log.info("Save the guild: {}!", guild);
+
+        objectifyRepository
+                        .save()
                 .entity(guild)
                 .now();
+    }
 
-        return guild;
+    private void saveHero(HeroGuild hero) {
+        if(hero != null){
+            hero.initEntity();
+            log.info("Save the hero: {}!", hero);
+
+            objectifyRepository
+                            .save()
+                            .entity(hero)
+                            .now();
+        }
     }
 
 }

@@ -25,7 +25,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Data
 @ToString(includeFieldNames = true, callSuper = true)
-@EqualsAndHashCode(of = {"id"}, callSuper = false)
+@EqualsAndHashCode(of = { "id" }, callSuper = false)
 public class Campaign extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,16 +39,28 @@ public class Campaign extends BaseEntity implements Serializable {
     private Date when;
 
     @Index
-    private String guild1;
+    private String guild01;
 
     @Index
-    private String guild2;
+    private Guild heroesGuild01;
 
     @Index
-    private String guild3;
+    private String guild02;
 
     @Index
-    private String guild4;
+    private Guild heroesGuild02;
+
+    @Index
+    private String guild03;
+
+    @Index
+    private Guild heroesGuild03;
+
+    @Index
+    private String guild04;
+
+    @Index
+    private Guild heroesGuild04;
 
     @Index
     @NotBlank

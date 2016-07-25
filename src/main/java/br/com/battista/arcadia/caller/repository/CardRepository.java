@@ -55,7 +55,7 @@ public class CardRepository {
         entityValidator.validate(card);
 
         card.initEntity();
-        log.info("Save to card: {}!", card);
+        log.info("Save the card: {}!", card);
 
         objectifyRepository.save()
                 .entity(card)

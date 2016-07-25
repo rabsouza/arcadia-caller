@@ -14,6 +14,7 @@ import br.com.battista.arcadia.caller.exception.EntityNotFoundException;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.model.BaseEntity;
 import br.com.battista.arcadia.caller.model.Campaign;
+import br.com.battista.arcadia.caller.model.SceneryCampaign;
 import br.com.battista.arcadia.caller.model.User;
 import br.com.battista.arcadia.caller.utils.MergeBeanUtils;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
@@ -31,6 +32,9 @@ public class CampaignRepository {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SceneryCampaignRepository sceneryCampaignRepository;
 
     public List<Campaign> findAll() {
         log.info("Find all campaigns!");
@@ -81,7 +85,7 @@ public class CampaignRepository {
         Campaign campaignFind = findByKey(campaign.getKey());
         if (campaignFind == null) {
             campaign.initEntity();
-            log.info("Save to campaign: {}!", campaign);
+            log.info("Save the campaign: {}!", campaign);
 
             saveCampaign(campaign);
             return campaign;
@@ -94,7 +98,7 @@ public class CampaignRepository {
         } else {
             MergeBeanUtils.merge(campaignFind, campaign);
             campaignFind.updateEntity();
-            log.info("Update to campaign: {}!", campaignFind);
+            log.info("Update the campaign: {}!", campaignFind);
 
             saveCampaign(campaignFind);
             return campaignFind;
@@ -114,9 +118,40 @@ public class CampaignRepository {
             throw new RepositoryException("Create can not be null!!!");
         }
 
-
-
+        saveSceneryCampaign(campaign);
         saveEntity(campaign);
+    }
+
+    private void saveSceneryCampaign(Campaign campaign) {
+        SceneryCampaign scenery1 = campaign.getScenery1();
+        if(scenery1 != null){
+            sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery1);
+        }
+
+        SceneryCampaign scenery2 = campaign.getScenery2();
+        if(scenery2 != null){
+            sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery2);
+        }
+
+        SceneryCampaign scenery3 = campaign.getScenery3();
+        if(scenery3 != null){
+            sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery3);
+        }
+
+        SceneryCampaign scenery4 = campaign.getScenery4();
+        if(scenery4 != null){
+            sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery4);
+        }
+
+        SceneryCampaign scenery5 = campaign.getScenery5();
+        if(scenery5 != null){
+            sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery5);
+        }
+
+        SceneryCampaign scenery6 = campaign.getScenery6();
+        if(scenery6 != null){
+            sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery6);
+        }
     }
 
     private void saveEntity(BaseEntity entity) {

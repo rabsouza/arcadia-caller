@@ -54,12 +54,15 @@ public class SceneryCampaignRepository {
         }
         entityValidator.validate(sceneryCampaign);
 
-        sceneryCampaign.initEntity();
-        log.info("Save to sceneryCampaign: {}!", sceneryCampaign);
-
-        objectifyRepository.save()
-                .entity(sceneryCampaign)
-                .now();
+        if (sceneryCampaign.getId() == null || sceneryCampaign.getVersion() == null) {
+            sceneryCampaign.initEntity();
+            log.info("Save the sceneryCampaign: {}!", sceneryCampaign);
+            objectifyRepository.save().entity(sceneryCampaign).now();
+        } else {
+            sceneryCampaign.updateEntity();
+            log.info("Update the sceneryCampaign: {}!", sceneryCampaign);
+            objectifyRepository.save().entity(sceneryCampaign).now();
+        }
 
         return sceneryCampaign;
     }

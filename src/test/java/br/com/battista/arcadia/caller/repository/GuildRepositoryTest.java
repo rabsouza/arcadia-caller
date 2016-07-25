@@ -42,19 +42,25 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
     private final GroupCardEnum group = GroupCardEnum.STARTING_EQUIPMENT;
     private final int defense = 2;
     private final int life = 4;
+
     @Rule
     public ExpectedException rule = ExpectedException.none();
+
     private User user;
     private Card card;
     private Hero hero;
     private HeroGuild heroGuild1;
     private HeroGuild heroGuild2;
     private HeroGuild heroGuild3;
+
     @InjectMocks
     private GuildRepository guildRepository;
 
     @Mock
     private EntityValidator entityValidator;
+
+    @Mock
+    private HeroGuildRepository heroGuildRepository;
 
     @Before
     public void setup() {
