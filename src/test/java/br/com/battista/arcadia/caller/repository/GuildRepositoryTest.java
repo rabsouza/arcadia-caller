@@ -32,6 +32,7 @@ import br.com.battista.arcadia.caller.validator.EntityValidator;
 public class GuildRepositoryTest extends BaseRepositoryConfig {
 
     private final String name = "guild01";
+    private final String key = "key01";
     private final NameGuildEnum nameGuild = NameGuildEnum.BLUE;
 
     private final String username = "abc0_";
@@ -60,7 +61,7 @@ public class GuildRepositoryTest extends BaseRepositoryConfig {
         user = User.builder().username(username).mail(mail).profile(profile).build();
         objectifyRepository.save().entity(user).now();
 
-        card = Card.builder().name(name).type(type).group(group).build();
+        card = Card.builder().name(name).key(key).type(type).group(group).build();
         objectifyRepository.save().entity(card).now();
 
         hero = Hero.builder().name(name).defense(defense).life(life).build();

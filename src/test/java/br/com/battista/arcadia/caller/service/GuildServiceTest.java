@@ -35,6 +35,7 @@ import br.com.battista.arcadia.caller.repository.GuildRepository;
 public class GuildServiceTest {
 
     private final String name = "guild01";
+    private final String key = "key01";
     private final NameGuildEnum nameGuild = NameGuildEnum.BLUE;
 
     private final String username = "abc0_";
@@ -62,7 +63,7 @@ public class GuildServiceTest {
     public void setup() {
         user = User.builder().username(username).mail(mail).profile(profile).build();
 
-        card = Card.builder().name(name).type(type).group(group).build();
+        card = Card.builder().name(name).key(key).type(type).group(group).build();
 
         hero = Hero.builder().name(name).defense(defense).life(life).build();
 

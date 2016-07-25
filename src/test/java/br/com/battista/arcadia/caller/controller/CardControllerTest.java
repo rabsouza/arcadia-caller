@@ -30,6 +30,7 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 public class CardControllerTest extends BaseControllerConfig {
 
     private final String name = "card01";
+    private final String key = "key01";
     private final TypeCardEnum type = TypeCardEnum.UPGRADE;
     private final GroupCardEnum group = GroupCardEnum.NONE;
     private final String username = "abc0_";
@@ -85,13 +86,13 @@ public class CardControllerTest extends BaseControllerConfig {
     public void shouldReturnExceptionWhenInvalidCardToActionSave() throws AuthenticationException {
         rule.expect(ValidatorException.class);
 
-        Card card = Card.builder().name(name).build();
+        Card card = Card.builder().name(name).key(key).build();
         cardController.save(token, card);
     }
 
     @Test
     public void shouldReturnSuccessWhenValidCardToActionSave() throws AuthenticationException {
-        Card card = Card.builder().name(name).type(type).group(group).build();
+        Card card = Card.builder().name(name).key(key).type(type).group(group).build();
 
         ResponseEntity<Card> responseEntity = cardController.save(token, card);
 
@@ -122,7 +123,7 @@ public class CardControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenExistsCardToActionGetAll() throws AuthenticationException {
-        Card card = Card.builder().name(name).type(type).group(group).build();
+        Card card = Card.builder().name(name).key(key).type(type).group(group).build();
 
         cardController.save(token, card);
 

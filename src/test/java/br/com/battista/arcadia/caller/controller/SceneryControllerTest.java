@@ -1,14 +1,20 @@
 package br.com.battista.arcadia.caller.controller;
 
 import static br.com.battista.arcadia.caller.constants.EntityConstant.DEFAULT_VERSION;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.junit.*;
-import org.junit.rules.*;
-import org.junit.runner.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +34,11 @@ import br.com.battista.arcadia.caller.model.enuns.TypeCardEnum;
 import br.com.battista.arcadia.caller.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfig.class})
+@ContextConfiguration(classes = { AppConfig.class })
 public class SceneryControllerTest extends BaseControllerConfig {
 
     private final String name = "scenery01";
-    private final Card reward = Card.builder().name("wonReward").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).build();
+    private final Card reward = Card.builder().name("wonReward").key("key01").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).build();
     private final String title = "wonTitle";
     private final LocationSceneryEnum location = LocationSceneryEnum.NONE;
     private final String username = "abc0_";
