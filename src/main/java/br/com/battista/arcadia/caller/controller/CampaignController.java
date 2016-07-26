@@ -82,7 +82,7 @@ public class CampaignController {
         }
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET,
+    @RequestMapping(value = "/user/{username}", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<List<Campaign>> getByUser(@RequestHeader("token") String token, @PathVariable("username") String username) throws
