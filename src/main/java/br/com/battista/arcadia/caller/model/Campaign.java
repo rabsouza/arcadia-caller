@@ -82,6 +82,21 @@ public class Campaign extends BaseEntity implements Serializable {
     @Size(min = 5, max = 30)
     private String created;
 
+    @Index
+    private String winner;
+
+    @Index
+    private String leastDeaths;
+
+    @Index
+    private String mostCoins;
+
+    @Index
+    private String wonReward;
+
+    @Index
+    private String wonTitle;
+
     private Boolean active = Boolean.TRUE;
 
     private Boolean completed = Boolean.FALSE;
