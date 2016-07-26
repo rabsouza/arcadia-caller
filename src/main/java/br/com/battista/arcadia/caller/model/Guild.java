@@ -1,13 +1,10 @@
 package br.com.battista.arcadia.caller.model;
 
-import static br.com.battista.arcadia.caller.constants.CacheConstant.DURATION_CACHE;
-
 import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
@@ -27,7 +24,6 @@ import lombok.ToString;
 @Data
 @ToString(includeFieldNames = true, callSuper = true)
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
-@Cache(expirationSeconds = DURATION_CACHE)
 public class Guild extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

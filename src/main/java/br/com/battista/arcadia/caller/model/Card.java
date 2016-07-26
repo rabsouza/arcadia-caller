@@ -45,7 +45,7 @@ public class Card extends BaseEntity implements Serializable {
 
     @Index
     @NotBlank
-    @Size(min = 5, max = 10)
+    @Size(min = 3, max = 10)
     private String key;
 
     @NotNull

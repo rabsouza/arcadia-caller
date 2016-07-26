@@ -146,19 +146,19 @@ public class CampaignRepository {
         Guild guild02 = campaign.getHeroesGuild02();
         if (guild02 != null) {
             guildRepository.saveOrUpdateGuild(guild02);
-            campaign.setGuild01(guild02.getUser().getUsername());
+            campaign.setGuild02(guild02.getUser().getUsername());
         }
 
         Guild guild03 = campaign.getHeroesGuild03();
         if (guild03 != null) {
             guildRepository.saveOrUpdateGuild(guild03);
-            campaign.setGuild01(guild03.getUser().getUsername());
+            campaign.setGuild03(guild03.getUser().getUsername());
         }
 
         Guild guild04 = campaign.getHeroesGuild04();
         if (guild04 != null) {
             guildRepository.saveOrUpdateGuild(guild04);
-            campaign.setGuild01(guild04.getUser().getUsername());
+            campaign.setGuild04(guild04.getUser().getUsername());
         }
     }
 

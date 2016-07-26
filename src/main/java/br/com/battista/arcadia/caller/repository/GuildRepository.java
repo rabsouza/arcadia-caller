@@ -93,7 +93,7 @@ public class GuildRepository {
             if (user != null) {
                 guild.setUser(user);
             } else {
-                userRepository.saveOrUpdateUser(user);
+                userRepository.saveOrUpdateUser(userGuild);
             }
         }
     }
