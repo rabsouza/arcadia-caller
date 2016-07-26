@@ -2,6 +2,7 @@ package br.com.battista.arcadia.caller.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -86,16 +87,16 @@ public class Campaign extends BaseEntity implements Serializable {
     private String winner;
 
     @Index
-    private String leastDeaths;
+    private List<String> leastDeaths;
 
     @Index
-    private String mostCoins;
+    private List<String> mostCoins;
 
     @Index
-    private String wonReward;
+    private List<String> wonReward;
 
     @Index
-    private String wonTitle;
+    private List<String> wonTitle;
 
     private Boolean active = Boolean.TRUE;
 

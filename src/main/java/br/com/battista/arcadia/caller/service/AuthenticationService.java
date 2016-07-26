@@ -90,7 +90,7 @@ public class AuthenticationService {
     private LoadingCache<String, User> createCache() {
         return CacheBuilder.newBuilder()
                        .maximumSize(MAXIMUM_SIZE_CACHE)
-                       .expireAfterAccess(DURATION_CACHE, TimeUnit.MINUTES)
+                       .expireAfterAccess(DURATION_CACHE, TimeUnit.SECONDS)
                        .build(new CacheLoader<String, User>() {
                            @Override
                            public User load(String token) throws Exception {
