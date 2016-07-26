@@ -9,6 +9,8 @@ import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.googlecode.objectify.Objectify;
 
 import br.com.battista.arcadia.caller.exception.RepositoryException;
+import br.com.battista.arcadia.caller.model.BaseEntity;
+import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.model.SceneryCampaign;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,9 @@ public class SceneryCampaignRepository {
 
     @Autowired
     private Objectify objectifyRepository;
+
+    @Autowired
+    private SceneryRepository sceneryRepository;
 
     public List<SceneryCampaign> findAll() {
         log.info("Find all sceneryCampaigns!");
@@ -54,17 +59,34 @@ public class SceneryCampaignRepository {
         }
         entityValidator.validate(sceneryCampaign);
 
+        findScenery(sceneryCampaign);
         if (sceneryCampaign.getId() == null || sceneryCampaign.getVersion() == null) {
             sceneryCampaign.initEntity();
             log.info("Save the sceneryCampaign: {}!", sceneryCampaign);
-            objectifyRepository.save().entity(sceneryCampaign).now();
+            saveEntity(sceneryCampaign);
         } else {
             sceneryCampaign.updateEntity();
             log.info("Update the sceneryCampaign: {}!", sceneryCampaign);
-            objectifyRepository.save().entity(sceneryCampaign).now();
+            saveEntity(sceneryCampaign);
         }
 
         return sceneryCampaign;
+    }
+
+    private void saveEntity(BaseEntity entity) {
+        objectifyRepository
+                .save()
+                .entity(entity)
+                .now();
+    }
+
+    private void findScenery(SceneryCampaign sceneryCampaign) {
+        Scenery scenery = sceneryCampaign.getScenery();
+        if (scenery != null) {
+            Scenery sceneryFind = sceneryRepository.findByName(scenery.getName());
+            sceneryCampaign.setScenery(sceneryFind);
+            sceneryCampaign.setName(scenery.getName());
+        }
     }
 
 }

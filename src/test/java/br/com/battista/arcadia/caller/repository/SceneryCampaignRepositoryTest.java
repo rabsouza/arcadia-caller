@@ -45,6 +45,9 @@ public class SceneryCampaignRepositoryTest extends BaseRepositoryConfig {
     @Mock
     private EntityValidator entityValidator;
 
+    @Mock
+    private SceneryRepository sceneryRepository;
+
     @Test
     public void shouldEmptySceneryCampaignsWhenEmptyDataBase() {
         List<SceneryCampaign> sceneryCampaigns = sceneryCampaignRepository.findAll();
