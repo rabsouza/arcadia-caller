@@ -61,7 +61,7 @@ public class HeroGuildRepository {
 
     private void saveHeroGuild(HeroGuild heroGuild) {
         Hero hero = heroGuild.getHero();
-        if(hero != null){
+        if (hero != null) {
             Hero heroFind = heroRepository.findByName(hero.getName());
             heroGuild.setHero(heroFind);
         }
@@ -69,37 +69,37 @@ public class HeroGuildRepository {
         saveAllCards(heroGuild);
 
         objectifyRepository.save()
-                        .entity(heroGuild)
-                        .now();
+                .entity(heroGuild)
+                .now();
     }
 
     private void saveAllCards(HeroGuild heroGuild) {
         Card card = heroGuild.getCard1();
-        if(card != null){
+        if (card != null) {
             Card cardFind = cardRepository.findByName(card.getName());
             heroGuild.setCard1(cardFind);
         }
 
         card = heroGuild.getCard2();
-        if(card != null){
+        if (card != null) {
             Card cardFind = cardRepository.findByName(card.getName());
             heroGuild.setCard2(cardFind);
         }
 
         card = heroGuild.getCard3();
-        if(card != null){
+        if (card != null) {
             Card cardFind = cardRepository.findByName(card.getName());
             heroGuild.setCard3(cardFind);
         }
 
         card = heroGuild.getCard4();
-        if(card != null){
+        if (card != null) {
             Card cardFind = cardRepository.findByName(card.getName());
             heroGuild.setCard4(cardFind);
         }
 
         card = heroGuild.getCurseCard();
-        if(card != null){
+        if (card != null) {
             Card cardFind = cardRepository.findByName(card.getName());
             heroGuild.setCurseCard(cardFind);
         }

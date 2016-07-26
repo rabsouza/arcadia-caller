@@ -24,7 +24,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Data
 @ToString(includeFieldNames = true, callSuper = true)
-@EqualsAndHashCode(of = { "id" }, callSuper = false)
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
 public class SceneryCampaign extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

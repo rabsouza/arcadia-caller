@@ -1,13 +1,12 @@
 package br.com.battista.arcadia.caller.repository;
 
-import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.*;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;

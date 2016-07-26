@@ -1,7 +1,8 @@
 package br.com.battista.arcadia.caller.repository;
 
 import static br.com.battista.arcadia.caller.constants.EntityConstant.INITIAL_INDEX_KEY;
-import static br.com.battista.arcadia.caller.model.KeyCampaign.*;
+import static br.com.battista.arcadia.caller.model.KeyCampaign.PREFIX_KEY;
+import static br.com.battista.arcadia.caller.model.KeyCampaign.builder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,11 +23,11 @@ public class KeyCampaignRepository {
         log.info("Find last key!");
 
         KeyCampaign key = objectifyRepository
-                        .load()
-                        .type(KeyCampaign.class)
-                        .order("-index")
-                        .first()
-                        .now();
+                                  .load()
+                                  .type(KeyCampaign.class)
+                                  .order("-index")
+                                  .first()
+                                  .now();
 
         Long index = INITIAL_INDEX_KEY;
         if (key != null) {
@@ -36,9 +37,9 @@ public class KeyCampaignRepository {
 
         log.info("Save the new Key: {}!", newKey);
         objectifyRepository
-                        .save()
-                        .entity(newKey)
-                        .now();
+                .save()
+                .entity(newKey)
+                .now();
         return newKey.getKey();
     }
 }

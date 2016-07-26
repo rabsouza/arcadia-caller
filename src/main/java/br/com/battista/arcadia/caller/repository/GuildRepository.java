@@ -35,7 +35,7 @@ public class GuildRepository {
         log.info("Find all guilds!");
 
         return objectifyRepository
-                        .load()
+                       .load()
                        .type(Guild.class)
                        .order("-updatedAt")
                        .list();
@@ -99,7 +99,7 @@ public class GuildRepository {
     }
 
     private void saveHero(HeroGuild hero) {
-        if(hero != null){
+        if (hero != null) {
             heroGuildRepository.saveOrUpdateHeroGuild(hero);
         }
     }
@@ -109,7 +109,7 @@ public class GuildRepository {
         log.info("Save the guild: {}!", guild);
 
         objectifyRepository
-                        .save()
+                .save()
                 .entity(guild)
                 .now();
     }

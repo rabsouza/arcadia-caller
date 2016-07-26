@@ -22,12 +22,10 @@ import lombok.ToString;
 @Data
 @ToString(includeFieldNames = true, callSuper = true)
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
-public class KeyCampaign implements Serializable{
-
-    private static final long serialVersionUID = 1L;
+public class KeyCampaign implements Serializable {
 
     public static final String PREFIX_KEY = "AQ-CB-";
-
+    private static final long serialVersionUID = 1L;
     @Id
     private Long id;
 

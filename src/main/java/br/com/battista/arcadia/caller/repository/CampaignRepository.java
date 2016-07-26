@@ -129,7 +129,7 @@ public class CampaignRepository {
         saveSceneriesCampaign(campaign);
         saveGuilds(campaign);
 
-        if(Strings.isNullOrEmpty(campaign.getKey())) {
+        if (Strings.isNullOrEmpty(campaign.getKey())) {
             log.debug("Set next key in campaign!");
             campaign.setKey(keyCampaignRepository.nextKey());
         }
@@ -164,40 +164,40 @@ public class CampaignRepository {
 
     private void saveSceneriesCampaign(Campaign campaign) {
         SceneryCampaign scenery1 = campaign.getScenery1();
-        if(scenery1 != null){
+        if (scenery1 != null) {
             sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery1);
         }
 
         SceneryCampaign scenery2 = campaign.getScenery2();
-        if(scenery2 != null){
+        if (scenery2 != null) {
             sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery2);
         }
 
         SceneryCampaign scenery3 = campaign.getScenery3();
-        if(scenery3 != null){
+        if (scenery3 != null) {
             sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery3);
         }
 
         SceneryCampaign scenery4 = campaign.getScenery4();
-        if(scenery4 != null){
+        if (scenery4 != null) {
             sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery4);
         }
 
         SceneryCampaign scenery5 = campaign.getScenery5();
-        if(scenery5 != null){
+        if (scenery5 != null) {
             sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery5);
         }
 
         SceneryCampaign scenery6 = campaign.getScenery6();
-        if(scenery6 != null){
+        if (scenery6 != null) {
             sceneryCampaignRepository.saveOrUpdateSceneryCampaign(scenery6);
         }
     }
 
     private void saveEntity(BaseEntity entity) {
         objectifyRepository.save()
-                        .entity(entity)
-                        .now();
+                .entity(entity)
+                .now();
     }
 
     public void deleteByKey(Campaign campaign) {

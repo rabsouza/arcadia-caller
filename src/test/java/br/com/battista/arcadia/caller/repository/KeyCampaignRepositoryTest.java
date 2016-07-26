@@ -3,9 +3,8 @@ package br.com.battista.arcadia.caller.repository;
 import static br.com.battista.arcadia.caller.model.KeyCampaign.PREFIX_KEY;
 
 import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.*;
+import org.junit.runner.*;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -16,7 +15,7 @@ public class KeyCampaignRepositoryTest extends BaseRepositoryConfig {
     private KeyCampaignRepository keyCampaignRepository;
 
     @Test
-    public void shouldReturnNextKey(){
+    public void shouldReturnNextKey() {
         String firistKey = keyCampaignRepository.nextKey();
         Assert.assertNotNull(firistKey);
         Assert.assertThat(firistKey, Matchers.equalTo(PREFIX_KEY.concat("1")));
