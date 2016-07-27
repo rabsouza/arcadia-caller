@@ -51,13 +51,10 @@ public class Guild extends BaseEntity implements Serializable {
     @NotNull
     private User user;
 
-    @NotNull
     private HeroGuild hero01;
 
-    @NotNull
     private HeroGuild hero02;
 
-    @NotNull
     private HeroGuild hero03;
 
     @NotNull
