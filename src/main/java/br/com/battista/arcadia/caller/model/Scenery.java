@@ -46,8 +46,10 @@ public class Scenery extends BaseEntity implements Serializable {
 
     private String urlSymbol;
 
+    @Index
     private String wonTitle;
 
+    @Index
     private Card wonReward;
 
     @Index

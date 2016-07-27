@@ -52,9 +52,9 @@ public class User extends BaseEntity implements Serializable {
     @URL
     private String urlAvatar;
 
+    @Index
     @NotNull
     private ProfileAppConstant profile;
-
 
     @Index
     @Size(min = 30, max = 50)

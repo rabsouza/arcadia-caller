@@ -63,6 +63,27 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
     }
 
     @Test
+    public void shouldReturnSceneriesWhenFindByLocation() {
+        Scenery scenery = Scenery.builder().name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
+        objectifyRepository.save().entity(scenery).now();
+
+        List<Scenery> sceneries = sceneryRepository.findByLocation(location);
+        assertNotNull(sceneries);
+        assertThat(sceneries, hasSize(1));
+        assertThat(sceneries.iterator().next().getName(), equalTo(name));
+    }
+
+    @Test
+    public void shouldReturnEmptyWhenFindByLocationWitnInvalidLocation() {
+        Scenery scenery = Scenery.builder().name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
+        objectifyRepository.save().entity(scenery).now();
+
+        List<Scenery> sceneries = sceneryRepository.findByLocation(LocationSceneryEnum.INNER_CIRCLE);
+        assertNotNull(sceneries);
+        assertThat(sceneries, hasSize(0));
+    }
+
+    @Test
     public void shouldSaveSceneryWhenValidScenery() {
         Scenery scenery = Scenery.builder().name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
 

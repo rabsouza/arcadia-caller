@@ -31,12 +31,16 @@ public class Guild extends BaseEntity implements Serializable {
     @Id
     private Long id;
 
+    @Index
     private Integer victories = 0;
 
+    @Index
     private Integer defeats = 0;
 
+    @Index
     private List<String> benefitTitles;
 
+    @Index
     private List<String> rewardCards;
 
     @Index

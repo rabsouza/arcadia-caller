@@ -125,12 +125,35 @@ public class SceneryControllerTest extends BaseControllerConfig {
     }
 
     @Test
+    public void shouldReturnNotContentWhenNoScenerysByLocationFounds() throws AuthenticationException {
+        ResponseEntity<List<Scenery>> responseEntity = sceneryController.getByLocation(token, location);
+
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.NO_CONTENT));
+        assertNull(responseEntity.getBody());
+    }
+
+    @Test
     public void shouldReturnSuccessWhenExistsSceneryToActionGetAll() throws AuthenticationException {
         Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
 
         sceneryController.save(token, scenery);
 
         ResponseEntity<List<Scenery>> responseEntity = sceneryController.getAll(token);
+
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+        List<Scenery> body = responseEntity.getBody();
+        assertNotNull(body);
+        assertThat(body, hasSize(1));
+        assertThat(body, hasItem(scenery));
+    }
+
+    @Test
+    public void shouldReturnSuccessWhenExistsSceneryToActionGetByLocation() throws AuthenticationException {
+        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
+
+        sceneryController.save(token, scenery);
+
+        ResponseEntity<List<Scenery>> responseEntity = sceneryController.getByLocation(token, location);
 
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
         List<Scenery> body = responseEntity.getBody();

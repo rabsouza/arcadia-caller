@@ -57,6 +57,18 @@ public class SceneryServiceTest {
     }
 
     @Test
+    public void shouldGetByLocation() {
+        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
+        when(sceneryRepository.findByLocation((LocationSceneryEnum) any())).thenReturn(Lists.newArrayList(scenery));
+
+        List<Scenery> sceneries = sceneryService.getByLocation(location);
+        assertNotNull(sceneries);
+        assertThat(sceneries, hasSize(1));
+        assertThat(sceneries.iterator().next().getName(), equalTo(name));
+
+    }
+
+    @Test
     public void shouldGetSceneryByName() {
         Scenery scenery = Scenery.builder().id(1l).name(name).location(location).wonTitle(title).wonReward(reward).build();
         scenery.initEntity();

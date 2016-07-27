@@ -48,9 +48,11 @@ public class Card extends BaseEntity implements Serializable {
     @Size(min = 3, max = 10)
     private String key;
 
+    @Index
     @NotNull
     private TypeCardEnum type;
 
+    @Index
     @NotNull
     private GroupCardEnum group;
 
