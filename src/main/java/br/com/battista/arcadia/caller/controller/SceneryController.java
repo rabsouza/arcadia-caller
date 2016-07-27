@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.Scenery;
+import br.com.battista.arcadia.caller.model.enuns.LocationSceneryEnum;
 import br.com.battista.arcadia.caller.service.AuthenticationService;
 import br.com.battista.arcadia.caller.service.MessageCustomerService;
 import br.com.battista.arcadia.caller.service.SceneryService;
@@ -49,6 +51,24 @@ public class SceneryController {
 
         log.info("Retrieve all sceneries!");
         List<Scenery> sceneries = sceneryService.getAllSceneries();
+
+        if (sceneries == null || sceneries.isEmpty()) {
+            log.warn("No sceneries found!");
+            return buildResponseErro(HttpStatus.NO_CONTENT);
+        } else {
+            log.info("Found {} sceneries!", sceneries.size());
+            return buildResponseSuccess(sceneries, HttpStatus.OK, ENABLE_CACHED_ACTION);
+        }
+    }
+
+    @RequestMapping(value = "/{location}", method = RequestMethod.GET,
+                    produces = RestControllerConstant.PRODUCES)
+    @ResponseBody
+    public ResponseEntity<List<Scenery>> getByLocation(@RequestHeader("token") String token, @PathVariable("location")LocationSceneryEnum locationScenery) throws AuthenticationException {
+        authenticationService.authetication(token, APP, ADMIN);
+
+        log.info("Retrieve sceneries by localtion: {}!", locationScenery);
+        List<Scenery> sceneries = sceneryService.getByLocation(locationScenery);
 
         if (sceneries == null || sceneries.isEmpty()) {
             log.warn("No sceneries found!");

@@ -82,6 +82,25 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/exists/{username}", method = RequestMethod.GET,
+                    produces = RestControllerConstant.PRODUCES)
+    @ResponseBody
+    public ResponseEntity<Void> existsUsername(@RequestHeader("token") String token, @PathVariable("username") String username) throws
+                    AuthenticationException {
+        authenticationService.authetication(token, ADMIN, APP);
+
+        log.info("Check if there is the user by username: {}.", username);
+        User user = userService.getUserByUsername(username);
+
+        if (user == null) {
+            log.warn("User not found!");
+            return buildResponseErro(HttpStatus.NOT_FOUND);
+        } else {
+            log.info("Found the user: {}.", user);
+            return buildResponseSuccess(HttpStatus.OK);
+        }
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.POST,
             produces = RestControllerConstant.PRODUCES,
             consumes = RestControllerConstant.CONSUMES)

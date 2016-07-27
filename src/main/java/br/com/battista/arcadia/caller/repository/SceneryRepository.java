@@ -12,6 +12,7 @@ import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.model.BaseEntity;
 import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.model.Scenery;
+import br.com.battista.arcadia.caller.model.enuns.LocationSceneryEnum;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +36,17 @@ public class SceneryRepository {
                        .type(Scenery.class)
                        .order("-updatedAt")
                        .list();
+
+    }
+
+    public List<Scenery> findByLocation(LocationSceneryEnum locationScenery) {
+        log.info("Find all sceneries!");
+
+        return objectifyRepository.load()
+                        .type(Scenery.class)
+                        .filter("location", locationScenery)
+                        .order("-updatedAt")
+                        .list();
 
     }
 

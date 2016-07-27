@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.battista.arcadia.caller.model.Scenery;
+import br.com.battista.arcadia.caller.model.enuns.LocationSceneryEnum;
 import br.com.battista.arcadia.caller.repository.SceneryRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +21,11 @@ public class SceneryService {
     public List<Scenery> getAllSceneries() {
         log.info("Find all sceneries!");
         return sceneryRepository.findAll();
+    }
+
+    public List<Scenery> getByLocation(LocationSceneryEnum locationScenery) {
+        log.info("Find sceneries by location: {}!", locationScenery);
+        return sceneryRepository.findByLocation(locationScenery);
     }
 
     public Scenery getSceneryByName(String name) {
