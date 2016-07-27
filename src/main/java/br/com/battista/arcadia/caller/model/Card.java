@@ -56,12 +56,16 @@ public class Card extends BaseEntity implements Serializable {
 
     private Integer cost;
 
+    @Index
     private Boolean active = Boolean.TRUE;
 
+    @Index
     private Boolean revise = Boolean.FALSE;
 
+    @Index
     private Boolean denounce = Boolean.FALSE;
 
+    @Index
     private Boolean deleted = Boolean.FALSE;
 
 

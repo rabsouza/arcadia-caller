@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,8 +42,10 @@ public class HeroGuild extends BaseEntity implements Serializable {
 
     private Card curseCard;
 
+    @Index
     private Boolean active = Boolean.TRUE;
 
+    @Index
     private Boolean deleted = Boolean.FALSE;
 
     @Override

@@ -98,10 +98,13 @@ public class Campaign extends BaseEntity implements Serializable {
     @Index
     private List<String> wonTitle;
 
+    @Index
     private Boolean active = Boolean.TRUE;
 
+    @Index
     private Boolean completed = Boolean.FALSE;
 
+    @Index
     private Boolean deleted = Boolean.FALSE;
 
     @Override

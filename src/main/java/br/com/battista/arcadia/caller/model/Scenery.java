@@ -50,19 +50,25 @@ public class Scenery extends BaseEntity implements Serializable {
 
     private Card wonReward;
 
+    @Index
     private DifficultySceneryEnum difficulty;
 
     private List<String> benefitTitles;
 
+    @Index
     @NotNull
     private LocationSceneryEnum location;
 
+    @Index
     private Boolean active = Boolean.TRUE;
 
+    @Index
     private Boolean revise = Boolean.FALSE;
 
+    @Index
     private Boolean denounce = Boolean.FALSE;
 
+    @Index
     private Boolean deleted = Boolean.FALSE;
 
     @Override
