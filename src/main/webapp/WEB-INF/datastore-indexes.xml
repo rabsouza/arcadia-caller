@@ -5,4 +5,8 @@
         <property name="location" direction="asc"/>
         <property name="updatedAt" direction="desc"/>
     </datastore-index>
+    <datastore-index kind="Campaign" ancestor="false" source="manual">
+        <property name="created" direction="asc"/>
+        <property name="updatedAt" direction="desc"/>
+    </datastore-index>
 </datastore-indexes>

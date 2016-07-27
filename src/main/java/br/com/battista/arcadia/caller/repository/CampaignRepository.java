@@ -80,6 +80,7 @@ public class CampaignRepository {
                        .load()
                        .type(Campaign.class)
                        .filter("created", username)
+                        .order("-updatedAt")
                        .list();
 
     }
