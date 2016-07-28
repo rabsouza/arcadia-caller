@@ -106,6 +106,7 @@ public class CampaignRepository {
             throw new EntityAlreadyExistsException(cause);
         } else {
             MergeBeanUtils.merge(campaignFind, campaign);
+            workaroundChangeGuilds(campaign, campaignFind);
             campaignFind.updateEntity();
             log.info("Update the campaign: {}!", campaignFind);
 
@@ -113,6 +114,17 @@ public class CampaignRepository {
             return campaignFind;
         }
 
+    }
+
+    private void workaroundChangeGuilds(Campaign campaign, Campaign campaignFind) {
+        campaignFind.setGuild01(campaign.getGuild01());
+        campaignFind.setGuild02(campaign.getGuild02());
+        campaignFind.setGuild03(campaign.getGuild03());
+        campaignFind.setGuild04(campaign.getGuild04());
+        campaignFind.setHeroesGuild01(campaign.getHeroesGuild01());
+        campaignFind.setHeroesGuild02(campaign.getHeroesGuild02());
+        campaignFind.setHeroesGuild03(campaign.getHeroesGuild03());
+        campaignFind.setHeroesGuild04(campaign.getHeroesGuild04());
     }
 
     private void saveCampaign(Campaign campaign) {
