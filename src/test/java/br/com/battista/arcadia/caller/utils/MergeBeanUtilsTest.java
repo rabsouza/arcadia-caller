@@ -30,7 +30,7 @@ public class MergeBeanUtilsTest {
         MergeBeanUtils.merge(b, a);
 
         assertThat(b.getMail(), equalTo(a.getMail()));
-        assertNull(b.getToken());
+        assertThat(b.getToken(), equalTo("B"));
     }
 
 

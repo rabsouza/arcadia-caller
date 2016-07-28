@@ -29,7 +29,12 @@ public final class MergeBeanUtils {
         // Only copy writable attributes
         if (descriptor.getWriteMethod() != null) {
             Object newValue = descriptor.getReadMethod().invoke(from);
-            descriptor.getWriteMethod().invoke(to, newValue);
+
+            // Only copy values values where the from values is not null
+            if (newValue != null) {
+                descriptor.getWriteMethod().invoke(to, newValue);
+            }
+
         }
     }
 }
