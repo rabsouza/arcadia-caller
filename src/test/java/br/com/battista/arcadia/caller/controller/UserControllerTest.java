@@ -264,7 +264,7 @@ public class UserControllerTest extends BaseControllerConfig {
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
         body.setMail(mail02);
-        ResponseEntity<User> responseEntityUpdate = userController.delete(token, body);
+        ResponseEntity<User> responseEntityUpdate = userController.delete(token, body.getUsername());
         assertThat(responseEntityUpdate.getStatusCode(), equalTo(HttpStatus.OK));
         User bodyDelete = responseEntityUpdate.getBody();
         assertNull(bodyDelete);
@@ -289,7 +289,7 @@ public class UserControllerTest extends BaseControllerConfig {
         User user02 = User.builder().username("user02").mail(mail).profile(profile).build();
         user02.initEntity();
         user02.updateEntity();
-        userController.delete(token, user02);
+        userController.delete(token, user02.getUsername());
     }
 
     @Test

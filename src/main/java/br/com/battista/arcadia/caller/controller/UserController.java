@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.appengine.repackaged.com.google.api.client.util.Strings;
+
 import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
@@ -136,17 +138,17 @@ public class UserController {
         return buildResponseSuccess(updatedUser, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.DELETE,
+    @RequestMapping(value = "/{username}", method = RequestMethod.DELETE,
             consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
-    public ResponseEntity delete(@RequestHeader("token") String token, @RequestBody User user) throws AuthenticationException {
+    public ResponseEntity delete(@RequestHeader("token") String token, @PathVariable("username") String username) throws AuthenticationException {
         authenticationService.authetication(token, ADMIN);
 
-        if (user == null) {
-            log.warn(USER_CAN_NOT_BE_NULL);
-            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, USER_IS_REQUIRED));
+        if (Strings.isNullOrEmpty(username)) {
+            log.warn("Username can not be null!");
+            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, "Username can not be null!"));
         }
-
+        User user = User.builder().username(username).build();
         log.info("Delete the user[{}]!", user);
         userService.deleteUser(user);
         return buildResponseSuccess(HttpStatus.OK);

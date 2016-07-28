@@ -59,18 +59,6 @@ public class CampaignControllerTest extends BaseControllerConfig {
     }
 
     @Test
-    public void shouldReturnExceptionWhenUnauthorized() throws AuthenticationException {
-        User userApp = User.builder().username("usernameApp").mail("app@profile").profile(ProfileAppConstant.APP).build();
-
-        User savedUser = userRepository.saveOrUpdateUser(userApp);
-        assertNotNull(savedUser);
-
-        rule.expect(AuthenticationException.class);
-
-        campaignController.delete(savedUser.getToken(), null);
-    }
-
-    @Test
     public void shouldReturnExceptionWhenInvalidTokenToActionSave() throws AuthenticationException {
         rule.expect(AuthenticationException.class);
 
@@ -314,7 +302,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         assertThat(body.getCreated(), equalTo(user.getUsername()));
         assertThat(body.getVersion(), equalTo(DEFAULT_VERSION));
 
-        ResponseEntity<Campaign> responseEntityUpdate = campaignController.delete(token, body);
+        ResponseEntity<Campaign> responseEntityUpdate = campaignController.delete(token, body.getKey());
         assertThat(responseEntityUpdate.getStatusCode(), equalTo(HttpStatus.OK));
         Campaign bodyDelete = responseEntityUpdate.getBody();
         assertNull(bodyDelete);
@@ -339,7 +327,7 @@ public class CampaignControllerTest extends BaseControllerConfig {
         Campaign campaign02 = Campaign.builder().key(invalidKey).when(new Date()).created(user.getUsername()).build();
         campaign02.initEntity();
         campaign02.updateEntity();
-        campaignController.delete(token, campaign02);
+        campaignController.delete(token, campaign02.getKey());
     }
 
     @Test

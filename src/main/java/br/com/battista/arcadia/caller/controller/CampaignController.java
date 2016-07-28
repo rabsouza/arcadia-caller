@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.appengine.repackaged.com.google.api.client.util.Strings;
+
 import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
 import br.com.battista.arcadia.caller.constants.RestControllerConstant;
 import br.com.battista.arcadia.caller.exception.AuthenticationException;
@@ -137,16 +139,17 @@ public class CampaignController {
         return buildResponseSuccess(updatedCampaign, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.DELETE,
+    @RequestMapping(value = "/{key}", method = RequestMethod.DELETE,
             consumes = RestControllerConstant.CONSUMES)
     @ResponseBody
-    public ResponseEntity delete(@RequestHeader("token") String token, @RequestBody Campaign campaign) throws AuthenticationException {
-        authenticationService.authetication(token, ADMIN);
+    public ResponseEntity delete(@RequestHeader("token") String token, @PathVariable String key) throws AuthenticationException {
+        authenticationService.authetication(token, ADMIN, APP);
 
-        if (campaign == null) {
-            log.warn(CAMPAIGN_CAN_NOT_BE_NULL);
-            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, CAMPAIGN_IS_REQUIRED));
+        if (Strings.isNullOrEmpty(key)) {
+            log.warn("Key can not be null!");
+            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, "Key can not be null!"));
         }
+        Campaign campaign = Campaign.builder().key(key).build();
 
         log.info("Delete the campaign[{}]!", campaign);
         campaignService.deleteCampaign(campaign);
