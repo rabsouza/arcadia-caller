@@ -139,8 +139,7 @@ public class CampaignController {
         return buildResponseSuccess(updatedCampaign, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{key}", method = RequestMethod.DELETE,
-            consumes = RestControllerConstant.CONSUMES)
+    @RequestMapping(value = "/{key}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity delete(@RequestHeader("token") String token, @PathVariable String key) throws AuthenticationException {
         authenticationService.authetication(token, ADMIN, APP);

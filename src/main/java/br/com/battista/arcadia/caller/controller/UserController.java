@@ -138,8 +138,7 @@ public class UserController {
         return buildResponseSuccess(updatedUser, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.DELETE,
-            consumes = RestControllerConstant.CONSUMES)
+    @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity delete(@RequestHeader("token") String token, @PathVariable("username") String username) throws AuthenticationException {
         authenticationService.authetication(token, ADMIN);
