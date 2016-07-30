@@ -29,7 +29,7 @@ public class CampaignService {
     }
 
     public List<Campaign> getCampaignByUser(User user) {
-        log.info("Find the campaign by user: {}!", user);
+        log.info("Find all campaigns by user: {}!", user);
         return campaignRepository.findByUser(user);
     }
 

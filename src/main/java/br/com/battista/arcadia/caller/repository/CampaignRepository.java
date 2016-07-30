@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import com.google.common.base.Strings;
 import com.googlecode.objectify.Objectify;
 
@@ -80,8 +81,30 @@ public class CampaignRepository {
                        .load()
                        .type(Campaign.class)
                        .filter("created", username)
-                        .order("-updatedAt")
+                       .order("-updatedAt")
                        .list();
+
+    }
+
+    public List<Campaign> findByGuilds(User user) {
+        if (user == null || Strings.isNullOrEmpty(user.getUsername())) {
+            throw new RepositoryException("User or username can not be null!");
+        }
+        String username = user.getUsername();
+        log.info("Find campaign by all guilds {}!", username);
+
+        List<Campaign> campaigns = Lists.newArrayList();
+
+        String guilds[] = {"guild01", "guild02", "guild03", "guild04"};
+        for (String guild : guilds) {
+            campaigns.addAll(objectifyRepository
+                                     .load()
+                                     .type(Campaign.class)
+                                     .filter(guild, username)
+                                     .list());
+        }
+
+        return campaigns;
 
     }
 
