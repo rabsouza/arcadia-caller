@@ -26,7 +26,7 @@ import br.com.battista.arcadia.caller.validator.EntityValidator;
 @RunWith(MockitoJUnitRunner.class)
 public class UserRepositoryTest extends BaseRepositoryConfig {
 
-    private final String username = "abc0_";
+    private final String username = "Abc0_-.";
     private final String mail = "abc@abc.com";
     private final ProfileAppConstant profile = ProfileAppConstant.APP;
     private final String mail02 = "mail02@abc.com";

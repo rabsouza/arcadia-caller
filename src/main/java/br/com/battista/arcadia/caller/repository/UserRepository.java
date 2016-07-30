@@ -129,9 +129,9 @@ public class UserRepository {
         if (Strings.isNullOrEmpty(username)) {
             throw new RepositoryException("Username can not be null!");
         }
-        String regex = "^[A-Za-z0-9_]{5,30}$";
+        String regex = "^[A-Za-z0-9_\\-.]{5,30}$";
         if (!username.matches(regex)) {
-            throw new RepositoryException("Invalid username! Size: [5-30], Chars: [A-Za-z0-9_]");
+            throw new RepositoryException("Invalid username! Size: [5-30], Chars: [A-Za-z0-9_-.]");
         }
     }
 
