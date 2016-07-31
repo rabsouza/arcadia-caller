@@ -65,7 +65,7 @@ public class CampaignController {
         }
     }
 
-    @RequestMapping(value = "/{key}", method = RequestMethod.GET,
+    @RequestMapping(value = "/{key:.+}", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<Campaign> getByKey(@RequestHeader("token") String token, @PathVariable("key") String key) throws
@@ -84,7 +84,7 @@ public class CampaignController {
         }
     }
 
-    @RequestMapping(value = "/user/{username}", method = RequestMethod.GET,
+    @RequestMapping(value = "/user/{username:.+}", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<List<Campaign>> getByUser(@RequestHeader("token") String token, @PathVariable("username") String username) throws
@@ -139,7 +139,7 @@ public class CampaignController {
         return buildResponseSuccess(updatedCampaign, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{key}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{key:.+}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity delete(@RequestHeader("token") String token, @PathVariable String key) throws AuthenticationException {
         authenticationService.authetication(token, ADMIN, APP);

@@ -65,7 +65,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET,
+    @RequestMapping(value = "/{username:.+}", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<User> getByUsername(@RequestHeader("token") String token, @PathVariable("username") String username) throws
@@ -84,7 +84,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/exists/{username}", method = RequestMethod.GET,
+    @RequestMapping(value = "/exists/{username:.+}", method = RequestMethod.GET,
                     produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<Void> existsUsername(@RequestHeader("token") String token, @PathVariable("username") String username) throws
@@ -138,7 +138,7 @@ public class UserController {
         return buildResponseSuccess(updatedUser, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{username:.+}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity delete(@RequestHeader("token") String token, @PathVariable("username") String username) throws AuthenticationException {
         authenticationService.authetication(token, ADMIN);

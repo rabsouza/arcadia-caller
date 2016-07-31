@@ -51,7 +51,7 @@ public class LoginController {
         return buildResponseSuccess(newUser, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET,
+    @RequestMapping(value = "/{username:.+}", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<Map<String, String>> login(@PathVariable("username") String username) {

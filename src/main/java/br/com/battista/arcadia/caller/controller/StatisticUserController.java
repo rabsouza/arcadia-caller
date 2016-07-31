@@ -38,7 +38,7 @@ public class StatisticUserController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET,
+    @RequestMapping(value = "/{username:.+}", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<StatisticUserDto> getAll(@RequestHeader("token") String token, @PathVariable("username") String username) throws

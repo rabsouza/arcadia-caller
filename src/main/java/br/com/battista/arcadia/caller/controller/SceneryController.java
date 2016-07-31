@@ -61,7 +61,7 @@ public class SceneryController {
         }
     }
 
-    @RequestMapping(value = "/location/{location}", method = RequestMethod.GET,
+    @RequestMapping(value = "/location/{location:.+}", method = RequestMethod.GET,
                     produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<List<Scenery>> getByLocation(@RequestHeader("token") String token, @PathVariable("location")LocationSceneryEnum locationScenery) throws AuthenticationException {
