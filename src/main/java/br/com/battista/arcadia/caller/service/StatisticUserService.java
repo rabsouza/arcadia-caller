@@ -75,24 +75,30 @@ public class StatisticUserService {
         if (campaign.getCompleted()) {
             statisticUserDto.incCompleteds();
 
-            if (campaign.getWinner() != null && campaign.getWinner().contains(username)) {
+            if (username.equalsIgnoreCase(campaign.getWinner())) {
                 statisticUserDto.incCampaignWinners();
+            } else {
+                statisticUserDto.incCampaignDefeats();
+            }
+
+            if (campaign.getWinners() != null && campaign.getWinners().contains(username)) {
+                statisticUserDto.incCampaignMedalsWinners();
             }
 
             if (campaign.getLeastDeaths() != null && campaign.getLeastDeaths().contains(username)) {
-                statisticUserDto.incCampaignLeastDeaths();
+                statisticUserDto.incCampaignMedalsLeastDeaths();
             }
 
             if (campaign.getMostCoins() != null && campaign.getMostCoins().contains(username)) {
-                statisticUserDto.incCampaignMostCoins();
+                statisticUserDto.incCampaignMedalsMostCoins();
             }
 
             if (campaign.getWonReward() != null && campaign.getWonReward().contains(username)) {
-                statisticUserDto.incCampaignWonRewards();
+                statisticUserDto.incCampaignMedalsWonRewards();
             }
 
             if (campaign.getWonTitle() != null && campaign.getWonTitle().contains(username)) {
-                statisticUserDto.incCampaignWonTitles();
+                statisticUserDto.incCampaignMedalsWonTitles();
             }
         }
     }

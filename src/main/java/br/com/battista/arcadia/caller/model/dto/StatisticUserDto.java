@@ -42,13 +42,15 @@ public class StatisticUserDto implements Serializable {
 
     private Integer campaignDefeats = 0;
 
-    private Integer campaignLeastDeaths = 0;
+    private Integer campaignMedalsWinners = 0;
 
-    private Integer campaignMostCoins = 0;
+    private Integer campaignMedalsLeastDeaths = 0;
 
-    private Integer campaignWonRewards = 0;
+    private Integer campaignMedalsMostCoins = 0;
 
-    private Integer campaignWonTitles = 0;
+    private Integer campaignMedalsWonRewards = 0;
+
+    private Integer campaignMedalsWonTitles = 0;
 
     private Integer sceneryWinners = 0;
 
@@ -69,10 +71,11 @@ public class StatisticUserDto implements Serializable {
         guilds = 0;
         campaignWinners = 0;
         campaignDefeats = 0;
-        campaignLeastDeaths = 0;
-        campaignMostCoins = 0;
-        campaignWonRewards = 0;
-        campaignWonTitles = 0;
+        campaignMedalsWinners = 0;
+        campaignMedalsLeastDeaths = 0;
+        campaignMedalsMostCoins = 0;
+        campaignMedalsWonRewards = 0;
+        campaignMedalsWonTitles = 0;
         sceneryWinners = 0;
         sceneryDefeats = 0;
         sceneryLeastDeaths = 0;
@@ -129,20 +132,24 @@ public class StatisticUserDto implements Serializable {
         campaignDefeats++;
     }
 
-    public void incCampaignLeastDeaths() {
-        campaignLeastDeaths++;
+    public void incCampaignMedalsWinners() {
+        campaignMedalsWinners++;
     }
 
-    public void incCampaignMostCoins() {
-        campaignMostCoins++;
+    public void incCampaignMedalsLeastDeaths() {
+        campaignMedalsLeastDeaths++;
     }
 
-    public void incCampaignWonRewards() {
-        campaignWonRewards++;
+    public void incCampaignMedalsMostCoins() {
+        campaignMedalsMostCoins++;
     }
 
-    public void incCampaignWonTitles() {
-        campaignWonTitles++;
+    public void incCampaignMedalsWonRewards() {
+        campaignMedalsWonRewards++;
+    }
+
+    public void incCampaignMedalsWonTitles() {
+        campaignMedalsWonTitles++;
     }
 
 }

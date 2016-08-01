@@ -84,7 +84,10 @@ public class Campaign extends BaseEntity implements Serializable {
     private String created;
 
     @Index
-    private List<String> winner;
+    private String winner;
+
+    @Index
+    private List<String> winners;
 
     @Index
     private List<String> leastDeaths;
