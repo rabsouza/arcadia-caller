@@ -28,7 +28,7 @@ public class HeroRepository {
 
         return objectifyRepository.load()
                        .type(Hero.class)
-                       .order("-updatedAt")
+                       .order("name")
                        .list();
 
     }

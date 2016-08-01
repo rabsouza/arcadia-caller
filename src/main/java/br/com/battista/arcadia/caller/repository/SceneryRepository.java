@@ -34,7 +34,8 @@ public class SceneryRepository {
 
         return objectifyRepository.load()
                        .type(Scenery.class)
-                       .order("-updatedAt")
+                       .order("location")
+                       .order("name")
                        .list();
 
     }
@@ -43,10 +44,11 @@ public class SceneryRepository {
         log.info("Find all sceneries!");
 
         return objectifyRepository.load()
-                        .type(Scenery.class)
-                        .filter("location", locationScenery)
-                        .order("-updatedAt")
-                        .list();
+                       .type(Scenery.class)
+                       .filter("location", locationScenery)
+                       .order("location")
+                       .order("name")
+                       .list();
 
     }
 

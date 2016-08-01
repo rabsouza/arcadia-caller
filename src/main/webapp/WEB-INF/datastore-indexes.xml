@@ -5,6 +5,10 @@
         <property name="location" direction="asc"/>
         <property name="updatedAt" direction="desc"/>
     </datastore-index>
+    <datastore-index kind="Scenery" ancestor="false" source="manual">
+        <property name="location" direction="asc"/>
+        <property name="name" direction="asc"/>
+    </datastore-index>
     <datastore-index kind="Campaign" ancestor="false" source="manual">
         <property name="created" direction="asc"/>
         <property name="updatedAt" direction="desc"/>

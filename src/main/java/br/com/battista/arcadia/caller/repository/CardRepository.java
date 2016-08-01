@@ -28,7 +28,8 @@ public class CardRepository {
 
         return objectifyRepository.load()
                        .type(Card.class)
-                       .order("-updatedAt")
+                       .order("group")
+                       .order("name")
                        .list();
 
     }
