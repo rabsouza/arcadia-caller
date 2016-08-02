@@ -1,6 +1,7 @@
 package br.com.battista.arcadia.caller.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -9,6 +10,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import com.google.appengine.repackaged.org.codehaus.jackson.annotate.JsonIgnore;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -61,8 +63,19 @@ public class User extends BaseEntity implements Serializable {
     @JsonIgnore
     private String token;
 
+    @Index
+    private List<String> friends;
+
     @Override
     public Object getPk() {
         return getId();
+    }
+
+    public void addFriends(List<String> friends) {
+        if (this.friends == null) {
+            this.friends = Lists.newArrayList();
+        }
+
+        this.friends.addAll(friends);
     }
 }

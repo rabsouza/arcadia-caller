@@ -85,13 +85,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/exists/{username:.+}", method = RequestMethod.GET,
-                    produces = RestControllerConstant.PRODUCES)
+            produces = RestControllerConstant.PRODUCES)
     @ResponseBody
     public ResponseEntity<Void> existsUsername(@RequestHeader("token") String token, @PathVariable("username") String username) throws
-                    AuthenticationException {
+            AuthenticationException {
         authenticationService.authetication(token, ADMIN, APP);
 
-        log.info("Check if there is the user by username: {}.", username);
+        log.info("Check if exists is the user by username: {}.", username);
         User user = userService.getUserByUsername(username);
 
         if (user == null) {
@@ -132,6 +132,32 @@ public class UserController {
             log.warn(USER_CAN_NOT_BE_NULL);
             return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, USER_IS_REQUIRED));
         }
+
+        log.info("Update the user[{}]!", user);
+        User updatedUser = userService.updateUser(user);
+        return buildResponseSuccess(updatedUser, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/friends/", method = RequestMethod.PUT,
+            produces = RestControllerConstant.PRODUCES,
+            consumes = RestControllerConstant.CONSUMES)
+    @ResponseBody
+    public ResponseEntity<User> addFriends(@RequestHeader("token") String token, @RequestBody User user)
+            throws AuthenticationException {
+        authenticationService.authetication(token, ADMIN, APP);
+
+        if (user == null) {
+            log.warn(USER_CAN_NOT_BE_NULL);
+            return buildResponseErro(messageSource.getMessage(MessagePropertiesConstant.MESSAGE_FIELD_IS_REQUIRED, USER_IS_REQUIRED));
+        }
+
+        String username = user.getUsername();
+        List<String> friends = user.getFriends();
+        log.info("Check if exists is the user by username: {}.", username);
+        user = userService.getUserByUsername(username);
+
+        log.info("Add friends in user: {}.", friends);
+        user.addFriends(friends);
 
         log.info("Update the user[{}]!", user);
         User updatedUser = userService.updateUser(user);
