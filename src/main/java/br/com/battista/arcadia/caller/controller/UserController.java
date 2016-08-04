@@ -1,14 +1,14 @@
 package br.com.battista.arcadia.caller.controller;
 
-import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseErro;
-import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseSuccess;
-import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.ADMIN;
-import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
-import static br.com.battista.arcadia.caller.constants.RestControllerConstant.ENABLE_CACHED_ACTION;
-
-import java.util.List;
-import java.util.Set;
-
+import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
+import br.com.battista.arcadia.caller.constants.RestControllerConstant;
+import br.com.battista.arcadia.caller.exception.AuthenticationException;
+import br.com.battista.arcadia.caller.model.User;
+import br.com.battista.arcadia.caller.service.AuthenticationService;
+import br.com.battista.arcadia.caller.service.MessageCustomerService;
+import br.com.battista.arcadia.caller.service.UserService;
+import com.google.appengine.repackaged.com.google.api.client.util.Strings;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.appengine.repackaged.com.google.api.client.util.Strings;
+import java.util.List;
+import java.util.Set;
 
-import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
-import br.com.battista.arcadia.caller.constants.RestControllerConstant;
-import br.com.battista.arcadia.caller.exception.AuthenticationException;
-import br.com.battista.arcadia.caller.model.User;
-import br.com.battista.arcadia.caller.service.AuthenticationService;
-import br.com.battista.arcadia.caller.service.MessageCustomerService;
-import br.com.battista.arcadia.caller.service.UserService;
-import lombok.extern.slf4j.Slf4j;
+import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseErro;
+import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseSuccess;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.ADMIN;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
+import static br.com.battista.arcadia.caller.constants.RestControllerConstant.ENABLE_CACHED_ACTION;
 
 @Slf4j
 @Controller
@@ -155,13 +153,13 @@ public class UserController {
         String username = user.getUsername();
         Set<String> friends = user.getFriends();
         log.info("Check if exists is the user by username: {}.", username);
-        user = userService.getUserByUsername(username);
+        User userFind = userService.getUserByUsername(username);
 
         log.info("Add friends in user: {}.", friends);
-        user.addFriends(friends);
+        userFind.addFriends(friends);
 
-        log.info("Update the user[{}]!", user);
-        User updatedUser = userService.updateUser(user);
+        log.info("Update the user[{}]!", userFind);
+        User updatedUser = userService.updateUser(userFind);
         return buildResponseSuccess(updatedUser, HttpStatus.OK);
     }
 

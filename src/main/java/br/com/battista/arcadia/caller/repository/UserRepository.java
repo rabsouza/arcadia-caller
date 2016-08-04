@@ -1,14 +1,5 @@
 package br.com.battista.arcadia.caller.repository;
 
-import java.text.MessageFormat;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import com.google.appengine.repackaged.com.google.api.client.util.Strings;
-import com.googlecode.objectify.Objectify;
-
 import br.com.battista.arcadia.caller.constants.EntityConstant;
 import br.com.battista.arcadia.caller.exception.EntityAlreadyExistsException;
 import br.com.battista.arcadia.caller.exception.EntityNotFoundException;
@@ -17,7 +8,14 @@ import br.com.battista.arcadia.caller.model.User;
 import br.com.battista.arcadia.caller.utils.MD5HashingUtils;
 import br.com.battista.arcadia.caller.utils.MergeBeanUtils;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
+import com.google.appengine.repackaged.com.google.api.client.util.Strings;
+import com.googlecode.objectify.Objectify;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.text.MessageFormat;
+import java.util.List;
 
 @Slf4j
 @Repository
@@ -96,6 +94,7 @@ public class UserRepository {
             throw new EntityAlreadyExistsException(cause);
         } else {
             MergeBeanUtils.merge(userFind, user);
+            userFind.setFriends(user.getFriends());
             userFind.updateEntity();
             log.info("Update the user: {}!", userFind);
 
