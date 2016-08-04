@@ -7,6 +7,7 @@ import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
 import static br.com.battista.arcadia.caller.constants.RestControllerConstant.ENABLE_CACHED_ACTION;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -152,7 +153,7 @@ public class UserController {
         }
 
         String username = user.getUsername();
-        List<String> friends = user.getFriends();
+        Set<String> friends = user.getFriends();
         log.info("Check if exists is the user by username: {}.", username);
         user = userService.getUserByUsername(username);
 
