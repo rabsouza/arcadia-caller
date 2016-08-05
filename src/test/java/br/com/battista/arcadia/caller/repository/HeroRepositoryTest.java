@@ -18,6 +18,7 @@ import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.BaseEntity;
 import br.com.battista.arcadia.caller.model.Hero;
+import br.com.battista.arcadia.caller.model.enuns.GroupHeroEnum;
 import br.com.battista.arcadia.caller.validator.EntityValidator;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,6 +27,8 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
     private final String name = "hero01";
     private final int defense = 2;
     private final int life = 4;
+    private final String ability = "ability";
+    private final GroupHeroEnum group = GroupHeroEnum.CORE_BOX;
 
     @Rule
     public ExpectedException rule = ExpectedException.none();
@@ -45,7 +48,7 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnHeroesWhenFindAllHeroes() {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).build();
+        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
         objectifyRepository.save().entity(hero).now();
 
         List<Hero> heroes = heroRepository.findAll();
@@ -56,7 +59,7 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldSaveHeroWhenValidHero() {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).build();
+        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
 
         Hero savedHero = heroRepository.saveOrUpdateHero(hero);
         assertNotNull(savedHero);
@@ -67,7 +70,7 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByNameWhenValidHeroAndValidName() {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).build();
+        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
 
         Hero savedHero = heroRepository.saveOrUpdateHero(hero);
         assertNotNull(savedHero);
@@ -84,7 +87,7 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnNullWhenFindByNameWithValidHeroAndInvalidName() {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).build();
+        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
 
         Hero savedHero = heroRepository.saveOrUpdateHero(hero);
         assertNotNull(savedHero);
@@ -98,7 +101,7 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldThrowExceptionWhenSaveHeroWithInvalidName() {
-        Hero hero = Hero.builder().name("abc").defense(defense).life(life).build();
+        Hero hero = Hero.builder().name("abc").defense(defense).life(life).ability(ability).group(group).build();
 
         doThrow(ValidatorException.class).when(entityValidator).validate((BaseEntity) anyObject());
 

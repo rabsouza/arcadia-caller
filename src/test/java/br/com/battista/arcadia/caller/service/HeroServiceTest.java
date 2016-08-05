@@ -21,6 +21,7 @@ import br.com.battista.arcadia.caller.constants.EntityConstant;
 import br.com.battista.arcadia.caller.exception.RepositoryException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.Hero;
+import br.com.battista.arcadia.caller.model.enuns.GroupHeroEnum;
 import br.com.battista.arcadia.caller.repository.HeroRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -29,6 +30,8 @@ public class HeroServiceTest {
     private final String name = "hero01";
     private final int defense = 2;
     private final int life = 4;
+    private final String ability = "ability";
+    private final GroupHeroEnum group = GroupHeroEnum.CORE_BOX;
 
     @Rule
     public ExpectedException rule = ExpectedException.none();
@@ -41,7 +44,7 @@ public class HeroServiceTest {
 
     @Test
     public void shouldGetAllHeros() {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).build();
+        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
         when(heroRepository.findAll()).thenReturn(Lists.newArrayList(hero));
 
         List<Hero> heroes = heroService.getAllHeroes();
@@ -53,7 +56,7 @@ public class HeroServiceTest {
 
     @Test
     public void shouldGetHeroByName() {
-        Hero hero = Hero.builder().id(1l).name(name).defense(defense).life(life).build();
+        Hero hero = Hero.builder().id(1l).name(name).defense(defense).life(life).ability(ability).group(group).build();
         hero.initEntity();
         when(heroRepository.findByName(anyString())).thenReturn(hero);
 
@@ -66,7 +69,7 @@ public class HeroServiceTest {
 
     @Test
     public void shouldSaveHeroWhenHeroValid() {
-        Hero hero = Hero.builder().id(1l).name(name).defense(defense).life(life).build();
+        Hero hero = Hero.builder().id(1l).name(name).defense(defense).life(life).ability(ability).group(group).build();
         hero.initEntity();
         when(heroRepository.saveOrUpdateHero((Hero) any())).thenReturn(hero);
 

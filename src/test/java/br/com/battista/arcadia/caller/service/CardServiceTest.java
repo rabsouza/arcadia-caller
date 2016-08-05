@@ -30,6 +30,8 @@ public class CardServiceTest {
 
     private final String name = "card01";
     private final String key = "key01";
+    private final String typeEffect = "typeEffect";
+    private final String groupEffect = "groupEffect";
     private final TypeCardEnum type = TypeCardEnum.UPGRADE;
     private final GroupCardEnum group = GroupCardEnum.NONE;
 
@@ -44,7 +46,7 @@ public class CardServiceTest {
 
     @Test
     public void shouldGetAllCards() {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).build();
+        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
         when(cardRepository.findAll()).thenReturn(Lists.newArrayList(card));
 
         List<Card> cards = cardService.getAllCards();
@@ -56,7 +58,7 @@ public class CardServiceTest {
 
     @Test
     public void shouldGetCardByName() {
-        Card card = Card.builder().id(1l).name(name).type(type).group(group).build();
+        Card card = Card.builder().id(1l).name(name).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
         card.initEntity();
         when(cardRepository.findByName(anyString())).thenReturn(card);
 
@@ -69,7 +71,7 @@ public class CardServiceTest {
 
     @Test
     public void shouldSaveCardWhenCardValid() {
-        Card card = Card.builder().id(1l).name(name).type(type).group(group).build();
+        Card card = Card.builder().id(1l).name(name).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
         card.initEntity();
         when(cardRepository.saveOrUpdateCard((Card) any())).thenReturn(card);
 

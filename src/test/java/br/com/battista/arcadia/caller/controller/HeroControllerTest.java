@@ -21,6 +21,7 @@ import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.exception.ValidatorException;
 import br.com.battista.arcadia.caller.model.Hero;
 import br.com.battista.arcadia.caller.model.User;
+import br.com.battista.arcadia.caller.model.enuns.GroupHeroEnum;
 import br.com.battista.arcadia.caller.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,6 +31,8 @@ public class HeroControllerTest extends BaseControllerConfig {
     private final String name = "hero01";
     private final int defense = 2;
     private final int life = 4;
+    private final String ability = "ability";
+    private final GroupHeroEnum group = GroupHeroEnum.CORE_BOX;
     private final String username = "abc0_";
     private final String mail = "abc@abc.com";
     private final ProfileAppConstant profile = ProfileAppConstant.ADMIN;
@@ -89,7 +92,7 @@ public class HeroControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenValidHeroToActionSave() throws AuthenticationException {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).build();
+        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
 
         ResponseEntity<Hero> responseEntity = heroController.save(token, hero);
 
@@ -120,7 +123,7 @@ public class HeroControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenExistsHeroToActionGetAll() throws AuthenticationException {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).build();
+        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
 
         heroController.save(token, hero);
 

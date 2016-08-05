@@ -27,6 +27,8 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
 
     private final String name = "card01";
     private final String key = "key01";
+    private final String typeEffect = "typeEffect";
+    private final String groupEffect = "groupEffect";
     private final TypeCardEnum type = TypeCardEnum.UPGRADE;
     private final GroupCardEnum group = GroupCardEnum.NONE;
 
@@ -48,7 +50,7 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnCardsWhenFindAllCards() {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).build();
+        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
         objectifyRepository.save().entity(card).now();
 
         List<Card> cards = cardRepository.findAll();
@@ -59,7 +61,7 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldSaveCardWhenValidCard() {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).build();
+        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
 
         Card savedCard = cardRepository.saveOrUpdateCard(card);
         assertNotNull(savedCard);
@@ -70,7 +72,7 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByNameWhenValidCardAndValidName() {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).build();
+        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
 
         Card savedCard = cardRepository.saveOrUpdateCard(card);
         assertNotNull(savedCard);
@@ -87,7 +89,7 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnNullWhenFindByNameWithValidCardAndInvalidName() {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).build();
+        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
 
         Card savedCard = cardRepository.saveOrUpdateCard(card);
         assertNotNull(savedCard);
@@ -101,7 +103,7 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldThrowExceptionWhenSaveCardWithInvalidName() {
-        Card card = Card.builder().name("abc").type(type).group(group).build();
+        Card card = Card.builder().name("abc").type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
 
         doThrow(ValidatorException.class).when(entityValidator).validate((BaseEntity) anyObject());
 

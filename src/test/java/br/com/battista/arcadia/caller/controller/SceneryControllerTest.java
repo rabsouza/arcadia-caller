@@ -32,7 +32,7 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 public class SceneryControllerTest extends BaseControllerConfig {
 
     private final String name = "scenery01";
-    private final Card reward = Card.builder().name("wonReward").key("key01").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).build();
+    private final Card reward = Card.builder().name("wonReward").key("key01").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).typeEffect("effect").groupEffect("effect").build();
     private final String title = "wonTitle";
     private final LocationSceneryEnum location = LocationSceneryEnum.NONE;
     private final String username = "abc0_";
