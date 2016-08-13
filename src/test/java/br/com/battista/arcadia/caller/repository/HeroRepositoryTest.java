@@ -95,13 +95,13 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
         assertNotNull(savedHero.getCreatedAt());
         assertThat(savedHero.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
 
-        Hero heroFind = heroRepository.findByName("abcd");
+        Hero heroFind = heroRepository.findByName("ab");
         assertNull(heroFind);
     }
 
     @Test
     public void shouldThrowExceptionWhenSaveHeroWithInvalidName() {
-        Hero hero = Hero.builder().name("abc").defense(defense).life(life).ability(ability).group(group).build();
+        Hero hero = Hero.builder().name("ab").defense(defense).life(life).ability(ability).group(group).build();
 
         doThrow(ValidatorException.class).when(entityValidator).validate((BaseEntity) anyObject());
 

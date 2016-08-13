@@ -97,13 +97,13 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
         assertNotNull(savedCard.getCreatedAt());
         assertThat(savedCard.getVersion(), equalTo(EntityConstant.DEFAULT_VERSION));
 
-        Card cardFind = cardRepository.findByName("abcd");
+        Card cardFind = cardRepository.findByName("ab");
         assertNull(cardFind);
     }
 
     @Test
     public void shouldThrowExceptionWhenSaveCardWithInvalidName() {
-        Card card = Card.builder().name("abc").type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
+        Card card = Card.builder().name("ab").type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
 
         doThrow(ValidatorException.class).when(entityValidator).validate((BaseEntity) anyObject());
 
