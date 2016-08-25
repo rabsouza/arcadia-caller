@@ -4,6 +4,10 @@
     <version>${app.version}</version>
     <threadsafe>true</threadsafe>
 
+    <manual-scaling>
+        <instances>2</instances>
+    </manual-scaling>
+
     <static-files>
         <include path="/**.png" expiration="1d"/>
         <include path="/**.gif" expiration="1d"/>

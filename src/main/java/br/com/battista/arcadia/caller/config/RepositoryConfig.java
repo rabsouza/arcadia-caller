@@ -18,6 +18,7 @@ public class RepositoryConfig {
     @Bean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS, value = "prototype")
     public Objectify configObjectifyRepository() {
+        ObjectifyService.begin();
         return ObjectifyService.ofy();
     }
 
