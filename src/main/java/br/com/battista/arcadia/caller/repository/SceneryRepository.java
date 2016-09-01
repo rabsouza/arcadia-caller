@@ -21,6 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 public class SceneryRepository {
 
+    private static final String FIELD_LOCATION = "location";
+
     @Autowired
     private EntityValidator entityValidator;
 
@@ -35,8 +37,8 @@ public class SceneryRepository {
 
         return objectifyRepository.load()
                        .type(Scenery.class)
-                       .filter("locale", locale == null ? null : locale.getLanguage())
-                       .order("location")
+                       //.filter("locale", locale == null ? null : locale.getLanguage())
+                       .order(FIELD_LOCATION)
                        .order("name")
                        .list();
 
@@ -47,9 +49,9 @@ public class SceneryRepository {
 
         return objectifyRepository.load()
                        .type(Scenery.class)
-                       .filter("location", locationScenery)
+                       .filter(FIELD_LOCATION, locationScenery)
                        .filter("locale", locale == null ? null : locale.getLanguage())
-                       .order("location")
+                       .order(FIELD_LOCATION)
                        .order("name")
                        .list();
 

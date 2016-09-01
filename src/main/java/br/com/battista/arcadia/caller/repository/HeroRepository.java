@@ -34,7 +34,7 @@ public class HeroRepository {
                        .list();
     }
 
-    public Hero findByName(String name) {
+    public Hero findByName(String name, Locale locale) {
         if (Strings.isNullOrEmpty(name)) {
             throw new RepositoryException("Name can not be null!");
         }
@@ -44,6 +44,7 @@ public class HeroRepository {
                        .load()
                        .type(Hero.class)
                        .filter("name", name)
+                       .filter("locale", locale == null ? null : locale.getLanguage())
                        .first()
                        .now();
     }

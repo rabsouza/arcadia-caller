@@ -29,16 +29,14 @@ import br.com.battista.arcadia.caller.validator.EntityValidator;
 @RunWith(MockitoJUnitRunner.class)
 public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
-    private Locale locale = new Locale("pt");
-
     private final String name = "scenery01";
     private final Card reward = Card.builder().name("wonReward").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).build();
     private final String title = "wonTitle";
     private final LocationSceneryEnum location = LocationSceneryEnum.NONE;
     private final DifficultySceneryEnum difficulty = DifficultySceneryEnum.NONE;
-
     @Rule
     public ExpectedException rule = ExpectedException.none();
+    private Locale locale = new Locale("pt");
     @InjectMocks
     private SceneryRepository sceneryRepository;
     @Mock

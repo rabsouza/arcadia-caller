@@ -32,8 +32,6 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 @ContextConfiguration(classes = {AppConfig.class})
 public class SceneryControllerTest extends BaseControllerConfig {
 
-    private Locale locale = new Locale("pt");
-
     private final String name = "scenery01";
     private final Card reward = Card.builder().name("wonReward").key("key01").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).typeEffect("effect").groupEffect("effect").build();
     private final String title = "wonTitle";
@@ -43,6 +41,7 @@ public class SceneryControllerTest extends BaseControllerConfig {
     private final ProfileAppConstant profile = ProfileAppConstant.ADMIN;
     @Rule
     public ExpectedException rule = ExpectedException.none();
+    private Locale locale = new Locale("pt");
     private String token = null;
     @Autowired
     private SceneryController sceneryController;

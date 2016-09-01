@@ -1,9 +1,9 @@
 package br.com.battista.arcadia.caller.model.enuns;
 
+import java.util.Map;
+
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Maps;
-
-import java.util.Map;
 
 public enum GroupHeroEnum {
 

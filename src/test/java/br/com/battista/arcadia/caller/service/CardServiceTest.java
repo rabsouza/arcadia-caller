@@ -29,18 +29,15 @@ import br.com.battista.arcadia.caller.repository.CardRepository;
 @RunWith(MockitoJUnitRunner.class)
 public class CardServiceTest {
 
-    private Locale locale = new Locale("pt");
-
     private final String name = "card01";
     private final String key = "key01";
     private final String typeEffect = "typeEffect";
     private final String groupEffect = "groupEffect";
     private final TypeCardEnum type = TypeCardEnum.UPGRADE;
     private final GroupCardEnum group = GroupCardEnum.NONE;
-
     @Rule
     public ExpectedException rule = ExpectedException.none();
-
+    private Locale locale = new Locale("pt");
     @InjectMocks
     private CardService cardService;
 

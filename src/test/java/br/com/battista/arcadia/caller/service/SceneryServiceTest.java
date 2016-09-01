@@ -31,16 +31,13 @@ import br.com.battista.arcadia.caller.repository.SceneryRepository;
 @RunWith(MockitoJUnitRunner.class)
 public class SceneryServiceTest {
 
-    private Locale locale = new Locale("pt");
-
     private final String name = "scenery01";
     private final Card reward = Card.builder().name("wonReward").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).build();
     private final String title = "wonTitle";
     private final LocationSceneryEnum location = LocationSceneryEnum.NONE;
-
     @Rule
     public ExpectedException rule = ExpectedException.none();
-
+    private Locale locale = new Locale("pt");
     @InjectMocks
     private SceneryService sceneryService;
 

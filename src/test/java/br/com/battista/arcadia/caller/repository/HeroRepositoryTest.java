@@ -25,17 +25,14 @@ import br.com.battista.arcadia.caller.validator.EntityValidator;
 @RunWith(MockitoJUnitRunner.class)
 public class HeroRepositoryTest extends BaseRepositoryConfig {
 
-    private Locale locale = new Locale("pt");
-
     private final String name = "hero01";
     private final int defense = 2;
     private final int life = 4;
     private final String ability = "ability";
     private final GroupHeroEnum group = GroupHeroEnum.CORE_BOX;
-
     @Rule
     public ExpectedException rule = ExpectedException.none();
-
+    private Locale locale = new Locale("pt");
     @InjectMocks
     private HeroRepository heroRepository;
 

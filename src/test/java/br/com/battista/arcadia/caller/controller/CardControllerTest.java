@@ -30,8 +30,6 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 @ContextConfiguration(classes = {AppConfig.class})
 public class CardControllerTest extends BaseControllerConfig {
 
-    private Locale locale = new Locale("pt");
-
     private final String name = "card01";
     private final String key = "key01";
     private final String typeEffect = "typeEffect";
@@ -43,6 +41,7 @@ public class CardControllerTest extends BaseControllerConfig {
     private final ProfileAppConstant profile = ProfileAppConstant.ADMIN;
     @Rule
     public ExpectedException rule = ExpectedException.none();
+    private Locale locale = new Locale("pt");
     private String token = null;
     @Autowired
     private CardController cardController;

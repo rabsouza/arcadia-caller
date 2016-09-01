@@ -1,14 +1,14 @@
 package br.com.battista.arcadia.caller.controller;
 
-import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
-import br.com.battista.arcadia.caller.constants.RestControllerConstant;
-import br.com.battista.arcadia.caller.exception.AuthenticationException;
-import br.com.battista.arcadia.caller.model.User;
-import br.com.battista.arcadia.caller.service.AuthenticationService;
-import br.com.battista.arcadia.caller.service.MessageCustomerService;
-import br.com.battista.arcadia.caller.service.UserService;
-import com.google.appengine.repackaged.com.google.api.client.util.Strings;
-import lombok.extern.slf4j.Slf4j;
+import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseErro;
+import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseSuccess;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.ADMIN;
+import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
+import static br.com.battista.arcadia.caller.constants.RestControllerConstant.ENABLE_CACHED_ACTION;
+
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +20,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-import java.util.Set;
+import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 
-import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseErro;
-import static br.com.battista.arcadia.caller.builder.ResponseEntityBuilder.buildResponseSuccess;
-import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.ADMIN;
-import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
-import static br.com.battista.arcadia.caller.constants.RestControllerConstant.ENABLE_CACHED_ACTION;
+import br.com.battista.arcadia.caller.constants.MessagePropertiesConstant;
+import br.com.battista.arcadia.caller.constants.RestControllerConstant;
+import br.com.battista.arcadia.caller.exception.AuthenticationException;
+import br.com.battista.arcadia.caller.model.User;
+import br.com.battista.arcadia.caller.service.AuthenticationService;
+import br.com.battista.arcadia.caller.service.MessageCustomerService;
+import br.com.battista.arcadia.caller.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller

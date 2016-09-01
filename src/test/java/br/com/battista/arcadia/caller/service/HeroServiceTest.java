@@ -28,17 +28,14 @@ import br.com.battista.arcadia.caller.repository.HeroRepository;
 @RunWith(MockitoJUnitRunner.class)
 public class HeroServiceTest {
 
-    private Locale locale = new Locale("pt");
-
     private final String name = "hero01";
     private final int defense = 2;
     private final int life = 4;
     private final String ability = "ability";
     private final GroupHeroEnum group = GroupHeroEnum.CORE_BOX;
-
     @Rule
     public ExpectedException rule = ExpectedException.none();
-
+    private Locale locale = new Locale("pt");
     @InjectMocks
     private HeroService heroService;
 

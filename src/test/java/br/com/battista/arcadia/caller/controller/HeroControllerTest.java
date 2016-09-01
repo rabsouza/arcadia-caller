@@ -29,8 +29,6 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 @ContextConfiguration(classes = {AppConfig.class})
 public class HeroControllerTest extends BaseControllerConfig {
 
-    private Locale locale = new Locale("pt");
-
     private final String name = "hero01";
     private final int defense = 2;
     private final int life = 4;
@@ -41,6 +39,7 @@ public class HeroControllerTest extends BaseControllerConfig {
     private final ProfileAppConstant profile = ProfileAppConstant.ADMIN;
     @Rule
     public ExpectedException rule = ExpectedException.none();
+    private Locale locale = new Locale("pt");
     private String token = null;
     @Autowired
     private HeroController heroController;

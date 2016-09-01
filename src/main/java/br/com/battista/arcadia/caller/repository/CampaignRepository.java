@@ -95,7 +95,7 @@ public class CampaignRepository {
 
         List<Campaign> campaigns = Lists.newArrayList();
 
-        String guilds[] = {"guild01", "guild02", "guild03", "guild04"};
+        String[] guilds = {"guild01", "guild02", "guild03", "guild04"};
         for (String guild : guilds) {
             campaigns.addAll(objectifyRepository
                                      .load()

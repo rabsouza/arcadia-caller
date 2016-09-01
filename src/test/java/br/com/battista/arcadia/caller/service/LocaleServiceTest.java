@@ -1,8 +1,8 @@
 package br.com.battista.arcadia.caller.service;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class LocaleServiceTest {
 
     @Test
     public void shouldReturnLocaleWhenSupportedLocale() {
-        assertThat(localeService.processSupportedLocales("pt"), CoreMatchers.equalTo(MessageConstant.DEFAULT_LOCALE));
+        assertThat(localeService.processSupportedLocales("pt"), equalTo(MessageConstant.DEFAULT_LOCALE));
     }
 
 }

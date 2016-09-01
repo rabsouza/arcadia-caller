@@ -81,25 +81,32 @@ public class StatisticUserService {
                 statisticUserDto.incCampaignDefeats();
             }
 
-            if (campaign.getWinners() != null && campaign.getWinners().contains(username)) {
-                statisticUserDto.incCampaignMedalsWinners();
-            }
+            checkStatisticCampaignOthers(username, statisticUserDto, campaign);
+            checkStatisticCampaignWon(username, statisticUserDto, campaign);
+        }
+    }
 
-            if (campaign.getLeastDeaths() != null && campaign.getLeastDeaths().contains(username)) {
-                statisticUserDto.incCampaignMedalsLeastDeaths();
-            }
+    private void checkStatisticCampaignOthers(String username, StatisticUserDto statisticUserDto, Campaign campaign) {
+        if (campaign.getWinners() != null && campaign.getWinners().contains(username)) {
+            statisticUserDto.incCampaignMedalsWinners();
+        }
 
-            if (campaign.getMostCoins() != null && campaign.getMostCoins().contains(username)) {
-                statisticUserDto.incCampaignMedalsMostCoins();
-            }
+        if (campaign.getLeastDeaths() != null && campaign.getLeastDeaths().contains(username)) {
+            statisticUserDto.incCampaignMedalsLeastDeaths();
+        }
 
-            if (campaign.getWonReward() != null && campaign.getWonReward().contains(username)) {
-                statisticUserDto.incCampaignMedalsWonRewards();
-            }
+        if (campaign.getMostCoins() != null && campaign.getMostCoins().contains(username)) {
+            statisticUserDto.incCampaignMedalsMostCoins();
+        }
+    }
 
-            if (campaign.getWonTitle() != null && campaign.getWonTitle().contains(username)) {
-                statisticUserDto.incCampaignMedalsWonTitles();
-            }
+    private void checkStatisticCampaignWon(String username, StatisticUserDto statisticUserDto, Campaign campaign) {
+        if (campaign.getWonReward() != null && campaign.getWonReward().contains(username)) {
+            statisticUserDto.incCampaignMedalsWonRewards();
+        }
+
+        if (campaign.getWonTitle() != null && campaign.getWonTitle().contains(username)) {
+            statisticUserDto.incCampaignMedalsWonTitles();
         }
     }
 
