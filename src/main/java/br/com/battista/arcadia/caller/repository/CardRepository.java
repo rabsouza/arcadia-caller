@@ -1,6 +1,7 @@
 package br.com.battista.arcadia.caller.repository;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,11 +24,12 @@ public class CardRepository {
     @Autowired
     private Objectify objectifyRepository;
 
-    public List<Card> findAll() {
+    public List<Card> findAll(Locale locale) {
         log.info("Find all cards!");
 
         return objectifyRepository.load()
                        .type(Card.class)
+                       .filter("locale", locale == null ? null : locale.getLanguage())
                        .order("group")
                        .order("name")
                        .list();
@@ -39,7 +41,6 @@ public class CardRepository {
             throw new RepositoryException("Name can not be null!");
         }
         log.info("Find card by name: {}!", name);
-
         return objectifyRepository
                        .load()
                        .type(Card.class)

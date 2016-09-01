@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.*;
 import org.junit.rules.*;
@@ -25,6 +26,8 @@ import br.com.battista.arcadia.caller.validator.EntityValidator;
 @RunWith(MockitoJUnitRunner.class)
 public class CardRepositoryTest extends BaseRepositoryConfig {
 
+    private Locale locale = new Locale("pt");
+
     private final String name = "card01";
     private final String key = "key01";
     private final String typeEffect = "typeEffect";
@@ -43,17 +46,17 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldEmptyCardsWhenEmptyDataBase() {
-        List<Card> cards = cardRepository.findAll();
+        List<Card> cards = cardRepository.findAll(locale);
         assertNotNull(cards);
         assertThat(cards, hasSize(0));
     }
 
     @Test
     public void shouldReturnCardsWhenFindAllCards() {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
+        Card card = Card.builder().locale(locale.getLanguage()).name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
         objectifyRepository.save().entity(card).now();
 
-        List<Card> cards = cardRepository.findAll();
+        List<Card> cards = cardRepository.findAll(locale);
         assertNotNull(cards);
         assertThat(cards, hasSize(1));
         assertThat(cards.iterator().next().getName(), equalTo(name));
@@ -61,7 +64,7 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldSaveCardWhenValidCard() {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
+        Card card = Card.builder().locale(locale.getLanguage()).name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
 
         Card savedCard = cardRepository.saveOrUpdateCard(card);
         assertNotNull(savedCard);
@@ -72,7 +75,7 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByNameWhenValidCardAndValidName() {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
+        Card card = Card.builder().locale(locale.getLanguage()).name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
 
         Card savedCard = cardRepository.saveOrUpdateCard(card);
         assertNotNull(savedCard);
@@ -89,7 +92,7 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnNullWhenFindByNameWithValidCardAndInvalidName() {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
+        Card card = Card.builder().locale(locale.getLanguage()).name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
 
         Card savedCard = cardRepository.saveOrUpdateCard(card);
         assertNotNull(savedCard);
@@ -103,7 +106,7 @@ public class CardRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldThrowExceptionWhenSaveCardWithInvalidName() {
-        Card card = Card.builder().name("ab").type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
+        Card card = Card.builder().locale(locale.getLanguage()).name("ab").type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
 
         doThrow(ValidatorException.class).when(entityValidator).validate((BaseEntity) anyObject());
 

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.*;
 import org.junit.rules.*;
@@ -28,6 +29,8 @@ import br.com.battista.arcadia.caller.validator.EntityValidator;
 @RunWith(MockitoJUnitRunner.class)
 public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
+    private Locale locale = new Locale("pt");
+
     private final String name = "scenery01";
     private final Card reward = Card.builder().name("wonReward").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).build();
     private final String title = "wonTitle";
@@ -46,17 +49,17 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldEmptySceneriesWhenEmptyDataBase() {
-        List<Scenery> sceneries = sceneryRepository.findAll();
+        List<Scenery> sceneries = sceneryRepository.findAll(locale);
         assertNotNull(sceneries);
         assertThat(sceneries, hasSize(0));
     }
 
     @Test
     public void shouldReturnSceneriesWhenFindAllSceneries() {
-        Scenery scenery = Scenery.builder().name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
         objectifyRepository.save().entity(scenery).now();
 
-        List<Scenery> sceneries = sceneryRepository.findAll();
+        List<Scenery> sceneries = sceneryRepository.findAll(locale);
         assertNotNull(sceneries);
         assertThat(sceneries, hasSize(1));
         assertThat(sceneries.iterator().next().getName(), equalTo(name));
@@ -64,10 +67,10 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnSceneriesWhenFindByLocation() {
-        Scenery scenery = Scenery.builder().name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
         objectifyRepository.save().entity(scenery).now();
 
-        List<Scenery> sceneries = sceneryRepository.findByLocation(location);
+        List<Scenery> sceneries = sceneryRepository.findByLocation(location, locale);
         assertNotNull(sceneries);
         assertThat(sceneries, hasSize(1));
         assertThat(sceneries.iterator().next().getName(), equalTo(name));
@@ -75,17 +78,17 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnEmptyWhenFindByLocationWitnInvalidLocation() {
-        Scenery scenery = Scenery.builder().name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
         objectifyRepository.save().entity(scenery).now();
 
-        List<Scenery> sceneries = sceneryRepository.findByLocation(LocationSceneryEnum.INNER_CIRCLE);
+        List<Scenery> sceneries = sceneryRepository.findByLocation(LocationSceneryEnum.INNER_CIRCLE, locale);
         assertNotNull(sceneries);
         assertThat(sceneries, hasSize(0));
     }
 
     @Test
     public void shouldSaveSceneryWhenValidScenery() {
-        Scenery scenery = Scenery.builder().name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
 
         Scenery savedScenery = sceneryRepository.saveOrUpdateScenery(scenery);
         assertNotNull(savedScenery);
@@ -96,7 +99,7 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByNameWhenValidSceneryAndValidName() {
-        Scenery scenery = Scenery.builder().name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
 
         Scenery savedScenery = sceneryRepository.saveOrUpdateScenery(scenery);
         assertNotNull(savedScenery);
@@ -115,7 +118,7 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnNullWhenFindByNameWithValidSceneryAndInvalidName() {
-        Scenery scenery = Scenery.builder().name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name(name).difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
 
         Scenery savedScenery = sceneryRepository.saveOrUpdateScenery(scenery);
         assertNotNull(savedScenery);
@@ -129,7 +132,7 @@ public class SceneryRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldThrowExceptionWhenSaveSceneryWithInvalidName() {
-        Scenery scenery = Scenery.builder().name("abc").difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name("abc").difficulty(difficulty).location(location).wonTitle(title).wonReward(reward).build();
 
         doThrow(ValidatorException.class).when(entityValidator).validate((BaseEntity) anyObject());
 

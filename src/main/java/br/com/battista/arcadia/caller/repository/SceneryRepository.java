@@ -1,6 +1,7 @@
 package br.com.battista.arcadia.caller.repository;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,23 +30,25 @@ public class SceneryRepository {
     @Autowired
     private CardRepository cardRepository;
 
-    public List<Scenery> findAll() {
+    public List<Scenery> findAll(Locale locale) {
         log.info("Find all sceneries!");
 
         return objectifyRepository.load()
                        .type(Scenery.class)
+                       .filter("locale", locale == null ? null : locale.getLanguage())
                        .order("location")
                        .order("name")
                        .list();
 
     }
 
-    public List<Scenery> findByLocation(LocationSceneryEnum locationScenery) {
+    public List<Scenery> findByLocation(LocationSceneryEnum locationScenery, Locale locale) {
         log.info("Find all sceneries!");
 
         return objectifyRepository.load()
                        .type(Scenery.class)
                        .filter("location", locationScenery)
+                       .filter("locale", locale == null ? null : locale.getLanguage())
                        .order("location")
                        .order("name")
                        .list();

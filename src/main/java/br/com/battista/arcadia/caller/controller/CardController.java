@@ -7,6 +7,7 @@ import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
 import static br.com.battista.arcadia.caller.constants.RestControllerConstant.ENABLE_CACHED_ACTION;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.Card;
 import br.com.battista.arcadia.caller.service.AuthenticationService;
 import br.com.battista.arcadia.caller.service.CardService;
+import br.com.battista.arcadia.caller.service.LocaleService;
 import br.com.battista.arcadia.caller.service.MessageCustomerService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,14 +43,18 @@ public class CardController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    private LocaleService localeService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
-    public ResponseEntity<List<Card>> getAll(@RequestHeader("token") String token) throws AuthenticationException {
+    public ResponseEntity<List<Card>> getAll(@RequestHeader("token") String token, @RequestHeader("locale") String localeStr) throws AuthenticationException {
         authenticationService.authetication(token, APP, ADMIN);
 
         log.info("Retrieve all cards!");
-        List<Card> cards = cardService.getAllCards();
+        Locale locale = localeService.processSupportedLocales(localeStr);
+        List<Card> cards = cardService.getAllCards(locale);
 
         if (cards == null || cards.isEmpty()) {
             log.warn("No cards found!");

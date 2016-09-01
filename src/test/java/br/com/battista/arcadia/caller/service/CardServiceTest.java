@@ -7,6 +7,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.*;
 import org.junit.rules.*;
@@ -28,6 +29,8 @@ import br.com.battista.arcadia.caller.repository.CardRepository;
 @RunWith(MockitoJUnitRunner.class)
 public class CardServiceTest {
 
+    private Locale locale = new Locale("pt");
+
     private final String name = "card01";
     private final String key = "key01";
     private final String typeEffect = "typeEffect";
@@ -46,10 +49,10 @@ public class CardServiceTest {
 
     @Test
     public void shouldGetAllCards() {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
-        when(cardRepository.findAll()).thenReturn(Lists.newArrayList(card));
+        Card card = Card.builder().locale(locale.getLanguage()).name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
+        when(cardRepository.findAll(any(Locale.class))).thenReturn(Lists.newArrayList(card));
 
-        List<Card> cards = cardService.getAllCards();
+        List<Card> cards = cardService.getAllCards(locale);
         assertNotNull(cards);
         assertThat(cards, hasSize(1));
         assertThat(cards.iterator().next().getName(), equalTo(name));
@@ -58,7 +61,7 @@ public class CardServiceTest {
 
     @Test
     public void shouldGetCardByName() {
-        Card card = Card.builder().id(1l).name(name).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
+        Card card = Card.builder().locale(locale.getLanguage()).id(1l).name(name).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
         card.initEntity();
         when(cardRepository.findByName(anyString())).thenReturn(card);
 
@@ -71,7 +74,7 @@ public class CardServiceTest {
 
     @Test
     public void shouldSaveCardWhenCardValid() {
-        Card card = Card.builder().id(1l).name(name).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
+        Card card = Card.builder().locale(locale.getLanguage()).id(1l).name(name).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
         card.initEntity();
         when(cardRepository.saveOrUpdateCard((Card) any())).thenReturn(card);
 

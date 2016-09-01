@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.*;
 import org.junit.rules.*;
@@ -28,6 +29,8 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
 public class CardControllerTest extends BaseControllerConfig {
+
+    private Locale locale = new Locale("pt");
 
     private final String name = "card01";
     private final String key = "key01";
@@ -88,13 +91,13 @@ public class CardControllerTest extends BaseControllerConfig {
     public void shouldReturnExceptionWhenInvalidCardToActionSave() throws AuthenticationException {
         rule.expect(ValidatorException.class);
 
-        Card card = Card.builder().name(name).key(key).build();
+        Card card = Card.builder().locale(locale.getLanguage()).name(name).key(key).build();
         cardController.save(token, card);
     }
 
     @Test
     public void shouldReturnSuccessWhenValidCardToActionSave() throws AuthenticationException {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
+        Card card = Card.builder().locale(locale.getLanguage()).name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
 
         ResponseEntity<Card> responseEntity = cardController.save(token, card);
 
@@ -112,12 +115,12 @@ public class CardControllerTest extends BaseControllerConfig {
     public void shouldReturnExceptionWhenInvalidTokenToActionGetAll() throws AuthenticationException {
         rule.expect(AuthenticationException.class);
 
-        cardController.getAll("abc");
+        cardController.getAll("abc", locale.getLanguage());
     }
 
     @Test
     public void shouldReturnNotContentWhenNoCardsFounds() throws AuthenticationException {
-        ResponseEntity<List<Card>> responseEntity = cardController.getAll(token);
+        ResponseEntity<List<Card>> responseEntity = cardController.getAll(token, locale.getLanguage());
 
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.NO_CONTENT));
         assertNull(responseEntity.getBody());
@@ -125,11 +128,10 @@ public class CardControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenExistsCardToActionGetAll() throws AuthenticationException {
-        Card card = Card.builder().name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
+        Card card = Card.builder().locale(locale.getLanguage()).name(name).key(key).type(type).group(group).typeEffect(typeEffect).groupEffect(groupEffect).build();
 
         cardController.save(token, card);
-
-        ResponseEntity<List<Card>> responseEntity = cardController.getAll(token);
+        ResponseEntity<List<Card>> responseEntity = cardController.getAll(token, locale.getLanguage());
 
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
         List<Card> body = responseEntity.getBody();

@@ -76,6 +76,8 @@ public class Card extends BaseEntity implements Serializable {
     @Index
     private Boolean deleted = Boolean.FALSE;
 
+    @Index
+    private String locale;
 
     @Override
     public Object getPk() {

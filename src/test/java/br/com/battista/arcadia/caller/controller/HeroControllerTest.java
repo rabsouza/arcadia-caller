@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.*;
 import org.junit.rules.*;
@@ -27,6 +28,8 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
 public class HeroControllerTest extends BaseControllerConfig {
+
+    private Locale locale = new Locale("pt");
 
     private final String name = "hero01";
     private final int defense = 2;
@@ -86,13 +89,13 @@ public class HeroControllerTest extends BaseControllerConfig {
     public void shouldReturnExceptionWhenInvalidHeroToActionSave() throws AuthenticationException {
         rule.expect(ValidatorException.class);
 
-        Hero hero = Hero.builder().name(name).build();
+        Hero hero = Hero.builder().locale(locale.getLanguage()).name(name).build();
         heroController.save(token, hero);
     }
 
     @Test
     public void shouldReturnSuccessWhenValidHeroToActionSave() throws AuthenticationException {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
+        Hero hero = Hero.builder().locale(locale.getLanguage()).name(name).defense(defense).life(life).ability(ability).group(group).build();
 
         ResponseEntity<Hero> responseEntity = heroController.save(token, hero);
 
@@ -110,12 +113,12 @@ public class HeroControllerTest extends BaseControllerConfig {
     public void shouldReturnExceptionWhenInvalidTokenToActionGetAll() throws AuthenticationException {
         rule.expect(AuthenticationException.class);
 
-        heroController.getAll("abc");
+        heroController.getAll("abc", locale.getLanguage());
     }
 
     @Test
     public void shouldReturnNotContentWhenNoHerosFounds() throws AuthenticationException {
-        ResponseEntity<List<Hero>> responseEntity = heroController.getAll(token);
+        ResponseEntity<List<Hero>> responseEntity = heroController.getAll(token, locale.getLanguage());
 
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.NO_CONTENT));
         assertNull(responseEntity.getBody());
@@ -123,11 +126,11 @@ public class HeroControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenExistsHeroToActionGetAll() throws AuthenticationException {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
+        Hero hero = Hero.builder().locale(locale.getLanguage()).name(name).defense(defense).life(life).ability(ability).group(group).build();
 
         heroController.save(token, hero);
 
-        ResponseEntity<List<Hero>> responseEntity = heroController.getAll(token);
+        ResponseEntity<List<Hero>> responseEntity = heroController.getAll(token, locale.getLanguage());
 
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
         List<Hero> body = responseEntity.getBody();

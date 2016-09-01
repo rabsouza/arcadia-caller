@@ -1,6 +1,7 @@
 package br.com.battista.arcadia.caller.repository;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,14 +24,14 @@ public class HeroRepository {
     @Autowired
     private Objectify objectifyRepository;
 
-    public List<Hero> findAll() {
+    public List<Hero> findAll(Locale locale) {
         log.info("Find all heroes!");
 
         return objectifyRepository.load()
                        .type(Hero.class)
+                       .filter("locale", locale == null ? null : locale.getLanguage())
                        .order("name")
                        .list();
-
     }
 
     public Hero findByName(String name) {
@@ -45,7 +46,6 @@ public class HeroRepository {
                        .filter("name", name)
                        .first()
                        .now();
-
     }
 
     public Hero saveOrUpdateHero(Hero hero) {

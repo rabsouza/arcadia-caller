@@ -4,9 +4,11 @@
     <version>${app.version}</version>
     <threadsafe>true</threadsafe>
 
-    <manual-scaling>
-        <instances>2</instances>
-    </manual-scaling>
+    <automatic-scaling>
+        <min-idle-instances>1</min-idle-instances>
+        <min-pending-latency>20ms</min-pending-latency>
+        <max-pending-latency>35ms</max-pending-latency>
+    </automatic-scaling>
 
     <static-files>
         <include path="/**.png" expiration="1d"/>

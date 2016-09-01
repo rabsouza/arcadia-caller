@@ -2,6 +2,7 @@ package br.com.battista.arcadia.caller.service;
 
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,9 @@ public class HeroService {
     @Autowired
     private HeroRepository heroRepository;
 
-    public List<Hero> getAllHeroes() {
+    public List<Hero> getAllHeroes(Locale locale) {
         log.info("Find all heroes!");
-        return heroRepository.findAll();
+        return heroRepository.findAll(locale);
     }
 
     public Hero getHeroByName(String name) {

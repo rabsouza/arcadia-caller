@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.*;
 import org.junit.rules.*;
@@ -30,6 +31,8 @@ import br.com.battista.arcadia.caller.repository.UserRepository;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
 public class SceneryControllerTest extends BaseControllerConfig {
+
+    private Locale locale = new Locale("pt");
 
     private final String name = "scenery01";
     private final Card reward = Card.builder().name("wonReward").key("key01").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).typeEffect("effect").groupEffect("effect").build();
@@ -88,13 +91,13 @@ public class SceneryControllerTest extends BaseControllerConfig {
     public void shouldReturnExceptionWhenInvalidSceneryToActionSave() throws AuthenticationException {
         rule.expect(ValidatorException.class);
 
-        Scenery scenery = Scenery.builder().wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).wonTitle(title).wonReward(reward).build();
         sceneryController.save(token, scenery);
     }
 
     @Test
     public void shouldReturnSuccessWhenValidSceneryToActionSave() throws AuthenticationException {
-        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name(name).location(location).wonTitle(title).wonReward(reward).build();
 
         ResponseEntity<Scenery> responseEntity = sceneryController.save(token, scenery);
 
@@ -113,12 +116,12 @@ public class SceneryControllerTest extends BaseControllerConfig {
     public void shouldReturnExceptionWhenInvalidTokenToActionGetAll() throws AuthenticationException {
         rule.expect(AuthenticationException.class);
 
-        sceneryController.getAll("abc");
+        sceneryController.getAll("abc", locale.getLanguage());
     }
 
     @Test
     public void shouldReturnNotContentWhenNoScenerysFounds() throws AuthenticationException {
-        ResponseEntity<List<Scenery>> responseEntity = sceneryController.getAll(token);
+        ResponseEntity<List<Scenery>> responseEntity = sceneryController.getAll(token, locale.getLanguage());
 
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.NO_CONTENT));
         assertNull(responseEntity.getBody());
@@ -126,7 +129,7 @@ public class SceneryControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnNotContentWhenNoScenerysByLocationFounds() throws AuthenticationException {
-        ResponseEntity<List<Scenery>> responseEntity = sceneryController.getByLocation(token, location);
+        ResponseEntity<List<Scenery>> responseEntity = sceneryController.getByLocation(token, locale.getLanguage(), location);
 
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.NO_CONTENT));
         assertNull(responseEntity.getBody());
@@ -134,11 +137,11 @@ public class SceneryControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenExistsSceneryToActionGetAll() throws AuthenticationException {
-        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name(name).location(location).wonTitle(title).wonReward(reward).build();
 
         sceneryController.save(token, scenery);
 
-        ResponseEntity<List<Scenery>> responseEntity = sceneryController.getAll(token);
+        ResponseEntity<List<Scenery>> responseEntity = sceneryController.getAll(token, locale.getLanguage());
 
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
         List<Scenery> body = responseEntity.getBody();
@@ -149,11 +152,11 @@ public class SceneryControllerTest extends BaseControllerConfig {
 
     @Test
     public void shouldReturnSuccessWhenExistsSceneryToActionGetByLocation() throws AuthenticationException {
-        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name(name).location(location).wonTitle(title).wonReward(reward).build();
 
         sceneryController.save(token, scenery);
 
-        ResponseEntity<List<Scenery>> responseEntity = sceneryController.getByLocation(token, location);
+        ResponseEntity<List<Scenery>> responseEntity = sceneryController.getByLocation(token, locale.getLanguage(), location);
 
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
         List<Scenery> body = responseEntity.getBody();

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.*;
 import org.junit.rules.*;
@@ -24,6 +25,8 @@ import br.com.battista.arcadia.caller.validator.EntityValidator;
 @RunWith(MockitoJUnitRunner.class)
 public class HeroRepositoryTest extends BaseRepositoryConfig {
 
+    private Locale locale = new Locale("pt");
+
     private final String name = "hero01";
     private final int defense = 2;
     private final int life = 4;
@@ -41,17 +44,17 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldEmptyHeroesWhenEmptyDataBase() {
-        List<Hero> heroes = heroRepository.findAll();
+        List<Hero> heroes = heroRepository.findAll(locale);
         assertNotNull(heroes);
         assertThat(heroes, hasSize(0));
     }
 
     @Test
     public void shouldReturnHeroesWhenFindAllHeroes() {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
+        Hero hero = Hero.builder().locale(locale.getLanguage()).name(name).defense(defense).life(life).ability(ability).group(group).build();
         objectifyRepository.save().entity(hero).now();
 
-        List<Hero> heroes = heroRepository.findAll();
+        List<Hero> heroes = heroRepository.findAll(locale);
         assertNotNull(heroes);
         assertThat(heroes, hasSize(1));
         assertThat(heroes.iterator().next().getName(), equalTo(name));
@@ -59,7 +62,7 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldSaveHeroWhenValidHero() {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
+        Hero hero = Hero.builder().locale(locale.getLanguage()).name(name).defense(defense).life(life).ability(ability).group(group).build();
 
         Hero savedHero = heroRepository.saveOrUpdateHero(hero);
         assertNotNull(savedHero);
@@ -70,7 +73,7 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldFindByNameWhenValidHeroAndValidName() {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
+        Hero hero = Hero.builder().locale(locale.getLanguage()).name(name).defense(defense).life(life).ability(ability).group(group).build();
 
         Hero savedHero = heroRepository.saveOrUpdateHero(hero);
         assertNotNull(savedHero);
@@ -87,7 +90,7 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldReturnNullWhenFindByNameWithValidHeroAndInvalidName() {
-        Hero hero = Hero.builder().name(name).defense(defense).life(life).ability(ability).group(group).build();
+        Hero hero = Hero.builder().locale(locale.getLanguage()).name(name).defense(defense).life(life).ability(ability).group(group).build();
 
         Hero savedHero = heroRepository.saveOrUpdateHero(hero);
         assertNotNull(savedHero);
@@ -101,7 +104,7 @@ public class HeroRepositoryTest extends BaseRepositoryConfig {
 
     @Test
     public void shouldThrowExceptionWhenSaveHeroWithInvalidName() {
-        Hero hero = Hero.builder().name("ab").defense(defense).life(life).ability(ability).group(group).build();
+        Hero hero = Hero.builder().locale(locale.getLanguage()).name("ab").defense(defense).life(life).ability(ability).group(group).build();
 
         doThrow(ValidatorException.class).when(entityValidator).validate((BaseEntity) anyObject());
 

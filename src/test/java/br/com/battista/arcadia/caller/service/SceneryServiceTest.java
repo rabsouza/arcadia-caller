@@ -7,6 +7,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.*;
 import org.junit.rules.*;
@@ -30,6 +31,8 @@ import br.com.battista.arcadia.caller.repository.SceneryRepository;
 @RunWith(MockitoJUnitRunner.class)
 public class SceneryServiceTest {
 
+    private Locale locale = new Locale("pt");
+
     private final String name = "scenery01";
     private final Card reward = Card.builder().name("wonReward").type(TypeCardEnum.NONE).group(GroupCardEnum.NONE).build();
     private final String title = "wonTitle";
@@ -46,10 +49,10 @@ public class SceneryServiceTest {
 
     @Test
     public void shouldGetAllSceneries() {
-        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
-        when(sceneryRepository.findAll()).thenReturn(Lists.newArrayList(scenery));
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name(name).location(location).wonTitle(title).wonReward(reward).build();
+        when(sceneryRepository.findAll(any(Locale.class))).thenReturn(Lists.newArrayList(scenery));
 
-        List<Scenery> sceneries = sceneryService.getAllSceneries();
+        List<Scenery> sceneries = sceneryService.getAllSceneries(locale);
         assertNotNull(sceneries);
         assertThat(sceneries, hasSize(1));
         assertThat(sceneries.iterator().next().getName(), equalTo(name));
@@ -58,10 +61,10 @@ public class SceneryServiceTest {
 
     @Test
     public void shouldGetByLocation() {
-        Scenery scenery = Scenery.builder().name(name).location(location).wonTitle(title).wonReward(reward).build();
-        when(sceneryRepository.findByLocation((LocationSceneryEnum) any())).thenReturn(Lists.newArrayList(scenery));
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).name(name).location(location).wonTitle(title).wonReward(reward).build();
+        when(sceneryRepository.findByLocation((LocationSceneryEnum) any(), any(Locale.class))).thenReturn(Lists.newArrayList(scenery));
 
-        List<Scenery> sceneries = sceneryService.getByLocation(location);
+        List<Scenery> sceneries = sceneryService.getByLocation(location, locale);
         assertNotNull(sceneries);
         assertThat(sceneries, hasSize(1));
         assertThat(sceneries.iterator().next().getName(), equalTo(name));
@@ -70,7 +73,7 @@ public class SceneryServiceTest {
 
     @Test
     public void shouldGetSceneryByName() {
-        Scenery scenery = Scenery.builder().id(1l).name(name).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).id(1l).name(name).location(location).wonTitle(title).wonReward(reward).build();
         scenery.initEntity();
         when(sceneryRepository.findByName(anyString())).thenReturn(scenery);
 
@@ -83,7 +86,7 @@ public class SceneryServiceTest {
 
     @Test
     public void shouldSaveSceneryWhenSceneryValid() {
-        Scenery scenery = Scenery.builder().id(1l).name(name).location(location).wonTitle(title).wonReward(reward).build();
+        Scenery scenery = Scenery.builder().locale(locale.getLanguage()).id(1l).name(name).location(location).wonTitle(title).wonReward(reward).build();
         scenery.initEntity();
         when(sceneryRepository.saveOrUpdateScenery((Scenery) any())).thenReturn(scenery);
 

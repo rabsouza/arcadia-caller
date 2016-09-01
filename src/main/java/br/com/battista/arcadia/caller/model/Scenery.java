@@ -73,6 +73,9 @@ public class Scenery extends BaseEntity implements Serializable {
     @Index
     private Boolean deleted = Boolean.FALSE;
 
+    @Index
+    private String locale;
+
     @Override
     public Object getPk() {
         return getId();

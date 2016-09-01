@@ -7,6 +7,7 @@ import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
 import static br.com.battista.arcadia.caller.constants.RestControllerConstant.ENABLE_CACHED_ACTION;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.Hero;
 import br.com.battista.arcadia.caller.service.AuthenticationService;
 import br.com.battista.arcadia.caller.service.HeroService;
+import br.com.battista.arcadia.caller.service.LocaleService;
 import br.com.battista.arcadia.caller.service.MessageCustomerService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,14 +43,18 @@ public class HeroController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    private LocaleService localeService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
-    public ResponseEntity<List<Hero>> getAll(@RequestHeader("token") String token) throws AuthenticationException {
+    public ResponseEntity<List<Hero>> getAll(@RequestHeader("token") String token, @RequestHeader("locale") String localeStr) throws AuthenticationException {
         authenticationService.authetication(token, APP, ADMIN);
 
         log.info("Retrieve all heroes!");
-        List<Hero> heroes = heroService.getAllHeroes();
+        Locale locale = localeService.processSupportedLocales(localeStr);
+        List<Hero> heroes = heroService.getAllHeroes(locale);
 
         if (heroes == null || heroes.isEmpty()) {
             log.warn("No heroes found!");

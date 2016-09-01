@@ -7,6 +7,7 @@ import static br.com.battista.arcadia.caller.constants.ProfileAppConstant.APP;
 import static br.com.battista.arcadia.caller.constants.RestControllerConstant.ENABLE_CACHED_ACTION;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import br.com.battista.arcadia.caller.exception.AuthenticationException;
 import br.com.battista.arcadia.caller.model.Scenery;
 import br.com.battista.arcadia.caller.model.enuns.LocationSceneryEnum;
 import br.com.battista.arcadia.caller.service.AuthenticationService;
+import br.com.battista.arcadia.caller.service.LocaleService;
 import br.com.battista.arcadia.caller.service.MessageCustomerService;
 import br.com.battista.arcadia.caller.service.SceneryService;
 import lombok.extern.slf4j.Slf4j;
@@ -43,14 +45,18 @@ public class SceneryController {
     @Autowired
     private MessageCustomerService messageSource;
 
+    @Autowired
+    private LocaleService localeService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET,
             produces = RestControllerConstant.PRODUCES)
     @ResponseBody
-    public ResponseEntity<List<Scenery>> getAll(@RequestHeader("token") String token) throws AuthenticationException {
+    public ResponseEntity<List<Scenery>> getAll(@RequestHeader("token") String token, @RequestHeader("locale") String localeStr) throws AuthenticationException {
         authenticationService.authetication(token, APP, ADMIN);
 
         log.info("Retrieve all sceneries!");
-        List<Scenery> sceneries = sceneryService.getAllSceneries();
+        Locale locale = localeService.processSupportedLocales(localeStr);
+        List<Scenery> sceneries = sceneryService.getAllSceneries(locale);
 
         if (sceneries == null || sceneries.isEmpty()) {
             log.warn("No sceneries found!");
@@ -62,13 +68,15 @@ public class SceneryController {
     }
 
     @RequestMapping(value = "/location/{location:.+}", method = RequestMethod.GET,
-                    produces = RestControllerConstant.PRODUCES)
+            produces = RestControllerConstant.PRODUCES)
     @ResponseBody
-    public ResponseEntity<List<Scenery>> getByLocation(@RequestHeader("token") String token, @PathVariable("location")LocationSceneryEnum locationScenery) throws AuthenticationException {
+    public ResponseEntity<List<Scenery>> getByLocation(@RequestHeader("token") String token, @RequestHeader("locale") String localeStr, @PathVariable("location") LocationSceneryEnum locationScenery)
+            throws AuthenticationException {
         authenticationService.authetication(token, APP, ADMIN);
 
         log.info("Retrieve sceneries by localtion: {}!", locationScenery);
-        List<Scenery> sceneries = sceneryService.getByLocation(locationScenery);
+        Locale locale = localeService.processSupportedLocales(localeStr);
+        List<Scenery> sceneries = sceneryService.getByLocation(locationScenery, locale);
 
         if (sceneries == null || sceneries.isEmpty()) {
             log.warn("No sceneries found!");
