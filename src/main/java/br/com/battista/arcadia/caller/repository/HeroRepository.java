@@ -29,12 +29,12 @@ public class HeroRepository {
 
         return objectifyRepository.load()
                        .type(Hero.class)
-                       .filter("locale", locale == null ? null : locale.getLanguage())
+                       //.filter("locale", locale == null ? null : locale.getLanguage())
                        .order("name")
                        .list();
     }
 
-    public Hero findByName(String name, Locale locale) {
+    public Hero findByName(String name) {
         if (Strings.isNullOrEmpty(name)) {
             throw new RepositoryException("Name can not be null!");
         }
@@ -44,7 +44,6 @@ public class HeroRepository {
                        .load()
                        .type(Hero.class)
                        .filter("name", name)
-                       .filter("locale", locale == null ? null : locale.getLanguage())
                        .first()
                        .now();
     }

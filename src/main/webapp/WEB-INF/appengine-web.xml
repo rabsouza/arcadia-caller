@@ -12,6 +12,7 @@
     </automatic-scaling>
     -->
 
+
     <static-files>
         <include path="/**.png" expiration="1d"/>
         <include path="/**.gif" expiration="1d"/>

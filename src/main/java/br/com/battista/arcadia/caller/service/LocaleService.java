@@ -1,5 +1,6 @@
 package br.com.battista.arcadia.caller.service;
 
+import static br.com.battista.arcadia.caller.constants.LocaleConstant.LOCALE_DEFAULT;
 import static br.com.battista.arcadia.caller.constants.LocaleConstant.LOCALE_EN;
 import static br.com.battista.arcadia.caller.constants.LocaleConstant.LOCALE_PT;
 
@@ -30,7 +31,7 @@ public class LocaleService {
 
     public Locale processSupportedLocales(String locale) {
         if (Strings.isNullOrEmpty(locale) || !supportedLocales.containsKey(locale.toLowerCase())) {
-            return null;
+            return LOCALE_DEFAULT;
         }
         return supportedLocales.get(locale.toLowerCase());
     }

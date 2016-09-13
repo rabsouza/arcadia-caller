@@ -50,7 +50,7 @@ public class SceneryRepository {
         return objectifyRepository.load()
                        .type(Scenery.class)
                        .filter(FIELD_LOCATION, locationScenery)
-                       .filter("locale", locale == null ? null : locale.getLanguage())
+                       //.filter("locale", locale == null ? null : locale.getLanguage())
                        .order(FIELD_LOCATION)
                        .order("name")
                        .list();

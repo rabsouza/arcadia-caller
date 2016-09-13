@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.com.battista.arcadia.caller.config.AppConfig;
+import br.com.battista.arcadia.caller.constants.LocaleConstant;
 import br.com.battista.arcadia.caller.constants.MessageConstant;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,23 +21,23 @@ public class LocaleServiceTest {
     private LocaleService localeService;
 
     @Test
-    public void shouldReturnNullWhenNullLocale() {
-        assertNull(localeService.processSupportedLocales(null));
+    public void shouldReturnDefaultWhenNullLocale() {
+        assertThat(localeService.processSupportedLocales(null), equalTo(LocaleConstant.LOCALE_DEFAULT));
     }
 
     @Test
-    public void shouldReturnNullWhenEmptyLocale() {
-        assertNull(localeService.processSupportedLocales(""));
+    public void shouldReturnDefaultWhenEmptyLocale() {
+        assertThat(localeService.processSupportedLocales(""), equalTo(LocaleConstant.LOCALE_DEFAULT));
     }
 
     @Test
-    public void shouldReturnNullWhenInvalidLocale() {
-        assertNull(localeService.processSupportedLocales("123"));
+    public void shouldReturnDefaultWhenInvalidLocale() {
+        assertThat(localeService.processSupportedLocales("123"), equalTo(LocaleConstant.LOCALE_DEFAULT));
     }
 
     @Test
-    public void shouldReturnNullWhenNoSupportedLocale() {
-        assertNull(localeService.processSupportedLocales("es"));
+    public void shouldReturnDefaultWhenNoSupportedLocale() {
+        assertThat(localeService.processSupportedLocales("es"), equalTo(LocaleConstant.LOCALE_DEFAULT));
     }
 
     @Test

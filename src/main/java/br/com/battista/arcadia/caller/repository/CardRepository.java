@@ -29,7 +29,7 @@ public class CardRepository {
 
         return objectifyRepository.load()
                        .type(Card.class)
-                       .filter("locale", locale == null ? null : locale.getLanguage())
+                       //.filter("locale", locale == null ? null : locale.getLanguage())
                        .order("group")
                        .order("name")
                        .list();
