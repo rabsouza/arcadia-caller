@@ -11,7 +11,7 @@
 
     <properties>
         <java.version>1.7</java.version>
-        <app.id>arcadia-caller-dev</app.id>
+        <app.id>arcadia-caller</app.id>
         <app.version>1</app.version>
         <appengine.version>1.9.38</appengine.version>
 

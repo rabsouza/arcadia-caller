@@ -6,12 +6,10 @@
 
     <!-- PROD -->
     <!--
-    <automatic-scaling>
-        <min-idle-instances>1</min-idle-instances>
-        <max-pending-latency>35ms</max-pending-latency>
-    </automatic-scaling>
     -->
-
+    <automatic-scaling>
+        <max-pending-latency>50ms</max-pending-latency>
+    </automatic-scaling>
 
     <static-files>
         <include path="/**.png" expiration="1d"/>
