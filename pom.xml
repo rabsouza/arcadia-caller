@@ -13,7 +13,7 @@
         <java.version>1.7</java.version>
         <app.id>arcadia-caller</app.id>
         <app.version>1</app.version>
-        <appengine.version>1.9.38</appengine.version>
+        <appengine.version>1.9.46</appengine.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -45,7 +45,7 @@
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
         <versions-maven-plugin.version>2.2</versions-maven-plugin.version>
-        <guava.version>19.0</guava.version>
+        <guava.version>20.0</guava.version>
         <commons-collections4.version>4.1</commons-collections4.version>
         <lombok.version>1.16.10</lombok.version>
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>

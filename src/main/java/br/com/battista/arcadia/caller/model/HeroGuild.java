@@ -32,6 +32,8 @@ public class HeroGuild extends BaseEntity implements Serializable {
     @NotNull
     private Hero hero;
 
+    private String comments;
+
     private Card card1;
 
     private Card card2;
